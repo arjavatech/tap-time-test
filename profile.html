@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap time</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="inputs.css">
+    <script defer src="profile.js"></script>
+    <link rel="icon" href="Image/app_logo.png">
+
+    <style>
+        .all-input-style {
+            color: #02066F;
+        }
+
+        body {
+            background-color: #f6f6f6;
+        }
+
+        .btn-green {
+            background-color: #02066F;
+            border: none;
+            color: white;
+            width: 50%;
+            padding: 0.8rem !important;
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+
+        .btn-green:hover {
+            background-color: #02066F !important;
+            color: white !important;
+            padding: 0.8rem !important;
+
+        }
+
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent black background */
+            z-index: 1000;
+            /* Make sure it appears on top of everything */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Optional: style the spinner */
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        /* Loading  */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #02066F;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .btn-outline-light:hover {
+            background-color: #02066F;
+            color: white;
+
+        }
+
+        /* General input and textarea styles */
+        input,
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 1px solid #02066F !important;
+            border-radius: 10px !important;
+            height: auto;
+        }
+
+        input:focus,
+        textarea:focus {
+            box-shadow: none;
+            border-color: #007bff;
+            box-shadow: #999;
+        }
+
+
+        input {
+            height: 3rem;
+        }
+
+        textarea {
+            height: 6rem;
+        }
+
+
+        .material-textfield {
+            position: relative;
+        }
+
+        .label-sty {
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            transition: all 0.3s ease;
+            color: #999;
+            pointer-events: none;
+        }
+
+
+        .box-sty {
+            max-width: 700px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .btn-green {
+            background-color: #02066F;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-green:hover {
+            background-color: #1c219d;
+        }
+
+        /* Form input for smaller screens */
+        @media (max-width: 576px) {
+
+            input,
+            textarea {
+                padding: 0.5rem !important;
+            }
+
+            label {
+                font-size: 0.7rem;
+            }
+        }
+
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-sty {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #02066F;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Align icon vertically */
+            margin: 20px auto;
+        }
+
+        .logo-sty input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .pencil-icon {
+            position: absolute;
+            bottom: 5px;
+            /* Adjust the icon's position */
+            right: 10px;
+            font-size: 16px;
+            color: #02066F;
+            background-color: white;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+
+
+        #dropDown {
+            color: #02066F;
+        }
+
+        .btn-outline-light:hover {
+            background-color: #02066F !important;
+            color: white !important;
+        }
+
+        .btn-outline-green {
+            color: #02066F;
+            border: solid 1px #02066F;
+            padding: 5px 21px;
+        }
+
+
+        .btn-outline-green:hover {
+            color: #02066F;
+            background-color: white;
+        }
+
+        .modal-header {
+            background-color: #02066F;
+            color: white;
+        }
+
+        @media (max-width: 576px) {
+            .material-textfield {
+                width: 100%;
+            }
+        }
+
+
+        .no {
+            color: #02066F !important;
+            border: solid 1px #02066F !important;
+            padding: 5px 21px !important;
+        }
+
+        .yes {
+            color: white;
+            background-color: #02066F;
+            padding: 5px 24px !important;
+        }
+
+        .no:hover {
+            color: #02066F !important;
+            border: solid 1px #02066F !important;
+            padding: 5px 21px !important;
+        }
+
+        .yes:hover {
+            opacity: 0.8 !important;
+            color: white;
+            background-color: #02066F;
+            padding: 5px 24px !important;
+        }
+
+        /* .modal-content {
+            width: 80%;
+        } */
+
+        .navbar-toggler {
+            background-color: #02066F;
+            color: white;
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+
+
+
+
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 300px;
+                padding-top: 40px;
+                margin-top: 10%;
+            }
+
+            .sidebar a {
+                font-size: 20px;
+                padding: 10px 20px;
+            }
+
+            .sidebar .closebtn {
+                font-size: 30px;
+                right: 15px;
+            }
+
+            #main {
+                margin-left: 0;
+            }
+        }
+
+
+        @media screen and (max-width: 480px) {
+            .sidebar {
+                width: 250px;
+                padding-top: 30px;
+                margin-top: 2%;
+            }
+
+            .sidebar a {
+                font-size: 13px;
+                padding: 8px 15px;
+            }
+
+            .sidebar .closebtn {
+                font-size: 24px;
+                right: 10px;
+            }
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+        }
+
+        .sidebar button {
+            background-color: white;
+            color: #02066F;
+            margin: 20px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar button:hover {
+            background-color: gray;
+            color: #02066F;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            width: 101px;
+            height: 73.53px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Nav bar  -->
+    <nav class="navbar navbar-expand-lg navbar-light"
+        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+        <div class="container-fluid">
+            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+
+            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="justify-content: end;">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="device.html" style="color: #02066F; padding: 5px 10px;">Device</a>
+                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee
+                        Management</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#service" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: #02066F; padding: 5px 10px;">
+                            Report
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report
+                                    Summary</a></li>
+                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report
+                                    Settings</a></li>
+                        </ul>
+                    </li>
+                    <a class="nav-link active" href="#" style="color: #02066F; padding: 5px 10px;">Profile</a>
+                    <a class="nav-link" href="contact.html" style="color: #02066F; padding: 5px 10px;">Contact Us</a>
+                    <button class="btn logoutButton" onclick="logOutACtion()" style="padding: 5px 10px;">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar" style="width: 250px;  padding: 10px;">
+        <img src="Image/Group 91.png" alt="Tap Time Logo" class="app_logo">
+        <a href="device.html"> Device</a>
+        <a href="employee_list.html"> Employee Management</a>
+        <a href="report_summary.html">Report Summary</a>
+        <a href="report_setting.html">Report Settings</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact Us</a>
+        <button class="btn logoutButton" onclick="logOutACtion()">Logout</button>
+    </div>
+
+    <!-- Go to home page modal -->
+    <div class="modal fade" id="homePageModal" tabindex="-1" aria-labelledby="homePageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="homePageModalLabel" style="text-align: center; width: 100%;">Home</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="fw-bold mb-3 text-center">Are you sure you want to go home?</h5>
+                    <p class="d-flex justify-content-center">
+                        <button class="btn yes" id="homePageYes">Yes</button>
+                        <button class="btn no" data-bs-dismiss="modal" style="margin-left: 2%;">No</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Go to home page modal -->
+
+    <!-- Log out  -->
+    <div class="modal fade" id="logOut" tabindex="-1" aria-labelledby="logOutLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logOutLabel">Logout</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="fw-bold mb-3 text-center">Are you sure you want to log out?</h5>
+                    <p class="d-flex justify-content-center">
+                        <button class="btn yes" id="logBtn2">Yes</button>
+                        <button class="btn no" data-bs-dismiss="modal" style="margin-left: 2%;">No</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contact">
+        <h3 class="text-center fw-bold mb-3 mt-4" id="header">Profile</h3>
+        <!-- Loading indicator  -->
+        <div class="overlay" id="overlay">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="rounded-circle logo-sty">
+            <img src="" alt="Company Logo" id="logo-img" class="logo-img">
+            <input type="file" class="input-sty disabledData" accept="image/*" onchange="loadFile(event)" id="fileInput"
+                style="display: none;" disabled>
+            <i class="fa fa-pencil-alt pencil-icon" onclick="triggerFileUpload()"></i>
+        </div>
+
+
+        <!-- Fields  -->
+
+        <div class="container box-sty mt-3">
+            <form id="settingsForm" class="p-5 text-center">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                                <input id="companyName" placeholder=" " type="text" class="input-sty" disabled>
+                                <label class="label-sty">Company Name</label> -->
+                        <label class="mb-2 label-style">Company Name:</label>
+                        <input type="text" id="companyName" placeholder="Company Name"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                            <input id="username" placeholder=" " type="text" class="input-sty" disabled>
+                            <label class="label-sty">Username</label>
+                        </div> -->
+                        <label class="mb-2 label-style">Username:</label>
+                        <input type="text" id="username" placeholder="Username"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="companyStreet" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Company Street</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Company Street:</label>
+                        <input type="text" id="companyStreet" placeholder="Company Street"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="companyCity" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Company City</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Company City:</label>
+                        <input type="text" id="companyCity" placeholder="Company City"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="companyState" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Company State</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Company State:</label>
+                        <input type="text" id="companyState" placeholder="Company State"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="companyZip" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Company Zip</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Company Zip Code:</label>
+                        <input type="text" id="companyZip" placeholder="Company Zip"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield">
+                        <input id="email" placeholder=" " type="email" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Email</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Email:</label>
+                        <input type="email" id="email" placeholder="Email" class="all-input-style mb-3 disabledData"
+                            required disabled>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield">
+                        <input type="tel" id="phone" name="phoneNumber" placeholder=" " class="input-sty disabledData"
+                            disabled>
+                        <label class="label-sty">Phone Number</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Phone Number:</label>
+                        <input type="tel" id="phone" placeholder="Phone Number"
+                        oninput="formatPhoneNumber()"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                            <div id="showMsg3" class="text-danger"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="firstName" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">First Name</label>
+                    </div> -->
+                        <label class="mb-2 label-style">First Name:</label>
+                        <input type="text" id="firstName" placeholder="First Name"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="lastName" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Last Name</label>
+                        <span class="text-danger" id="errorLName"></span>
+                    </div> -->
+                        <label class="mb-2 label-style">Last Name:</label>
+                        <input type="text" id="lastName" placeholder="Last Name"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="customerStreet" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Customer Street</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Customer Street:</label>
+                        <input type="text" id="customerStreet" placeholder="Customer Street"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="customerCity" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Customer City</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Customer City:</label>
+                        <input type="text" id="customerCity" placeholder="Customer City"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="customerState" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Customer State</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Customer State:</label>
+                        <input type="text" id="customerState" placeholder="Customer State"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+
+
+                    <div class="col-sm-6">
+                        <!-- <div class="material-textfield mb-4">
+                        <input id="customerZip" placeholder=" " type="text" class="input-sty disabledData" disabled>
+                        <label class="label-sty">Customer Zip</label>
+                    </div> -->
+                        <label class="mb-2 label-style">Customer Zip Code:</label>
+                        <input type="text" id="customerZip" placeholder="Customer Zip"
+                            class="all-input-style mb-3 disabledData" required disabled>
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-center">
+                    <input type="submit" class="btn-green float-end" id="submiting" value="Edit">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your details have been updated successfully!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Footer  -->
+    <footer>
+        <div class="footer-container container-fluid mt-5">
+            <!-- Logo and Social Links Section -->
+            <div class="logo-social">
+                <div class="logo ">
+                    <img src="icon/logo.png" alt="Tap Time Logo">
+                </div>
+                <br>
+                <p style="text-align: center !important;">Powered by <br>Arjava Technologies</p>
+                <br>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/company/arjavatech/" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/linkedin 1.png" alt="LinkedIn"></a>
+                    <a href="https://www.facebook.com/profile.php?id=61565587366048" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/facebook 1.png" alt="Facebook"></a>
+                    <a href="https://www.instagram.com/_tap_time" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/instagram 1.png" alt="Instagram"></a>
+                    <a href=" https://x.com/_Tap_Time" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/twitter 1.png" alt="X"></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="quick-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="device.html">Device</a></li>
+                    <li><a href="employee_list.html">Employee Management</a></li>
+                    <li><a href="report_summary.html">Report Summary</a></li>
+                    <li><a href="report_setting.html">Report Settings</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Address Section -->
+
+            <div class="address">
+                <div style="display: inline-flex;">
+                    <img src="icon/location-pin (1) 1.png"
+                        style="width: 20px;padding-right: 15px; height: 20px; padding-top: 25px;" alt="">
+                    <h4>Address</h4>
+                </div>
+
+                <p style="padding-left: 30px;">Arjava Technologies,<br>2135 204th PL NE,<br>Sammamish,<br> WA -
+                    98074.
+                </p>
+                <br>
+                <div style="display: inline-flex;margin-top: 5px;">
+                    <img src="icon/phone-call (1) 1.png"
+                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <p><a href="tel:+14258181900">(541) 371-2950 </a></p>
+                </div><br>
+                <div style="display: inline-flex;margin-top: 5px;">
+                    <img src="icon/paper-plane 1.png"
+                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <p><a href="mailto:contact@tap-time.com">contact@tap-time.com</a></p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+</body>
+<script>
+
+    function logoutCall() {
+        localStorage.removeItem("username");
+        localStorage.removeItem("companyID");
+        localStorage.removeItem("customId");
+        localStorage.removeItem("password");
+
+        setTimeout(() => {
+            // window.location.href = "index.html";
+            window.open('login.html', 'noopener, noreferrer');
+        }, 10);
+    }
+
+    document.getElementById("logBtn2").addEventListener("click", logoutCall);
+
+    function logOutACtion() {
+        let myModal = new bootstrap.Modal(document.getElementById('logOut'));
+        myModal.show();
+    }
+
+
+
+
+</script>
+
+</html>

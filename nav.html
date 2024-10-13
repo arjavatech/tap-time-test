@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="employee_list.css">
+</head>
+<style>
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .overlay .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #02066F;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @media (max-width:190px) {
+        .emp-table {
+            margin-top: 100px;
+        }
+    }
+
+    @media (max-width:202px) {
+        .btn-style {
+            font-size: .5rem;
+        }
+    }
+
+    @media(max-width:766px) {
+        .icon-button {
+            margin-bottom: 4%;
+        }
+    }
+
+    .btn-outline-light:hover {
+        background-color: white;
+        color: #02066F;
+    }
+
+    /* Style for material textfield */
+    .material-textfield {
+        position: relative;
+        margin-bottom: 1.5rem;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .material-textfield input,
+    .material-textfield textarea {
+        width: 100%;
+        padding: 0.5rem;
+        padding-top: 1rem;
+        font-size: 1rem;
+        border: 1px solid #02066F !important;
+        border-radius: 10px !important;
+        box-sizing: border-box;
+    }
+
+    .material-textfield label {
+        position: absolute;
+        top: 9px;
+        left: 0.75rem;
+        transition: all 0.3s ease;
+        background: white;
+        padding: 0 0.25rem;
+        color: #02066F;
+        pointer-events: none;
+    }
+
+    .material-textfield input:focus+label,
+    .material-textfield input:not(:placeholder-shown)+label,
+    .material-textfield textarea:focus+label,
+    .material-textfield textarea:not(:placeholder-shown)+label {
+        top: -0.75rem;
+        left: 0.75rem;
+        font-size: 0.75rem;
+        color: #02066F;
+    }
+
+    .material-textfield input:focus,
+    .material-textfield textarea:focus {
+        outline: none;
+        border-color: #02066F;
+    }
+
+    /* Button Style */
+    .btn-green:hover {
+        opacity: 0.8 !important;
+        color: white !important;
+    }
+
+    .btn-outline-green:hover {
+        color: #02066F !important;
+    }
+
+
+    .btn-outline-green {
+        margin-left: 2%;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    #dropDown {
+        color: #02066F;
+    }
+
+    .no {
+        color: #02066F !important;
+        border: solid 1px #02066F !important;
+        padding: 5px 21px !important;
+    }
+
+    .yes {
+        color: white;
+        background-color: #02066F;
+        padding: 5px 24px !important;
+    }
+
+    .modal-content {
+        width: 80%;
+    }
+
+    input {
+        width: 100% !important;
+    }
+
+   
+
+    .current {
+        text-decoration: none;
+        background-color: #02066F;
+        color: white;
+        /* padding: 12px; */
+        /* padding-left: 20px;
+        padding-right: 20px; */
+        border-radius: 20px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .navbar-toggler {
+    background-color: white;   
+    color: white;               
+    border: 2px solid #02066F;  
+    padding: 10px;              
+    border-radius: 5px;         
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Smooth transitions */
+}
+
+.navbar-toggler:hover {
+    background-color: #02066F;   
+    color: white;            
+    border-color: white;       
+} 
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px; 
+    width: 250px;
+    height: 100%;
+    background-color: #02066f;
+    transition: left 0.3s ease;
+    z-index: 1000; 
+}
+.sidebar.open {
+    left: 0; 
+} 
+
+ .sidebar a {
+    position: relative;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    width: 80%;
+    padding-left: 10%;
+    border-radius: 20px;
+    background: none;
+    margin-left: 8%;
+    overflow: hidden; 
+}
+.sidebar a.active {
+    color: #f1f1f1;
+} 
+
+.sidebar a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px; 
+     width: 100%; 
+    background: #f1f1f1; 
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar a:hover::before ,
+.sidebar a.active::before
+{
+    transform: translateX(0);
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+    box-shadow: #fff;
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.5);
+  
+} 
+
+
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 300px;
+        padding-top: 40px; 
+        margin-top: 10%; 
+    }
+
+    .sidebar a {
+        font-size: 20px;
+        padding: 10px 20px; 
+    }
+
+    .sidebar .closebtn {
+        font-size: 30px; 
+        right: 15px; 
+    }
+
+    #main {
+        margin-left: 0; 
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 250px;
+        padding-top: 30px; 
+        margin-top: 2%; 
+    }
+
+    .sidebar a {
+        font-size: 18px;
+        padding: 8px 15px; 
+    }
+
+    .sidebar .closebtn {
+        font-size: 24px;
+        right: 10px;
+    }
+}
+
+.sidebar a i {
+    margin-right: 15px; 
+}
+
+ .sidebar button {
+background-color: #02066F; 
+ color: white;  
+padding: 10px 20px;
+font-size: 18px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar button:hover {
+background-color:#02066F; 
+color: #02066F; 
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+} 
+ 
+</style>
+
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <img src="Image/Group 91.png" alt="" class="app_logo">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="device.html" style="color: white;">Device</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  style="color: white;" href="employee_list.html">Employee Management</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#service" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Report
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="report_summary.html" id="dropDown">Report Summary</a>
+                            </li>
+                            <li><a class="dropdown-item" href="report_setting.html" id="dropDown">Report
+                                    Settings</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html" style="color: white;">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html" style="color: white;">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <buttton href="#" class="btn btn-outline-light" onclick="logOutACtion()">Logout</buttton>
+                </form>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <img src="Image/app_logo.png" alt="" class="app_logo">  
+            <!-- Navbar Toggler -->
+            <button class="navbar-toggler" type="button"  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="device.html" style="color: white;">Device</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill-active px-3" href="employee_list.html">Employee Management</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#service" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Report
+                        </a>
+                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="report_summary.html" id="dropDown">Report Summary</a></li>
+                            <li><a class="dropdown-item" href="report_setting.html" id="dropDown">Report Settings</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html" style="color: white;">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html" style="color: white;">Contact Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <button href="#" class="btn btn-outline-light" onclick="logOutAction()">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav> 
+    
+    <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+        
+        
+        <a href="device.html">  Device</a>
+        <a href="employee_list.html"> Employee Management</a>
+        <a href="report_summary.html">Report Summary</a>
+        <a href="report_setting.html">Report Settings</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact Us</a>
+        <button class="btn logoutButton" onclick="logOutACtion()">Logout</button>
+
+    </div> 
+     <div class="container-fluid mt-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-12">
+                <div class="row" style="margin-left: 5%;">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2 col-sm-12 nav-link">
+                        <a href="report_summary.html" class="btn btn-primary"
+                            style="background-color: #02066F; border-color: #02066F; border-radius: 20px; font-size: 15px; font-weight: bold;">
+                            Current Day Report
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-12 nav-link">
+                        <a href="report_summary.html" class="btn"
+                            style="color: #02066F; border-radius: 20px; font-size: 15px; font-weight: bold;">
+                            Day Wise Report
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-sm-12 nav-link">
+                        <a href="report_summary.html" class="btn"
+                            style="color: #02066F; border-radius: 20px; font-size: 15px; font-weight: bold;">
+                            Current Day Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    
+</body>
+<script>
+    const sidebar = document.getElementById('sidebar');
+const toggler = document.querySelector('.navbar-toggler');
+
+// Toggle sidebar open/close
+toggler.addEventListener('click', function () {
+    sidebar.classList.toggle('open');
+});
+
+document.addEventListener('click', function (event) {
+    const isClickInside = sidebar.contains(event.target) || toggler.contains(event.target);
+    if (!isClickInside) {
+        sidebar.classList.remove('open');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const currentLocation = location.href; 
+    const menuItems = document.querySelectorAll('.sidebar a');
+
+    menuItems.forEach(item => {
+        if (item.href === currentLocation) {
+            item.classList.add('active'); 
+        }
+    });
+});
+</script>
+
+</html>

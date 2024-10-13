@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tap time</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="inputs.css">
+    <!-- <link rel="stylesheet" href="form.css"> -->
+    <script defer src="contact.js"></script>
+    <link rel="icon" href="Image/app_logo.png">
+    <link rel="stylesheet" href="employee_list.css">
+    <link rel="stylesheet" href="report_summary.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="footer.css">
+
+
+</head>
+
+<style>
+    .no {
+        color: white;
+        border: solid 1px #02066F !important;
+        padding: 5px 21px !important;
+    }
+
+    .yes {
+        color: white;
+        background-color: #02066F;
+        padding: 5px 24px !important;
+    }
+
+    .navbar-toggler {
+        background-color: #02066F;
+        color: white;
+        border: 2px solid white;
+        padding: 10px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+
+
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+    }
+
+    .footer {
+        overflow: hidden !important;
+
+    }
+
+    .logo {
+        width: 101px;
+        height: 73.53px;
+        margin-right: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .sidebar {
+            width: 300px;
+            padding-top: 40px;
+            margin-top: 10%;
+        }
+
+        .sidebar a {
+            font-size: 20px;
+            padding: 10px 20px;
+        }
+
+        .sidebar .closebtn {
+            font-size: 30px;
+            right: 15px;
+        }
+
+        #main {
+            margin-left: 0;
+        }
+    }
+
+
+    @media screen and (max-width: 480px) {
+        .sidebar {
+            width: 250px;
+            padding-top: 30px;
+            margin-top: 2%;
+        }
+
+        .sidebar a {
+            font-size: 13px;
+            padding: 8px 15px;
+        }
+
+        .sidebar .closebtn {
+            font-size: 24px;
+            right: 10px;
+        }
+    }
+
+    .sidebar a i {
+        margin-right: 15px;
+    }
+
+    .sidebar button {
+        background-color: white;
+        color: #02066F;
+        margin: 20px;
+        font-size: 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar button:hover {
+        background-color: gray;
+        color: #02066F;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<body>
+    <!-- Nav bar  -->
+    <nav class="navbar navbar-expand-lg navbar-light"
+        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+        <div class="container-fluid">
+            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+
+            <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="justify-content: end;">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="device.html" style="color: #02066F; padding: 5px 10px;">Device</a>
+                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee
+                        Management</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#service" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="color: #02066F; padding: 5px 10px;">
+                            Report
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report
+                                    Summary</a></li>
+                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report
+                                    Settings</a></li>
+                        </ul>
+                    </li>
+                    <a class="nav-link" href="profile.html" style="color: #02066F; padding: 5px 10px;">Profile</a>
+                    <a class="nav-link active" href="#" style="color: #02066F; padding: 5px 10px;">Contact Us</a>
+                    <button class="btn logoutButton" onclick="logOutACtion()" style="padding: 5px 10px;">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Go to home page modal -->
+    <div class="modal fade" id="homePageModal" tabindex="-1" aria-labelledby="homePageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="homePageModalLabel" style="text-align: center; width: 100%;">Home</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="fw-bold mb-3 text-center">Are you sure you want to go home?</h5>
+                    <p class="d-flex justify-content-center">
+                        <button class="btn yes" id="homePageYes">Yes</button>
+                        <button class="btn no" data-bs-dismiss="modal" style="margin-left: 2%;">No</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End Go to home page modal -->
+
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar" style="width: 250px;  padding: 10px;">
+        <img src="Image/Group 91.png" alt="Tap Time Logo" class="app_logo">
+        <a href="device.html"> Device</a>
+        <a href="employee_list.html"> Employee Management</a>
+        <a href="report_summary.html">Report Summary</a>
+        <a href="report_setting.html">Report Settings</a>
+        <a href="profile.html">Profile</a>
+        <a href="contact.html">Contact Us</a>
+        <button class="btn logoutButton" onclick="logOutACtion()">Logout</button>
+    </div>
+
+    <section>
+        <div class="container box-sty mt-5">
+            <h3 class=" text-center fw-bold mb-3" id="myModalLabel">Contact Us</h3>
+            <form id="emp_form" class="p-2 text-center">
+                <!-- <div class="material-textfield mb-3 form-group"> -->
+                <!-- <input id="cname" class="form-control" placeholder=" Name*" type="text" required
+                                    onblur="validCName()"> -->
+                <!-- <label class="cname">Name <span class="text-danger">*</span></label>
+                                <span id="error-name" class="text-danger"></span> -->
+                <input type="text" id="cname" placeholder="Name" onblur="validCName()" class="all-input-style mb-3"
+                    required>
+                <span id="error-name" class="text-danger"></span>
+                <!-- </div> -->
+                <!-- <div class="material-textfield mb-3 form-group"> -->
+                <!-- <input id="cemail" class="form-control" placeholder="Email* " type="email" required
+                                    onblur="validCEmail()"> -->
+                <!-- <label class="cemail">Email <span class="text-danger">*</span></label>
+                                <span id="error-email" class="text-danger"></span> -->
+                <input type="email" id="cemail" placeholder="Email" class="all-input-style mb-3" required>
+                <!-- </div> -->
+                <!-- <div class="material-textfield mb-3 form-group"> -->
+                <!-- <textarea name="question" id="question" class="form-control" placeholder=" Message/Queries" required
+                                    onblur="validCQueries()"></textarea> -->
+                <!-- <label class="queries">Message/Queries <span class="text-danger">*</span></label>
+                                <span id="error-textarea" class="text-danger"></span> -->
+                <textarea name="question" id="question" class="all-input-style mb-3" placeholder=" Message/Queries"
+                    required onblur="validCQueries()"></textarea>
+                <span id="error-textarea" class="text-danger"></span>
+                <!-- </div> -->
+                <!-- <div class="material-textfield mb-3 form-group"> -->
+                <!-- <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
+                                    placeholder="phoneNumber " oninput="formatPhoneNumber()" onblur="validatePhoneNumber()"
+                                    required> -->
+                <!-- <label>Phone Number <span class="text-danger">*</span></label>
+                                <span class="text-danger" id="error-phone"></span> -->
+                <input type="tel" id="phoneNumber" placeholder="phoneNumber" oninput="formatPhoneNumber()"
+                    onblur="validatePhoneNumber()" class="all-input-style mb-3" required>
+                <span class="text-danger" id="error-phone"></span>
+                <!-- </div> -->
+                <div class="d-flex justify-content-center align-items-baseline textfond">
+                    <h6 class="me-2 link-text"><b>Write to us at :</b></h6>
+                    <p class="ms-1"><a href="mailto:contact@tap-time.com" target="_blank"
+                            class="link-style">contact@tap-time.com</a></p>
+                </div>
+                <input type="submit" class="btn btn-green" value="Submit">
+            </form>
+
+            <!-- Show the Response modal -->
+            <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" id="modal-content">
+                        <div class="modal-header justify-content-center">
+                            <h5 class="modal-title text-center" id="addEntryModalLabel">Thank You for
+                                Contacting Us!</h5>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="fw-bold mb-3 text-center">We have received your message and will get
+                                back to you shortly.</h5>
+                            <p class="d-flex justify-content-center">
+                                <img src="https://www.shutterstock.com/image-vector/blue-check-mark-icon-tick-260nw-787016416.jpg"
+                                    style="width: 100px;" alt="Checkmark">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Show the Response modal -->
+
+            <!-- Log out  -->
+            <div class="modal fade" id="logOut" tabindex="-1" aria-labelledby="logOutLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="logOutLabel">Logout</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="fw-bold mb-3 text-center">Are you sure you want to log out?</h5>
+                            <p class="d-flex justify-content-center">
+                                <button class="btn yes" id="logBtn2">Yes</button>
+                                <button class="btn no" data-bs-dismiss="modal" style="margin-left: 2%;">No</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer  -->
+    <footer>
+        <div class="footer-container container-fluid mt-5">
+            <!-- Logo and Social Links Section -->
+            <div class="logo-social">
+                <div class="logo ">
+                    <img src="icon/logo.png" alt="Tap Time Logo">
+                </div>
+                <br>
+                <p style="text-align: center !important;">Powered by <br>Arjava Technologies</p>
+                <br>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/company/arjavatech/" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/linkedin 1.png" alt="LinkedIn"></a>
+                    <a href="https://www.facebook.com/profile.php?id=61565587366048" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/facebook 1.png" alt="Facebook"></a>
+                    <a href="https://www.instagram.com/_tap_time" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/instagram 1.png" alt="Instagram"></a>
+                    <a href=" https://x.com/_Tap_Time" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                        <img src="icon/twitter 1.png" alt="X"></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="quick-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="device.html">Device</a></li>
+                    <li><a href="employee_list.html">Employee Management</a></li>
+                    <li><a href="report_summary.html">Report Summary</a></li>
+                    <li><a href="report_setting.html">Report Settings</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Address Section -->
+
+            <div class="address">
+                <div style="display: inline-flex;">
+                    <img src="icon/location-pin (1) 1.png"
+                        style="width: 20px;padding-right: 15px; height: 20px; padding-top: 25px;" alt="">
+                    <h4>Address</h4>
+                </div>
+
+                <p style="padding-left: 30px;">Arjava Technologies,<br>2135 204th PL NE,<br>Sammamish,<br> WA - 98074.
+                </p>
+                <br>
+                <div style="display: inline-flex;margin-top: 5px;">
+                    <img src="icon/phone-call (1) 1.png"
+                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <p><a href="tel:+14258181900">(541) 371-2950 </a></p>
+                </div><br>
+                <div style="display: inline-flex;margin-top: 5px;">
+                    <img src="icon/paper-plane 1.png"
+                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <p><a href="mailto:contact@tap-time.com">contact@tap-time.com</a></p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function logoutCall() {
+            localStorage.removeItem("username");
+            localStorage.removeItem("companyID");
+            localStorage.removeItem("customId");
+            localStorage.removeItem("password");
+
+            setTimeout(() => {
+                // window.location.href = "login.html";
+                window.open('login.html', 'noopener, noreferrer');
+            }, 10);
+        }
+
+        document.getElementById("logBtn2").addEventListener("click", logoutCall);
+
+        function logOutACtion() {
+            let myModal = new bootstrap.Modal(document.getElementById('logOut'));
+            myModal.show();
+        }
+
+        function validateForm() {
+            const isNameValid = validCName();
+            const isEmailValid = validCEmail();
+            const isValidMessage = validCQueries();
+            const isPhoneNumberValid = validatePhoneNumber();
+
+            if (isNameValid && isEmailValid && isValidMessage && isPhoneNumberValid) {
+                callContactUsCreateAPiData();
+
+                // Show success modal
+                var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

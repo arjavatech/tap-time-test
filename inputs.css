@@ -1,0 +1,16 @@
+.all-input-style{
+    border: 2px solid #02066F;
+    border-radius: 10px;
+    width: 100%;
+    padding: 3%;
+    font-weight: bold;
+}
+
+.all-input-style::placeholder {
+    font-weight: bold;
+}
+
+.label-style{
+    float: left !important;
+    font-weight: bold;
+}

@@ -1,0 +1,39 @@
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    position: absolute;
+    top: 0.75rem;
+    left: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+    padding: 0 0.25rem;
+    color: #02066F;
+    pointer-events: none;
+}
+
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label,
+.form-group textarea:focus+label,
+.form-group textarea:not(:placeholder-shown)+label {
+    top: -0.75rem;
+    left: 0.75rem;
+    font-size: 0.75rem;
+    color: #02066F;
+    font-size: 15px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 1rem;
+    padding-top: 1.5rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #02066F;
+}

@@ -1,0 +1,32 @@
+{
+  "name": "recreateicodeapp-2",
+  "version": "1.0.0",
+  "main": "contact.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "module",
+    "url": "git+https://github.com/arjavatech/icode-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arjavatech/icode-app/issues"
+  },
+  "homepage": "https://github.com/arjavatech/icode-app#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0",
+    "node-localstorage": "^3.0.5",
+    "nodemailer": "^6.9.14",
+    "stripe": "^16.2.0",
+    "uuid": "^10.0.0"
+  },
+  "description": ""
+}

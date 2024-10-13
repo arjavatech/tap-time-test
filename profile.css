@@ -1,0 +1,38 @@
+.bg-green {
+    background-color: #02066F;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rounded-pill-active {
+    border-radius: 40rem;
+    background-color: #fff;
+    color: #02066F !important;
+}
+
+.dropdown-item:focus {
+    background-color: transparent !important;
+}
+
+.success-msg {
+    display: none;
+}
+
+.error-msg {
+    display: none;
+}
+
+
+@media (max-width:991px) {
+    .rounded-pill-active {
+        border-radius: 10px;
+        background-color: #fff;
+        width: 220px;
+        color: #02066F !important;
+        margin-top: 2%;
+    }
+}

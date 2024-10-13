@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Phone  -->
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.9.43/bundle/libphonenumber-js.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="employee_list.css">
+    <script defer src="signup2.js"></script>
+    <!-- <link rel="stylesheet" href="nav.css"> -->
+    <link rel="stylesheet" href="web_nav.css">
+    <link rel="stylesheet" href="inputs.css">
+    <title>Tap time</title>
+    <link rel="icon" href="Image/app_logo.png">
+    <!-- <style>
+        /* Loading  */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #02066F;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #phoneNumber {
+            appearance: none;
+            border-radius: 0.25rem;
+            border-radius: 10px;
+        }
+
+        body {
+            /* overflow-y: hidden; */
+            overflow-x: hidden;
+        }
+
+        .col-sty {
+            height: 140vh;
+            background-color: #D9E9FB;
+        }
+
+        .error {
+            border: 1px solid red;
+        }
+
+        .hide {
+            display: none;
+            color: red;
+        }
+
+        .container-sty {
+            max-width: 100%;
+        }
+
+        .input-sty {
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        label {
+            font-size: 1rem;
+        }
+
+        .progress-container {
+            max-width: 100%;
+        }
+
+        .progress {
+            height: 0.5rem;
+            width: 100%;
+        }
+
+        .progress-bar {
+            background-color: #D9E9FB;
+            transition: width 0.5s;
+            width: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .container-sty {
+                margin: 20px !important;
+                padding: 20px !important;
+            }
+
+            .col-sty{
+                height: 100vh;
+            }
+
+            .input-sty {
+                padding: .4rem .3rem !important;
+                font-size: 0.8rem !important;
+            }
+
+
+            label {
+                font-size: 0.9rem !important;
+            }
+
+            .progress-container {
+                max-width: 100% !important;
+            }
+
+            .progress-bar {
+                height: 0.5rem !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .m-5 {
+                margin: 0 !important;
+            }
+
+            .input-sty {
+                padding: .4rem 0.2rem !important;
+                font-size: 0.8rem !important;
+            }
+
+            label {
+                font-size: 0.8rem !important;
+            }
+        }
+
+        @media (max-width: 319px) {
+            input {
+                padding: .3rem 0.2rem !important;
+            }
+
+            label {
+                font-size: 0.7rem !important;
+            }
+
+        }
+
+        @media (max-width: 240px) {
+            input {
+                width: 80% !important;
+            }
+
+            label {
+                font-size: 0.5rem !important;
+            }
+        }
+
+        .material-textfield {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .material-textfield input {
+            width: 100%;
+            padding: 0.8rem !important;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 1px solid #02066F;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .material-textfield label {
+            position: absolute;
+            top: 0.75rem;
+            left: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            padding: 0 0.25rem;
+            color: #02066F;
+            pointer-events: none;
+        }
+
+        .material-textfield input:focus+label,
+        .material-textfield input:not(:placeholder-shown)+label {
+            top: -0.75rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            color: #02066F;
+        }
+
+        .material-textfield input:focus {
+            outline: none;
+            border-color: #02066F;
+        }
+
+        .login-img-sty {
+            width: 70%;
+        }
+
+        .btn-green {
+            background-color: #02066F;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .btn-green:hover {
+            background-color: #02066F;
+            color: white;
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        #checkout-button:focus{
+            background-color: #02066F;
+            color: white;
+        }
+
+        .login-img-sty {
+            max-width: 60%;
+            height: auto;
+        }
+
+        #logo {
+            width: 30%;
+        }
+
+        
+        nav {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .container-sty {
+                padding: 2rem 1rem !important;
+            }
+
+            #logo {
+                width: 30% !important;
+            }
+
+            .img-fluid {
+                width: 80% !important;
+            }
+
+            /* body{
+                overflow-x:scroll !important;
+            } */
+
+        }
+
+        @media (max-width: 576px) {
+            .login-img-sty {
+                width: 100% !important;
+                padding: 2rem !important;
+            }
+
+            .container-sty {
+                padding: 1rem !important;
+            }
+
+            #logo {
+                width: 40% !important;
+            }
+            
+
+            .forget-password {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #loginBtn {
+                width: 100% !important;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width:1310px) {
+            #logo {
+                width: 30% !important;
+            }
+        }
+
+        @media(max-width: 1300px) {
+            #logo {
+                width: 40% !important;
+            }
+        }
+
+        @media (min-width:800px) and (max-width:1000px) {
+            #logo {
+                width: 40% !important;
+            }
+        }
+
+        @media (max-width: 760px) {
+            #logo {
+                width: 30% !important;
+            }
+
+            .col-sty {
+                display: none !important;
+            }
+
+            nav {
+                display: block !important;
+            }
+            /* body{
+                overflow-x: hidden !important;
+            } */
+        }
+    </style> -->
+    <style>
+        body {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        /* Loading  */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #02066F;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .nav-link {
+            position: relative;
+            display: inline-block;
+            /* Ensures the link is inline and allows margin */
+            text-decoration: none;
+            /* Removes underline from links */
+            color: gray !important;
+            /* Sets the text color */
+            margin: 0 25px;
+            /* Adds horizontal margin */
+            font-size: 17px;
+            /* Sets the font size */
+
+            /* Sets the font weight */
+        }
+
+        .navbar-toggler {
+            background-color: #02066F;
+            color: white;
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .navbar-toggler-icon {
+            background-color: white;
+        }
+
+        .span-content {
+            font-weight: bold;
+        }
+
+        .material-textfield {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .material-textfield input {
+            width: 100%;
+            padding: 0.8rem !important;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 1px solid #02066F;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .material-textfield label {
+            position: absolute;
+            top: 0.75rem;
+            left: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            padding: 0 0.25rem;
+            color: #02066F;
+            pointer-events: none;
+        }
+
+        .material-textfield input:focus+label,
+        .material-textfield input:not(:placeholder-shown)+label {
+            top: -0.75rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            color: #02066F;
+        }
+
+        .material-textfield input:focus {
+            outline: none;
+            border-color: #02066F;
+        }
+
+
+        .span-sty {
+            color: #02066F;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .span-colo {
+            color: #02066F;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .col-sty {
+            min-height: 100vh;
+            background-color: #D9E9FB;
+        }
+
+        .btn-green {
+            background-color: #02066F;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.8rem !important;
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+
+        .btn-green:hover {
+            background-color: #02066F !important;
+            color: white !important;
+            padding: 0.8rem !important;
+
+        }
+
+        .login-img-sty {
+            max-width: 60%;
+            height: auto;
+        }
+
+        #logo {
+            width: 30%;
+        }
+
+        /* nav {
+            display: none !important;
+        } */
+
+        @media (max-width: 768px) {
+            .container-sty {
+                padding: 2rem 1rem !important;
+            }
+
+            #logo {
+                width: 30% !important;
+            }
+
+            .img-fluid {
+                width: 80% !important;
+            }
+
+        }
+
+        @media (max-width: 576px) {
+            .login-img-sty {
+                width: 100% !important;
+                padding: 2rem !important;
+            }
+
+            .container-sty {
+                padding: 1rem !important;
+            }
+
+            #logo {
+                width: 40% !important;
+            }
+
+
+            .forget-password {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #loginBtn {
+                width: 100% !important;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-size: 18px;
+            }
+
+            @media (max-width: 576px) {
+                .material-textfield input {
+                    font-size: 0.8rem;
+                    padding: 0.5rem;
+                }
+
+                .material-textfield label {
+                    font-size: 0.7rem;
+                }
+            }
+
+        }
+
+        @media (min-width:1310px) {
+            #logo {
+                width: 30% !important;
+            }
+        }
+
+        @media(max-width: 1300px) {
+            #logo {
+                width: 40% !important;
+            }
+        }
+
+        @media (min-width:800px) and (max-width:1000px) {
+            #logo {
+                width: 40% !important;
+            }
+        }
+
+        @media (max-width: 760px) {
+            #logo {
+                width: 30% !important;
+            }
+
+            .col-sty {
+                display: none !important;
+            }
+
+            /* nav {
+                display: block !important;
+            } */
+            body {
+                overflow-x: hidden !important;
+            }
+        }
+
+
+        @media (min-width: 401px) {
+            .input-sty {
+                padding: 1rem !important;
+                font-size: 1rem;
+            }
+
+            .span-sty,
+            .span-colo,
+            .span-content {
+                font-size: 1rem;
+            }
+
+            body {
+                overflow-x: hidden !important;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .input-sty {
+                padding: 0.5rem !important;
+                font-size: 0.8rem !important;
+            }
+
+            .span-sty,
+            .span-colo,
+            .span-content {
+                font-size: 0.8rem !important;
+            }
+
+            #logo {
+                width: 43% !important;
+            }
+
+        }
+
+        @media (max-width: 400px) {
+            .input-sty {
+                padding: 1.3rem !important;
+            }
+
+            #logo {
+                width: 50% !important;
+            }
+
+        }
+
+        @media (max-width:350px) {
+            h4 {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 245px) {
+            .container-sty {
+                margin-right: 30% !important;
+            }
+
+            .input-sty {
+                padding: 1.3rem 5.10rem !important;
+            }
+        }
+
+        @media (max-width: 183px) {
+            .input-sty {
+                padding: 1.3rem 4.10rem !important;
+            }
+        }
+
+        /* address box  */
+
+        .caddsty {
+            border: 2px solid #02066F;
+            border-radius: 10px;
+
+        }
+
+        .caddHeadSty {
+            color: #02066F;
+            font-weight: bold;
+        }
+
+        @media (max-width:800px) {
+            .p-3 {
+                padding: 4px !important;
+            }
+        }
+
+        @media (max-width:767px) {
+            body {
+                overflow-y: scroll !important;
+            }
+        }
+
+        @media (max-width:245px) {
+            .container-sty {
+                margin-left: 100px !important;
+            }
+
+            .material-textfield input {
+                padding-left: 100px !important;
+                padding-right: 100px !important;
+            }
+        }
+
+        @media (max-width:234px) {
+            .material-textfield input {
+                padding-left: 70px !important;
+                padding-right: 70px !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- NAV BAR  -->
+    <nav class="navbar navbar-expand-lg" id="navbar"
+        style="background-color: white; padding: 5px 15px; height: 70px; border-bottom: 1px solid #02066F;">
+        <!-- Hamburger menu -->
+        <a class="logo" href="index.html">
+            <img src="web_Image/app_logo.png" alt="arjava_logo" class="logo"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+        </a>
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
+            <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="menu">
+            <ul class="navbar-nav">
+                <li class="nav-item mr-5">
+                    <a class="nav-link nav-links" href="index.html">Home</a>
+                </li>
+                <li class="nav-item mr-5">
+
+                    <a class="nav-link nav-links" href="login.html">Login</a>
+
+                </li>
+                <li class="nav-item mr-5">
+                    <div class="active">
+                        <a class="nav-link nav-links" href="#">Register</a>
+                    </div>
+                </li>
+                <li class="nav-item mr-5">
+                    <a class="nav-link nav-links" href="index.html#contact"
+                    >Contact Us</a>
+                </li>
+                <li class="nav-item mr-5">
+                    <a class="nav-link nav-links" href="web_privacy_policy.html"
+                    >Privacy Policy</a>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- SIDE BAR -->
+    <div id="sidebar" class="sidebar">
+        <img src="Image/Group 91.png" alt="Tap Time Logo" class="app_logo">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="#">Register</a>
+        <a href="index.html#contact">Contact Us</a>
+        <a href="web_privacy_policy.html">Privacy Policy</a>
+    </div>
+
+    <div class="row" style="height: auto;">
+        <div
+            class="col-sm-12 col-xl-6 col-md-6 col-lg-6 col-sty d-flex flex-column justify-content-center align-items-center">
+            <img src="Image/icode logo 2 (1).png" alt="" class=" p-5 img-fluid login-img-sty">
+            <h3 class="text-center">Join Us Today</h3>
+            <p class="text-center">Create an account to unlock seamless time tracking and boost <br> your team's
+                efficiency.</p>
+        </div>
+
+        <div class="col-sm-12 col-xl-6 col-md-6 col-lg-6 example d-flex justify-content-center align-items-center">
+            <div class="container container-sty p-4 text-center">
+                <form action="">
+                    <h2 class="text-center m-3">Signup</h2>
+                    <div class="progress-container mb-3">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="text-danger" id="totalError"></div>
+                    <!-- <div class="material-textfield mt-4">
+                    <input id="firstName" placeholder=" " type="text" onblur="validateFirstName()" class="input-sty">
+                    <label class="label-sty">First Name</label>
+                    <br>
+                    <span class="text-danger d-flex justify-content-center" id="errorFirstName"></span>
+                </div> -->
+                    <input type="text" id="firstName"
+                     placeholder="First Name" onblur="validateFirstName()"
+                      class="all-input-style mb-3" required>
+                      <span class="text-danger d-flex justify-content-center" id="errorFirstName"></span>
+
+                    <!-- <div class="material-textfield mt-4">
+                    <input id="lastName" placeholder=" " type="text" onblur="validateLastName()" class="input-sty">
+                    <label class="label-sty">Last Name</label>
+                    <br>
+                    <span class="text-danger d-flex justify-content-center" id="errorLastName"></span>
+                </div> -->
+                    <input type="text" id="lastName" placeholder="Last Name"
+                    onblur="validateLastName()"
+                     class="all-input-style mb-3" required>
+                     <span class="text-danger d-flex justify-content-center" id="errorLastName"></span>
+
+                    <div class="caddsty p-3 mb-3">
+                        <p class="text-center caddHeadSty">customer Address</p>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- <div class="material-textfield mt-4">
+                                <input id="customerStreet" placeholder=" " class="input-sty">
+                                <label class="label-sty">Customer Street</label>
+                                <br>
+                                <span class="text-danger d-flex justify-content-center" id="errorStreet"></span>
+                            </div> -->
+                                <input type="text" id="customerStreet" placeholder="Customer Street" class="all-input-style mb-3"
+                                    required>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- <div class="material-textfield mt-4">
+                                <input id="customerCity" placeholder=" " class="input-sty">
+                                <label class="label-sty">Customer City</label>
+                                <br>
+                                <span class="text-danger d-flex justify-content-center" id="errorCity"></span>
+                            </div> -->
+
+                                <input type="text" id="customerCity" placeholder="Customer City" class="all-input-style mb-3"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- <div class="material-textfield mt-4">
+                                <input id="customerState" placeholder=" " class="input-sty">
+                                <label class="label-sty">Customer State</label>
+                                <br>
+                                <span class="text-danger d-flex justify-content-center" id="errorState"></span>
+                            </div> -->
+
+                                <input type="text" id="customerState" placeholder="Customer State" class="all-input-style mb-3"
+                                    required>
+                            </div>
+                            <div class="col-sm-6">
+                                <!-- <div class="material-textfield mt-4">
+                                <input id="customerZip" placeholder=" " class="input-sty">
+                                <label class="label-sty">Customer Zip</label>
+                                <br>
+                                <span class="text-danger d-flex justify-content-center" id="errorZip"></span>
+                            </div> -->
+
+                                <input type="text" id="customerZip" placeholder="Customer Zip" class="all-input-style mb-3"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="material-textfield mt-4">
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder=" " oninput="formatPhoneNumber()"
+                        class="input-sty">
+                    <label>Phone Number</label>
+                    <br>
+                    <span class="text-danger d-flex justify-content-center" id="showMsg3"></span>
+                </div> -->
+                    <input type="tel" id="phoneNumber" 
+                    placeholder="Phone Number" oninput="formatPhoneNumber()"
+                    class="all-input-style mb-3" required>
+                    <span class="text-danger d-flex justify-content-center" id="showMsg3"></span>
+
+                    <!-- <div class="material-textfield mt-4">
+                    <input id="email" placeholder=" " type="email" onblur="validateEmail()" class="input-sty">
+                    <label class="label-sty">Email</label>
+                    <br>
+                    <span class="text-danger d-flex justify-content-center" id="errorEmail"></span>
+                </div> -->
+
+                    <input type="email" 
+                    id="email" placeholder="Email" 
+                    class="all-input-style mb-3" 
+                    required>
+
+                    <input type="submit" class="btn btn-green mt-3" onclick="validateForm(event)" id="checkout-button"
+                        value="Pay">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- UUID library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
+    <!-- Phone link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+
+</body>
+
+</html>

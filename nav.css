@@ -1,0 +1,497 @@
+@media (max-width:991px) {
+    .sidebar button {
+        margin-left: 40px !important;
+    }
+}
+
+
+
+/* Style for the donate button */
+#dnt-btn {
+    /* background-color: #fbb801; */
+    border: 1px solid red;
+    /* Sets the background color */
+    color: #fff;
+    /* Sets the text color */
+    font-size: 20px;
+    /* Sets the font size */
+    /* width: 150%; Uncomment if you want the button to be wider */
+    margin-top: 5px;
+    /* Adds top margin */
+    font-weight: bold;
+    /* Makes the font bold */
+}
+
+/* Styles for navigation links */
+.nav-link {
+    position: relative;
+    display: inline-block;
+    /* Ensures the link is inline and allows margin */
+    text-decoration: none;
+    /* Removes underline from links */
+    color: gray !important;
+    /* Sets the text color */
+    margin: 0 15px;
+    /* Adds horizontal margin */
+    font-size: 17px;
+    /* Sets the font size */
+
+    /* Sets the font weight */
+}
+
+/* Hover effect for navigation links */
+.nav-link:hover {
+    color: #02066F;
+}
+
+/* Underline effect on hover */
+.nav-link:hover::after {
+    width: 100%;
+    /* Expands the underline to full width on hover */
+    left: 0;
+    /* Aligns the underline to the left */
+    color: #02066F;
+    /* Sets the color of the text on hover */
+}
+
+/* Underline styling */
+.nav-link::after {
+    content: '';
+    /* Creates an empty content element for the underline */
+    position: absolute;
+    /* Positions the underline absolutely */
+    width: 0;
+    /* Initial width of the underline */
+    height: 2px;
+    /* Height of the underline */
+    display: block;
+    /* Displays the underline as a block element */
+    margin-top: 5px;
+    /* Adds top margin */
+    left: 0;
+    /* Aligns the underline to the left */
+    background: #02066F;
+    ;
+    /* Sets the underline color */
+    transition: width 0.9s ease, right 0.4s ease;
+    /* Adds a transition effect for width and right properties */
+    color: #02066F;
+    /* Sets the color of the text */
+}
+
+/* Active state for navigation links */
+.nav-link.active::after {
+    width: 100%;
+    /* Expands the underline to full width when active */
+    background: #02066F;
+    font-weight: 600;
+    /* Sets the underline color when active */
+}
+
+/* Active state text color for navigation links */
+.nav-link.active {
+    color: #02066F !important;
+    font-weight: 600;
+}
+
+/* Removes box shadow from the navbar toggler when focused */
+.navbar-toggler:focus {
+    box-shadow: none;
+    /* Removes the default box shadow */
+}
+
+#logBtn{
+    color: white;
+    background-color: #02066F !important;
+    opacity: 1 !important;
+}
+
+.logoutButton {
+    /* border: 1px solid white; */
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #02066F;
+    color: white;
+    border-radius: 10px;
+}
+
+.logoutButton:hover {
+    background-color: #02066F;
+    color: white;
+    opacity: 0.8;
+    font-weight: 600;
+}
+
+.dropdown-toggle::after {
+    display: block !important;
+    margin-left: 0 !important;
+    content: "" !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+}
+/* Existing styles */
+.inline-list {
+    max-width: 470px; 
+    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inline-list li {
+    display: inline-block;
+    margin-right: 10px; /* Space between items */
+    margin-bottom: 5px; /* Space below items for wrapping */
+}
+
+.current, .unselect {
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 30px;
+    text-align: center; /* Center text within each item */
+}
+
+.current {
+    background-color: #02066F;
+    color: white;
+}
+
+.unselect {
+    color: #02066F;
+}
+
+
+.modal.show {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.modal-dialog {
+    margin: 0 auto !important;
+}
+
+.modal-header {
+    background-color: #02066F;
+    color: white;
+}
+
+/* Custom media queries for responsiveness */
+@media (max-width: 768px) {
+    .inline-list {
+        justify-content: center;
+    }
+    .current, .unselect {
+        font-size: 14px;
+        padding: 8px 16px;
+        margin-bottom: 8px;
+    }
+    .modal-dialog {
+        max-width: 350px !important; /* You can adjust this width as needed */
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .current, .unselect {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* New media query for 350px or less */
+@media (max-width: 430px) {
+    .list-container {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+    }
+    
+    .list-item {
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 10px; /* Increase bottom margin for vertical spacing */
+    }
+
+    .modal-dialog {
+        max-width: 250px !important; /* You can adjust this width as needed */
+        margin: 0 auto !important;
+    }
+
+    .modal-body h5{
+        font-size: 12px !important;
+    }
+
+    .modal-title{
+        font-size: 12px !important;
+    }
+
+    .modal.show {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .btn-close{
+        size: 12px;
+    }
+    .yes{
+        font-size: 12px !important;
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+    .no{
+        font-size: 12px !important;
+        /* padding: 12px !important; */
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+}
+
+
+
+/* Styles for navigation links on screens smaller than 900px */
+@media (max-width: 900px) {
+    .logoutButton {
+        width: 140px;
+    }
+
+    .nav-link.active::after {
+        background: white;
+        width: 40%;
+        /* Keeps the underline color */
+    }
+
+    .nav-link::after {
+        content: '';
+        /* Creates an empty content element for the underline */
+        position: absolute;
+        /* Positions the underline absolutely */
+        width: 0;
+        /* Initial width of the underline */
+        height: 2px;
+        /* Height of the underline */
+        display: block;
+        /* Displays the underline as a block element */
+        margin-top: 5px;
+        /* Adds top margin */
+        left: 0;
+        /* Aligns the underline to the left */
+        background: #02066F;
+        /* Sets the underline color */
+        transition: width 0.9s ease, right 0.4s ease;
+        /* Adds a transition effect for width and right properties */
+        color: #02066F;
+        /* Sets the color of the text */
+    }
+
+    .nav-link {
+        position: relative;
+        display: inline-block;
+        /* Ensures the link is inline and allows margin */
+        text-decoration: none;
+        /* Removes underline from links */
+        color: white;
+        /* Sets the text color */
+        margin: 0 15px;
+        /* Adds horizontal margin */
+        font-size: 12px;
+
+    }
+
+    .nav-link:hover::after {
+        width: 50%;
+        /* Reduces the width of the underline on hover */
+        left: 0;
+        /* Aligns the underline to the left */
+        color: white;
+        /* Sets the color of the text on hover */
+    }
+}
+
+@media (max-width:1115px) {
+    .nav-link {
+        position: relative;
+        display: inline-block;
+        /* Ensures the link is inline and allows margin */
+        text-decoration: none;
+        /* Removes underline from links */
+        color: white;
+        /* Sets the text color */
+        margin: 0 15px;
+        /* Adds horizontal margin */
+        font-size: 15px;
+        
+    }
+    .logoutButton {
+        font-size: 15px;
+        font-weight: 600;
+        background-color: #02066F;
+        color: white;
+        padding: 8px;
+        padding-left: px;
+    }
+    .current, .unselect {
+        font-size: 15px;
+        padding: 6px 12px;
+    }
+    .current{
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px !important;
+        font-weight: normal;
+    }
+}
+
+
+/* side nav bar  */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background-color: #02066f;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar a {
+    position: relative;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    width: 80%;
+    padding-left: 10%;
+    border-radius: 20px;
+    background: none;
+    margin-left: 8%;
+    overflow: hidden;
+}
+
+.sidebar a.active {
+    color: #f1f1f1;
+}
+
+.sidebar a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: #f1f1f1;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.sidebar a:hover::before,
+.sidebar a.active::before {
+    transform: translateX(0);
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+    box-shadow: #fff;
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.5);
+
+}
+
+.app_logo {
+    width: 60%;
+    margin-left: 18%;
+}
+
+.sidebar a i {
+    margin-right: 15px;
+}
+
+.sidebar button {
+    background-color: white;
+    color: #02066F;
+    margin: 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar button:hover {
+    background-color: gray;
+    color: #02066F;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 250px;
+        padding-top: 30px;
+        
+    }
+
+    .sidebar a {
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+
+    .sidebar .closebtn {
+        font-size: 24px;
+        right: 10px;
+    }
+}
+
+
+@media (max-width:478px) {
+    .app_logo {
+        width: 30%;
+        margin: 0;
+        /* border-bottom: solid 2px white; */
+    }
+}
+@media (max-width:251px) {
+    .sidebar{
+        width: 70% !important;
+    }
+    .logoutButton{
+        width: 70% !important;
+        font-size: 10px !important;
+    }
+    .sidebar button{
+        margin-left: 10px !important;
+    }
+    .sidebar a{
+        font-size: 10px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 300px;
+        padding-top: 40px;
+        margin-top: 10%;
+    }
+
+    .sidebar a {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+}

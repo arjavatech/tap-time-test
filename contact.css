@@ -1,0 +1,131 @@
+/* Navbar Styles */
+.bg-green {
+    background-color: #02066F;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff ;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.rounded-pill-active {
+    border-radius: 50rem;
+    background-color: #fff;
+    color: #02066F !important;
+}
+
+/* Form Styles */
+/* General Form Layout */
+.box-sty {
+    background-color: #f9f9f9;
+    padding: 20px; /* Reduced padding */
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Set a maximum width for the form box */
+    width: 100%; /* Ensure it takes full width within its parent */
+    margin: 0 auto; /* Center the box horizontally */
+}
+
+.material-textfield {
+    position: relative;
+}
+
+.material-textfield input,
+.material-textfield textarea {
+    background-color: transparent;
+    font-size: 16px;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    transition: border-color 0.2s;
+}
+
+.material-textfield input:focus,
+.material-textfield textarea:focus {
+    border-bottom: 1px solid #02066F;
+    outline: none;
+}
+
+.material-textfield label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #999;
+    pointer-events: none;
+    transition: all 0.2s;
+    font-size: 12px;
+}
+
+textarea {
+    min-height: 50px;
+}
+
+form h6 {
+    font-size: 14px;
+}
+
+form .btn-green {
+    background-color: #02066F;
+    color: white;
+    border: none;
+    padding: 10px 40px 10px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+form .btn-green:hover {
+    background-color: #02066F;
+    border: none;
+    padding: 10px 40px 10px 40px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.link-style {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.link-style:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 20px auto;
+    }
+
+    .btn-green {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .box-sty {
+        padding: 20px; /* Maintain reduced padding for smaller screens */
+        max-width: 90%; /* Allow more space on smaller screens */
+    }
+}
+/* Default styles for the email text */
+.textfond {
+    font-size: 16px; /* Base font size */
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .textfond {
+        font-size: 5px; /* Smaller font size for medium screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .textfond {
+        font-size: 12px; /* Smaller font size for small screens */
+    }
+
+
+}
