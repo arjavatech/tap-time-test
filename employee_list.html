@@ -96,7 +96,7 @@
                 max-width: 100%;
             }
 
-            #add-entry {
+            .employee-add-entry {
                 border: 1px solid #02066F;
                 color: #02066F;
                 background-color: white;
@@ -105,6 +105,7 @@
                 top: 0;
                 right: 0;
             }
+
 
             .emp-list-header {
                 position: relative;
@@ -343,52 +344,52 @@
         }
 
 
+        
         .logo {
             width: 101px;
             height: 73.53px;
             margin-right: 20px;
         }
 
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                width: 300px;
-                padding-top: 40px;
-                margin-top: 10%;
-            }
+        @media screen and (max-width: 1000px) {
+    .sidebar {
+        width: 200px;
+        padding-top: 40px;
+        margin-top: 0;
+    }
 
-            .sidebar a {
-                font-size: 20px;
-                padding: 10px 20px;
-            }
+    .sidebar a {
+        font-size: 10px;
+        padding: 10px 20px;
+    }
 
-            .sidebar .closebtn {
-                font-size: 30px;
-                right: 15px;
-            }
+    
+    .sidebar button {
+        font-size: 11px; 
+        padding: 6px 6px;
+        margin: 6px; 
+    }
 
-            #main {
-                margin-left: 0;
-            }
-        }
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+
+   
+    .app_logo {
+        width: 60px; 
+        height: auto;
+        margin-left: 1px; 
+        margin-right: auto; 
+    }
+}
 
 
-        @media screen and (max-width: 480px) {
-            .sidebar {
-                width: 250px;
-                padding-top: 30px;
-                margin-top: 2%;
-            }
 
-            .sidebar a {
-                font-size: 13px;
-                padding: 8px 15px;
-            }
-
-            .sidebar .closebtn {
-                font-size: 24px;
-                right: 10px;
-            }
-        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -398,7 +399,7 @@
             background-color: white;
             color: #02066F;
             margin: 20px;
-            font-size: 18px;
+            /* font-size: 18px; */
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -428,21 +429,28 @@
             margin-left: 3px;
 
         }
+       
 
         label {
             display: inline-block;
             cursor: default;
         }
 
-        #instructor{
+        #instructor {
             background-color: rgb(208, 206, 206);
         }
-        #Dropdown:disabled{
+
+        #Dropdown:disabled {
             background-color: rgb(208, 206, 206);
         }
-        .admin-head{
-            margin-left: 12% !important;
+
+        .admin-head {
+            margin-right: 20%;
         }
+        .none{
+            display: none;
+        }
+        
     </style>
 </head>
 
@@ -546,8 +554,10 @@
                             <div class="col-6">
                                 <span id="current-checkin-header"></span>
                                 <span style="float:right;">
-                                    <button class="btn float-end" id="add-entry" onclick="dataRemove()"
-                                        data-bs-toggle="modal" data-bs-target="#myModal">Add Entry</button>
+                                    <button class="btn float-end addEntryBtnStyle employee-add-entry" id="add-entry" onclick="dataRemove('empDetail')"
+                                        >Add Entry</button>
+                                        
+                                        <!-- data-bs-toggle="modal" data-bs-target="#myModal"  -->
                                 </span>
                             </div>
                         </div>
@@ -574,52 +584,31 @@
                             <div class="modal-dialog">
                                 <div class="modal-content" style="width: 300px; text-align: center; ">
                                     <div class="modal-header">
-                                        <h5 class="modal-title fw-bold" id="myModalLabel">Employee Details</h5>
+                                        <h5 class=" CenterAlign modal-title fw-bold " id="myModalLabel" style="text-align: center; width: 100%;">Employee Details</h5>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <form id="emp_form" class="p-2 text-center">
-                                            <!-- <div class="material-textfield mb-3">
-                                                <input type="text" id="fName" name="fName" placeholder=" " required onblur="validFName()">
-                                                <label>First Name</label><br>
-                                                <span class="text-danger" id="showMsg1"></span>
-                                            </div> -->
                                             <input type="text" id="fName" placeholder="First Name"
                                                 class="all-input-style mb-3" onblur="validFName()" required>
                                             <span class="text-danger" id="showMsg1"></span>
-                                            <!-- <div class="material-textfield mb-3">
-                                                <input type="text" id="lName" name="lName" placeholder=" " onblur="validLName()">
-                                                <label>Last Name</label><br>
-                                                <span class="text-danger" id="showMsg2"></span>
-                                            </div> -->
                                             <input type="text" id="lName" placeholder="Last Name"
                                                 class="all-input-style mb-3" onblur="validLName()" required>
                                             <span class="text-danger" id="showMsg2"></span>
-                                            <!-- <div class="material-textfield mb-3">
-                                                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder=" " oninput="formatPhoneNumber()">
-                                                <label>Phone Number</label><br>
-                                                <span class="text-danger" id="showMsg3"></span>
-                                            </div> -->
                                             <input type="tel" id="phoneNumber" placeholder="Phone Number"
                                                 oninput="formatPhoneNumber()" class="all-input-style mb-3" required>
                                             <span class="text-danger" id="showMsg3"></span>
-                                            <!-- <div class="material-textfield mb-3">
-                                                <input id="instructor" placeholder=" " type="text" onblur="validateInstructerPin()" disabled>
-                                                <label>Instructor Pin</label><br>
-                                                <span class="text-danger" id="showMsg"></span>
-                                            </div> -->
                                             <input type="text" id="instructor" placeholder="Instructor Pin"
                                                 onblur="validateInstructerPin()" class="all-input-style mb-3" disabled
                                                 required>
                                             <span class="text-danger" id="showMsg"></span>
-                                            <!-- <div class="material-textfield mb-3"> -->
                                             <select id="Dropdown" class="all-input-style mb-3">
                                                 <option value="true">true</option>
                                                 <option value="false">false</option>
                                             </select>
                                             <button id="savebtn" class="d-none"></button>
-                                            <!-- </div> -->
+
                                             <input type="submit" value="Submit" id="mainBtn"
                                                 class="settings-btn-sty btn-green" />
                                         </form>
@@ -627,13 +616,26 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section>
 
             <!-- Admin Section -->
             <section id="admin-section" class="mt-5">
-                <h3 class="fw-bold mb-1 admin-head">Admin Details</h3>
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <h3 class="fw-bold mb-1 admin-head">Admin Details</h3>
+                    </div>
+                    <!-- Add Employee -->
+                    <div class="col-6">
+                        <span id="current-checkin-header"></span>
+                        <span style="float:right;">
+                            <button class="btn float-end addEntryBtnStyle" id="add-entry-admin" onclick="dataRemove('adminDetail')"
+                                >Add Entry</button>
+                        </span>
+                    </div>
+                </div>
                 <div class="custom-table-container">
                     <div class="custom-search-box">
                         <label>Search:</label>
@@ -659,7 +661,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content" style="width: 350px;">
                                 <div class="modal-header">
-                                    <h5 class="modal-title fw-bold" id="myModalLabel">Admin Details</h5>
+                                    <h5 class="modal-title fw-bold" id="myModalLabel" style="text-align: center; width: 100%;">Admin Details</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -690,7 +692,7 @@
                                             <span class="text-danger" id="showAdminMsg"></span>
                                         </div>
                                         <div class="material-textfield mb-3">
-                                            <select id="adminDropdown" class="input-sty form-control mt-3">
+                                            <select id="adminDropdown" class="input-sty form-control mt-3" value="true">
                                                 <option value="true">true</option>
                                                 <option value="false">false</option>
                                             </select>
@@ -703,7 +705,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </section>
         </div>
@@ -716,7 +718,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEntryModalLabel">Logout</h5>
+                    <h5 class="modal-title" id="addEntryModalLabel" style="text-align: center; width: 100%;" >Logout</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>

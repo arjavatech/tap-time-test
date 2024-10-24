@@ -140,44 +140,38 @@ nav {
     padding: 16px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
     .sidebar {
-        width: 300px;
-        padding-top: 40px;
-        margin-top: 10%;
+        width: 200px; /* Reduced sidebar width */
+        padding-top: 20px; /* Adjust padding for spacing */
+        margin-top: 0; /* No top margin */
+    }
+
+    .app_logo {
+        width: 60px; /* Logo width */
+        height: auto; /* Maintain aspect ratio */
+        margin: 0 0 20px 10px; /* Top, Right, Bottom, Left margin */
+        /* Align logo to the top-left corner */
     }
 
     .sidebar a {
-        font-size: 20px;
-        padding: 10px 20px;
+        font-size: 10px; /* Font size for links */
+        padding: 10px 20px; /* Padding for links */
+    }
+
+    .sidebar button {
+        font-size: 11px; /* Font size for buttons */
+        padding: 6px 6px; /* Adjust padding for buttons */
+        margin: 6px; /* Margin for buttons */
     }
 
     .sidebar .closebtn {
-        font-size: 30px;
-        right: 15px;
+        font-size: 30px; /* Font size for close button */
+        right: 15px; /* Positioning for close button */
     }
 
     #main {
-        margin-left: 0;
-    }
-}
-
-
-@media screen and (max-width: 480px) {
-    .sidebar {
-        width: 250px;
-        padding-top: 30px;
-        margin-top: 2%;
-    }
-
-    .sidebar a {
-        font-size: 18px;
-        padding: 8px 15px;
-    }
-
-    .sidebar .closebtn {
-        font-size: 24px;
-        right: 10px;
+        margin-left: 0; /* Reset main content margin */
     }
 }
 

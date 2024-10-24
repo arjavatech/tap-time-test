@@ -382,8 +382,9 @@
             <div class="container container-sty m-5 p-5 text-center">
                 <!-- <img src="Image/app_logo.png" alt="" class="mb-5 img-fluid" id="logo"> -->
                 <h2 class="text-center mb-5">Login</h2>
-                <input type="text" id="username" placeholder="User Name" class="all-input-style mb-3" required>
-                <input type="password" id="password" placeholder="Password" class="all-input-style mb-3" required>
+                <input type="text" id="username" placeholder="User Name" class="all-input-style mb-3" style="text-align: center;" required>
+                <input type="password" id="password" placeholder="Password" class="all-input-style mb-3" style="text-align: center;" required>
+                
                     <div class="overlay" id="overlay">
                         <div class="spinner"></div>
                     </div>
@@ -427,10 +428,10 @@
                 const logoImg = document.getElementById('logo-img');
                 logoImg.src = companyLogo; // Set the logo image source
                 logoImg.onload = function () {
-                    console.log('Logo image loaded successfully');
+                   
                 };
                 logoImg.onerror = function () {
-                    console.error('Error loading logo image');
+                   
                 };
             }
         });
@@ -466,7 +467,7 @@
                                 window.location.href = 'employee_list.html';
                             })
                             .catch(error => {
-                                console.error('Error:', error);
+                               
                             });
                     } else {
 
@@ -476,7 +477,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error during authentication:', error);
+                  
                     alert('An error occurred during authentication');
                 });
         });
@@ -486,7 +487,7 @@
 
         async function loginCheck(username, password) {
             try {
-                const response = await fetch(`https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/company/getuser/${username}`);
+                const response = await fetch(`https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company/getuser/${username}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 } else {
@@ -506,7 +507,7 @@
                     return user ? true : false;
                 }
             } catch (error) {
-                console.error('Login check error:', error);
+             
                 return false;
             }
         }
@@ -529,7 +530,7 @@
         }
 
         function getCustmData(cid1) {
-            const apiUrlBase2 = 'https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/customer';
+            const apiUrlBase2 = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/customer';
             const apiUrl2 = `${apiUrlBase2}/getUsingCID/${cid1}`;
 
             getTimeZone(cid1).then(
@@ -542,8 +543,7 @@
                             return response.json();
                         })
                         .then(data => {
-                            console.log('Data fetched:', data["CustomerID"]);
-                            localStorage.setItem('customId', data["CustomerID"]);
+                            localStorage.setItem('customerID', data["CustomerID"]);
                             localStorage.setItem('firstName', data["FName"]);
                             localStorage.setItem('lastName', data["LName"]);
                             localStorage.setItem('address', data["Address"]);
@@ -553,7 +553,7 @@
 
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            
                         });
                 }
             )
@@ -562,7 +562,7 @@
 
 
         async function getTimeZone(cid1) {
-            const apiUrl = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/device/getAll/${cid1}`;
+            const apiUrl = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/device/getAll/${cid1}`;
 
             fetch(apiUrl)
                 .then(response => {
@@ -582,12 +582,12 @@
                             });
                         }
                         catch {
-                            console.error('Error:', error);
+                           
                         }
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                  
                 });
         }
 

@@ -1,12 +1,19 @@
+// Side bar menu 
+// Get sidemar menu section id 
 const sidebar = document.getElementById('sidebar');
+// Get Hamburger menu icon element
 const toggler = document.querySelector('.navbar-toggler');
 
+// When I click the hamburger menu icon button then run this action 
 // Toggle sidebar open/close
 toggler.addEventListener('click', function () {
+    // Nav bar menu's opening and closing action 
     sidebar.classList.toggle('open');
 });
 
+// When I click the body then I hidden the nav bar menu 
 document.addEventListener('click', function (event) {
+    // Check If click this rest of the body or inside menu bar 
     const isClickInside = sidebar.contains(event.target) || toggler.contains(event.target);
     if (!isClickInside) {
         sidebar.classList.remove('open');
@@ -15,26 +22,32 @@ document.addEventListener('click', function (event) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const currentLocation = location.href; 
+    // Get all sidebar menu links 
     const menuItems = document.querySelectorAll('.sidebar a');
 
+    // Which one is active the nav bar and add style 
     menuItems.forEach(item => {
         if (item.href === currentLocation) {
             item.classList.add('active'); 
         }
     });
 });
+// End side bar menu 
 
-
-
+// Is Alpha condition checking 
 var isAlpha = /^[a-zA-Z\s]+$/;
-
+// Validate Name Field 
 function validCName() {
+    // Get Name Input Element 
     const cname = document.getElementById('cname').value;
+    // Get Name Error Element 
     const errorcName = document.getElementById('error-name');
 
+    // If this field is empty then do it nothing because this field required field 
     if (cname.trim() === '') {
         errorcName.textContent = '';
         return false;
+    // Check this field only have letters 
     } else if (!isAlpha.test(cname)) {
         errorcName.textContent = 'Only use letters, don\'t use digits';
         return false;
@@ -44,36 +57,27 @@ function validCName() {
     }
 }
 
-// var isEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-// function validCEmail() {
-//     const cemail = document.getElementById('cemail').value;
-//     const errorcEmail = document.getElementById('error-email');
-
-//     if (cemail.trim() === '') {
-//         errorcEmail.textContent = '';
-//         return false;
-//     } else if (!isEmail.test(cemail)) {
-//         errorcEmail.textContent = 'Email pattern is Invalid';
-//         return false;
-//     } else {
-//         errorcEmail.textContent = '';
-//         return true;
-//     }
-// }
-
+// Validate messege field 
 function validCQueries() {
+    // Get messege field input 
     const cQuestion = document.getElementById('question');
+    // Get messege field error element 
     const errorcQuestion = document.getElementById('error-textarea');
-    const maxLength = 500; // Maximum character limit
+    // Maximum character limit
+    const maxLength = 500;
+    // Get messge field input length 
     const currentLength = cQuestion.value.length;
+    // Get messge field input value  
     const quesvalue = cQuestion.value;
 
+    // If this field is empty then do it nothing because this field required field 
     if (quesvalue.trim() === '') {
         errorcQuestion.textContent = '';
         return false;
+    // Check this input get Maximum character 
     } else if (currentLength >= maxLength) {
         errorcQuestion.textContent = 'Maximum character limit reached.';
+        // This field only have Maximum character only 
         cQuestion.value = cQuestion.value.substring(0, maxLength);
         return false;
     } else {
@@ -82,7 +86,9 @@ function validCQueries() {
     }
 }
 
+// Phone number input change to number format 
 function formatPhoneNumber() {
+    // Get Phone number input field 
     const inputField = document.getElementById('phoneNumber');
     let value = inputField.value;
     // Remove all non-digit characters
@@ -95,12 +101,17 @@ function formatPhoneNumber() {
     } else if (value.length > 3) {
         value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
     }
+    // Phone number field Set to the format phone number value 
     inputField.value = value;
 }
 
+// Validate Phone number input field 
 function validatePhoneNumber() {
+    // Get Phone number input field 
     const phoneNumber = document.getElementById('phoneNumber').value;
+    // Get Phone number Error element
     const phoneError = document.getElementById('error-phone');
+    // The phone number validate numbers 
     const phoneRegex = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
 
     if (phoneNumber.trim() === '') {
@@ -115,14 +126,19 @@ function validatePhoneNumber() {
     }
 }
 
+// When the submit button clicked the run this action 
+// Validate Full Fields in Form 
 function validateForm(event) {
     event.preventDefault();
-
+    // Checked Name field 
     const isNameValid = validCName();
-    // const isEmailValid = validCEmail();
+    // Checked Messge field 
     const isValidMessage = validCQueries();
+    // Checked Phone number field 
     const isPhoneNumberValid = validatePhoneNumber();
+    // Checked All inputs required field 
     let isRequiredFieldsValid = true;
+    // Get all inputs 
     let inputs = document.querySelectorAll('.all-input-style');
 
     // Required atribute validation check 
@@ -132,22 +148,30 @@ function validateForm(event) {
         }
     });
 
-    if (isNameValid && isEmailValid 
+    // If all inputs are correct 
+    if (isNameValid
         && isValidMessage && 
         isPhoneNumberValid
     && isRequiredFieldsValid) {
         // Simulate API call
+        // Call the api for all datas put to db 
         callContactUsCreateAPiData();
 
         // Show modal
+        // When this fields submited successful and these datas went to db then run this modal 
         const modalElement = document.getElementById('addEntryModal');
         const modalInstance = new bootstrap.Modal(modalElement);
         modalInstance.show();
+        setTimeout(() => {
+            modalInstance.hide();
+        }, 2000);
     }
 }
 
+// All fields datas get successfully then these datas go to db 
 async function callContactUsCreateAPiData() {
-    const apiLink = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/contact-us/create`;
+    // Get contact db api link 
+    const apiLink = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/contact-us/create`;
 
     const requestID = uuid.v4();
     const cid = localStorage.getItem('companyID');
@@ -193,7 +217,7 @@ async function callContactUsCreateAPiData() {
             alert(data.error);
         }
     } catch (error) {
-        console.error('Error:', error);
+        
     }
 }
 

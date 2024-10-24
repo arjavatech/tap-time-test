@@ -29,8 +29,8 @@
 </head>
 
 <style>
-    /* Loading  */
-    .overlay {
+     /* Loading  */
+     .overlay {
         display: none;
         position: fixed;
         top: 0;
@@ -307,46 +307,44 @@
             position: unset;
         }
     } */
-    @media screen and (max-width: 768px) {
-            .sidebar {
-                width: 300px;
-                padding-top: 40px;
-                margin-top: 10%;
-            }
+    @media screen and (max-width: 1000px) {
+    .sidebar {
+        width: 200px;
+        padding-top: 40px;
+        margin-top: 0;
+    }
 
-            .sidebar a {
-                font-size: 20px;
-                padding: 10px 20px;
-            }
+    .sidebar a {
+        font-size: 10px;
+        padding: 10px 20px;
+    }
 
-            .sidebar .closebtn {
-                font-size: 30px;
-                right: 15px;
-            }
+    
+    .sidebar button {
+        font-size: 11px; 
+        padding: 6px 6px;
+        margin: 6px; 
+    }
 
-            #main {
-                margin-left: 0;
-            }
-        }
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+
+   
+    .app_logo {
+        width: 60px; 
+        height: auto;
+        margin-left: 1px; 
+        margin-right: auto; 
+    }
+}
 
 
-        @media screen and (max-width: 480px) {
-            .sidebar {
-                width: 250px;
-                padding-top: 30px;
-                margin-top: 2%;
-            }
-
-            .sidebar a {
-                font-size: 13px;
-                padding: 8px 15px;
-            }
-
-            .sidebar .closebtn {
-                font-size: 24px;
-                right: 10px;
-            }
-        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -356,7 +354,7 @@
             background-color: white;
             color: #02066F;
             margin: 20px;
-            font-size: 18px;
+            /* font-size: 18px; */
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -373,6 +371,7 @@
         height: 73.53px;
         margin-right: 20px;
     }
+
 
 </style>
 
@@ -541,7 +540,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEntryModalLabel">Logout</h5>
+                    <h5 class="modal-title" id="addEntryModalLabel" style="text-align: center; width: 100%;">Logout</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>

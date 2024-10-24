@@ -33,38 +33,50 @@
     <link rel="icon" href="Image/app_logo.png">
 
     <style>
-       @media (max-width: 430px) {
-    .modal-content-style {
-        width: 100% !important; /* Adjust width to fit small screens */
-        max-width: 400px; /* Ensure modal doesn’t grow too large */
-        margin: auto !important; /* Center the modal */
-    }
+        @media (max-width:1189px) {
+            .report-view-style {
+                margin: 10px !important;
+            }
+        }
 
-    .bootstrap-select>.dropdown-toggle {
-        width: 60% !important;
-        float: left !important;
-    }
+        @media (max-width: 430px) {
+            .modal-content-style {
+                width: 100% !important;
+                /* Adjust width to fit small screens */
+                max-width: 400px;
+                /* Ensure modal doesn’t grow too large */
+                margin: auto !important;
+                /* Center the modal */
+            }
 
-    .all-input-style::placeholder{
-        float: left !important;
-    }
-    .all-input-style{
-        text-align: left !important;
-    }
+            .bootstrap-select>.dropdown-toggle {
+                width: 60% !important;
+                float: left !important;
+            }
 
-}
+            .all-input-style::placeholder {
+                float: left !important;
+            }
 
-@media (max-width:250px) {
-    .modal-content-style {
-        width: 75% !important;
-    }
-    .bootstrap-select>.dropdown-toggle {
-        width: 50% !important;
-    }
-    .bootstrap-select .dropdown-menu {
-        min-width: 30% !important;
-    }
-}
+            .all-input-style {
+                text-align: left !important;
+            }
+
+        }
+
+        @media (max-width:250px) {
+            .modal-content-style {
+                width: 75% !important;
+            }
+
+            .bootstrap-select>.dropdown-toggle {
+                width: 50% !important;
+            }
+
+            .bootstrap-select .dropdown-menu {
+                min-width: 30% !important;
+            }
+        }
 
         .all-input-style::placeholder {
             text-align: center;
@@ -216,16 +228,23 @@
             padding: 16px;
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 1000px) {
             .sidebar {
-                width: 300px;
+                width: 200px;
                 padding-top: 40px;
-                margin-top: 10%;
+                margin-top: 0;
             }
 
             .sidebar a {
-                font-size: 20px;
+                font-size: 10px;
                 padding: 10px 20px;
+            }
+
+
+            .sidebar button {
+                font-size: 11px;
+                padding: 6px 6px;
+                margin: 6px;
             }
 
             .sidebar .closebtn {
@@ -236,24 +255,13 @@
             #main {
                 margin-left: 0;
             }
-        }
 
 
-        @media screen and (max-width: 480px) {
-            .sidebar {
-                width: 250px;
-                padding-top: 30px;
-                margin-top: 2%;
-            }
-
-            .sidebar a {
-                font-size: 13px;
-                padding: 8px 15px;
-            }
-
-            .sidebar .closebtn {
-                font-size: 24px;
-                right: 10px;
+            .app_logo {
+                width: 60px;
+                height: auto;
+                margin-left: 1px;
+                margin-right: auto;
             }
         }
 
@@ -265,7 +273,7 @@
             background-color: white;
             color: #02066F;
             margin: 20px;
-            font-size: 18px;
+            /* font-size: 18px; */
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -286,6 +294,15 @@
             width: 101px;
             height: 73.53px;
             margin-right: 20px;
+        }
+        .report-setting-head{
+            margin-left: 23%;
+        }
+
+        @media (max-width:1190px) {
+            .report-setting-head{
+                margin-left: 0% !important;
+            }
         }
     </style>
 
@@ -373,10 +390,10 @@
             <div class="emp-list">
                 <div class="row">
                     <div class="col-6">
-                        <h3 class="text-center fw-bold mb-3">Report Settings</h3>
+                        <h3 class="fw-bold mb-3 report-setting-head">Report Settings</h3>
                     </div>
                     <div class="col-6">
-                        <span style="float:right;"><button class="btn float-end" onclick="dataRemove()"
+                        <span style="float:right;"><button class="btn float-end addEntryBtnStyle" onclick="dataRemove()"
                                 data-bs-toggle="modal" data-bs-target="#myModal" id="add-entry">Add
                                 Entry</button></span>
                     </div>
@@ -458,7 +475,7 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="fw-bold mb-4 mt-5" style="margin-left: 155px;">Report View Settings</h3>
+                <h3 class="fw-bold mb-4 mt-5 report-view-style" style="margin-left: 155px;">Report View Settings</h3>
 
 
                 <div class="emp-table table-responsive">

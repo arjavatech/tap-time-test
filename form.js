@@ -8,7 +8,7 @@ let street = document.getElementById("street");
 let state = document.getElementById("state");
 let city = document.getElementById("city");
 let subject = document.getElementById("sub");
-let message = document.getElementById("msg");
+let message = document.getElementById("message");
 let zip = document.getElementById('zipCode');
 
 // When the submit button click then called this function 
@@ -34,7 +34,7 @@ async function actionFun(event) {
     if (isFirstNameValid && isLastNameValid
          && isRequiredFieldsValid && isValidateZipCode 
          &&  isValidatePhone) {
-            const apiLink = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/web_contact_us/create`;
+            const apiLink = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/web_contact_us/create`;
 
             const userData = {
                 FirstName: firstName.value, 
@@ -60,14 +60,14 @@ async function actionFun(event) {
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);
                 }
-        
                 const data = await response.json();
-                document.getElementById('overlaying').style.display = 'none';
-                const modalElement = document.getElementById('addEntryModal');
-                const modalInstance = new bootstrap.Modal(modalElement);
-                modalInstance.show();
         
                 if (!data.error) {
+                   
+                    const modalElement = document.getElementById('addEntryModal');
+                    const modalInstance = new bootstrap.Modal(modalElement);
+                    modalInstance.show();
+                    document.getElementById('overlaying').style.display = 'none';
                     firstName.value = "";
                     lastName.value = "";
                     email.value = "";
@@ -79,7 +79,7 @@ async function actionFun(event) {
                     message.value = "";
                 }
             } catch (error) {
-                console.error('Error:', error);
+               
             }
     }
     else{
@@ -91,7 +91,7 @@ async function actionFun(event) {
 var isAlpha = /^[a-zA-Z\s]+$/;
 function validName(errorElement, inputElement) {
     if (inputElement.value.trim() === '') {
-        errorElement.textContent = 'Name is required';
+        errorElement.textContent = '';
         return false;
     } else if (!isAlpha.test(inputElement.value)) {  // Fix: Only show error if the input contains non-letter characters
         errorElement.textContent = 'Only use letters, don\'t use digits';
@@ -150,16 +150,3 @@ function validatePhone(inputElement, errorElement) {
         return true;
     }
 }
-
-// When I click submit button
-document.getElementById('emp_form').addEventListener('submit', function(event) {
-    console.log("Submit event triggered"); // Check if this logs
-    
-    if (this.checkValidity()) {
-        event.preventDefault(); // Prevent default form submission
-        actionFun(event);       // Call your custom function
-    } else {
-        event.preventDefault(); // Prevent form submission if invalid
-        this.reportValidity();  // Show browser validation messages
-    }
-});

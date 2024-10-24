@@ -225,7 +225,6 @@
             padding: 16px;
         }
 
-
         .logo {
             width: 101px;
             height: 73.53px;
@@ -256,46 +255,44 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                width: 300px;
-                padding-top: 40px;
-                margin-top: 10%;
-            }
+        @media screen and (max-width: 1000px) {
+    .sidebar {
+        width: 200px;
+        padding-top: 40px;
+        margin-top: 0;
+    }
 
-            .sidebar a {
-                font-size: 20px;
-                padding: 10px 20px;
-            }
+    .sidebar a {
+        font-size: 10px;
+        padding: 10px 20px;
+    }
 
-            .sidebar .closebtn {
-                font-size: 30px;
-                right: 15px;
-            }
+    
+    .sidebar button {
+        font-size: 11px; 
+        padding: 6px 6px;
+        margin: 6px; 
+    }
 
-            #main {
-                margin-left: 0;
-            }
-        }
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+
+   
+    .app_logo {
+        width: 60px; 
+        height: auto;
+        margin-left: 1px; 
+        margin-right: auto; 
+    }
+}
 
 
-        @media screen and (max-width: 480px) {
-            .sidebar {
-                width: 250px;
-                padding-top: 30px;
-                margin-top: 2%;
-            }
-
-            .sidebar a {
-                font-size: 13px;
-                padding: 8px 15px;
-            }
-
-            .sidebar .closebtn {
-                font-size: 24px;
-                right: 10px;
-            }
-        }
 
         .sidebar a i {
             margin-right: 15px;
@@ -305,7 +302,7 @@
             background-color: white;
             color: #02066F;
             margin: 20px;
-            font-size: 18px;
+            /* font-size: 18px; */
             border-radius: 6px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -316,7 +313,20 @@
             color: #02066F;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
+        #addButton {
+            display: block;
+            margin: 0 auto 10px auto; 
+        }
 
+        #para {
+             margin-top: 0; 
+        }
+        @media (max-width:768px) {
+            #footer_id{
+                position: relative !important;
+            }
+        }
+        
         
     </style>
 
@@ -458,7 +468,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEntryModalLabel">Logout</h5>
+                    <h5 class="modal-title" id="addEntryModalLabel" style="text-align: center; width: 100%;">Logout</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
@@ -475,32 +485,28 @@
 
 
     <!-- Footer  -->
-    <footer id="footer_id">
-        <div class="footer-container container-fluid mt-5">
+    <footer id="footer_id" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #02066F; color: white; padding: 20px 0; ">
+        <div class="footer-container container-fluid">
             <!-- Logo and Social Links Section -->
             <div class="logo-social">
-                <div class="logo ">
+                <div class="logo">
                     <img src="icon/logo.png" alt="Tap Time Logo">
                 </div>
                 <br>
-                <p style="text-align: center !important;">Powered by <br>Arjava Technologies</p>
+                <p>Powered by <br>Arjava Technologies</p>
                 <br>
                 <div class="social-icons">
-                    <a href="https://www.linkedin.com/company/arjavatech/" style="transition: all 0.3s ease;"
-                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href="https://www.linkedin.com/company/arjavatech/" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/linkedin 1.png" alt="LinkedIn"></a>
-                    <a href="https://www.facebook.com/profile.php?id=61565587366048" style="transition: all 0.3s ease;"
-                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href="https://www.facebook.com/profile.php?id=61565587366048" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/facebook 1.png" alt="Facebook"></a>
-                    <a href="https://www.instagram.com/_tap_time" style="transition: all 0.3s ease;"
-                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href="https://www.instagram.com/_tap_time" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/instagram 1.png" alt="Instagram"></a>
-                    <a href=" https://x.com/_Tap_Time" style="transition: all 0.3s ease;"
-                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href=" https://x.com/_Tap_Time" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/twitter 1.png" alt="X"></a>
                 </div>
             </div>
-
+    
             <!-- Quick Links Section -->
             <div class="quick-links">
                 <h4>Quick Links</h4>
@@ -513,33 +519,28 @@
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
-
+    
             <!-- Address Section -->
-
             <div class="address">
                 <div style="display: inline-flex;">
-                    <img src="icon/location-pin (1) 1.png"
-                        style="width: 20px;padding-right: 15px; height: 20px; padding-top: 25px;" alt="">
+                    <img src="icon/location-pin (1) 1.png" style="width: 20px;padding-right: 15px; height: 20px; padding-top: 25px;" alt="">
                     <h4>Address</h4>
                 </div>
-
-                <p style="padding-left: 30px;">Arjava Technologies,<br>2135 204th PL NE,<br>Sammamish,<br> WA - 98074.
-                </p>
+                <p style="padding-left: 30px;">Arjava Technologies,<br>2135 204th PL NE,<br>Sammamish,<br> WA - 98074.</p>
                 <br>
                 <div style="display: inline-flex;margin-top: 5px;">
-                    <img src="icon/phone-call (1) 1.png"
-                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <img src="icon/phone-call (1) 1.png" style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
                     <p><a href="tel:+14258181900">(541) 371-2950 </a></p>
                 </div><br>
                 <div style="display: inline-flex;margin-top: 5px;">
-                    <img src="icon/paper-plane 1.png"
-                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <img src="icon/paper-plane 1.png" style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
                     <p><a href="mailto:contact@tap-time.com">contact@tap-time.com</a></p>
                 </div>
-
             </div>
         </div>
     </footer>
+    
+
 
     <script>
         // When I click Logo go to home page 
@@ -579,7 +580,7 @@
         });
         const tableBody = document.getElementById("tableBody");
         // let isActiveVaraiable;
-        const apiUrlBase = "https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/device";
+        const apiUrlBase = "https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/device";
 
         function showProgressIndicator() {
             document.getElementById('overlay').style.display = 'flex';
@@ -624,8 +625,8 @@
             navigator.clipboard.writeText(accessKeyValue).then(() => {
                 // Show a custom tooltip with a "Copied!" message  
                 const tooltipHTML = `  
-        <div class="custom-tooltip">Copied!</div>  
-      `;
+           <div class="custom-tooltip">Copied!</div>  
+            `;
 
                 // Append the tooltip to the body  
                 document.body.innerHTML += tooltipHTML;
@@ -635,15 +636,12 @@
                     document.querySelector('.custom-tooltip').remove();
                 }, 2000);
             }).catch(err => {
-                console.error('Failed to copy: ', err);
+              
             });
         }
 
 
         function viewDevices() {
-            // let getAccessKey = localStorage.getItem('aKey');
-            // console.log(getAccessKey);
-            // if(getAccessKey==undefined){
             document.getElementById('overlay').style.display = 'flex';
             const companyId = localStorage.getItem('companyID');
             const apiUrl = `${apiUrlBase}/getAll/${companyId}`;
@@ -691,7 +689,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    
                 })
                 .finally(() => {
                     document.getElementById('overlay').style.display = 'none';
@@ -735,7 +733,6 @@
                     editDeviceModal.hide();
                 })
                 .catch(error => {
-                    console.error('Error updating device:', error);
                 });
         }
 
@@ -783,7 +780,7 @@
                     }, 1000);
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    
                 })
                 .finally(() => {
                     document.getElementById('overlay').style.display = 'none';
@@ -829,7 +826,7 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                  
                 });
         }
 

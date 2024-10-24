@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.post('/create-checkout-session', async (req, res) => {
   try {
-    console.log('Creating checkout session');
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -29,14 +29,14 @@ app.post('/create-checkout-session', async (req, res) => {
       success_url: `${req.headers.origin}/success.html`,
 cancel_url: `${req.headers.origin}/singup.html`, // Corrected this line
     });
-    // console.log('Checkout session created:', session.id);
+    // .log('Checkout session created:', session.id);
     res.json({ id: session.id });
   } catch (error) {
-    // console.error('Error creating checkout session:', error.message);
+    // .error('Error creating checkout session:', error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
 app.listen(3000, () => {
-  // console.log('Server is running on port 3000');
+  // .log('Server is running on port 3000');
 });

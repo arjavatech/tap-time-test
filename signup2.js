@@ -74,9 +74,9 @@ function validatePhoneNumber() {
 // API link 
 // Signup second page link
 
-const apiUrlBase = 'https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/customer';
+const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/customer';
 const cid = uuid.v4();
-const firstSignupPageapiUrlBase = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/company`;
+const firstSignupPageapiUrlBase = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company`;
 
 async function validateForm(event) {
     event.preventDefault();
@@ -172,7 +172,7 @@ async function craeteFirstPageSignupAPiData() {
         ReportType: "Weekly",
         LastModifiedBy:'Admin'
     };
-    console.log(userData);
+  
 
     try {
         const response = await fetch(firstSignupPageapiUrl, {
@@ -201,9 +201,9 @@ async function craeteFirstPageSignupAPiData() {
                 }, 100);
             }
         }
-        //   console.log(data);
+        //   .log(data);
     } catch (error) {
-        console.error('Error:', error);
+        
     }
 }
 
@@ -258,7 +258,7 @@ async function checkPassword() {
 
         return encryptedPassword.toString();
     } catch (error) {
-        console.error('Error:', error);
+    
     }
 }
 
@@ -318,11 +318,11 @@ function createApiData() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
+      
             window.location.href = "login.html";
         })
         .catch(error => {
-            console.error('Error:', error);
+           
         });
 }
 
@@ -367,14 +367,14 @@ async function createCheckoutSession() {
     try {
         const link = "http://127.0.0.1:5504";
         const link2 = "https://tap-time.com";
-        const link3 = "https://arunkavitha1982.github.io/icode"
-        const response = await fetch(`https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/create-checkout-session`, {
+        const link3 = "https://arjavatech.github.io/tap-time-test"
+        const response = await fetch(`https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/create-checkout-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "url": link2,
+                "url": link3,
                 "productName": "EMS Product",
                 "amount": 2000
             })
@@ -384,11 +384,11 @@ async function createCheckoutSession() {
             throw new Error(errorDetails.error);
         }
         const session = await response.json();
-        console.log('Checkout session:', session);
+        
         const stripe = Stripe('pk_test_51OB8JlIPoM7JHRT2DlaE8KmPRFkgeSXkqf4eQZxEahu0Lbno3vHzCTH5J4rDAfw53PjdWlLteNJNzPVdahkzTb8100DA6sqAp4');
         await stripe.redirectToCheckout({ sessionId: session.id });
     } catch (error) {
-        console.error('Error creating checkout session:', error);
+      
     }
 }
 

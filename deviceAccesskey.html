@@ -107,7 +107,72 @@
         height: 73.53px;
         margin-right: 20px;
     }
+    @media screen and (max-width: 1000px) {
+    .sidebar {
+        width: 200px;
+        padding-top: 40px;
+        margin-top: 0;
+    }
 
+    .sidebar a {
+        font-size: 10px;
+        padding: 10px 20px;
+    }
+
+    
+    .sidebar button {
+        font-size: 11px; 
+        padding: 6px 6px;
+        margin: 6px; 
+    }
+
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+
+   
+    .app_logo {
+        width: 60px; 
+        height: auto;
+        margin-left: 1px; 
+        margin-right: auto; 
+    }
+}
+
+
+
+        .sidebar a i {
+            margin-right: 15px;
+        }
+
+        .sidebar button {
+            background-color: white;
+            color: #02066F;
+            margin: 20px;
+            /* font-size: 18px; */
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar button:hover {
+            background-color: gray;
+            color: #02066F;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        #addButton {
+            display: block;
+            margin: 0 auto 10px auto; 
+        }
+
+        #para {
+             margin-top: 0; 
+        }
     
 </style>
 
@@ -220,7 +285,7 @@
             window.open('index.html', 'noopener, noreferrer');
         })
 
-        const apiUrlBase = "https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/device";
+        const apiUrlBase = "https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/device";
 
         function accessKeyCreate(firstFourDigit, lastFourDigit) {
             const createUuidForAccessKey = uuid.v4().replace(/-/g, '').substring(0, 6);
@@ -269,7 +334,7 @@
                     // viewDevices(); // Ensure this function is defined
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                  
                 })
                 .finally(() => {
                     document.getElementById('overlay').style.display = 'none';

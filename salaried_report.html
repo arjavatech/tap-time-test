@@ -428,40 +428,43 @@
         float: right;
 
     }
-    @media screen and (max-width: 480px) {
+    @media screen and (max-width: 1000px) {
     .sidebar {
-        width: 250px;
-        padding-top: 30px;
-        
+        width: 200px;
+        padding-top: 40px;
+        margin-top: 0;
     }
 
     .sidebar a {
-        font-size: 13px;
-        padding: 8px 15px;
+        font-size: 10px;
+        padding: 10px 20px;
+    }
+
+    
+    .sidebar button {
+        font-size: 11px; 
+        padding: 6px 6px;
+        margin: 6px; 
     }
 
     .sidebar .closebtn {
-        font-size: 24px;
-        right: 10px;
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+
+   
+    .app_logo {
+        width: 60px; 
+        height: auto;
+        margin-left: 1px; 
+        margin-right: auto; 
     }
 }
 
-
-    @media (max-width: 480px) {
-        .app_logo {
-            width: 60px;
-            height: auto;
-            margin-right: 100px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .app_logo {
-            width: 80px;
-            height: auto;
-            margin-right: 100px;
-        }
-    }
 </style>
 
 <body>
@@ -595,7 +598,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEntryModalLabel">Logout</h5>
+                    <h5 class="modal-title" id="addEntryModalLabel" style="text-align: center; width: 100%;">Logout</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>

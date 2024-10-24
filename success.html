@@ -58,11 +58,11 @@
             }, 300);
         })
         // API link 
-        const apiUrlBase = 'https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/customer';
+        const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/customer';
         const cid = uuid.v4(); // Use uuid.v4 to generate a UUID
         localStorage.setItem('companyID', cid);
 
-        const firstSignupPageapiUrlBase = 'https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/company';
+        const firstSignupPageapiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company';
 
         async function createFirstPageSignupAPiData() {
             const firstSignupPageapiUrl = `${firstSignupPageapiUrlBase}/create`;
@@ -78,7 +78,7 @@
 
             const passwordEncrypted = localStorage.getItem('passwordEncrypted');
 
-            console.log(passwordEncrypted);
+     
             print("---------------------------------------");
 
             const userData = {
@@ -117,7 +117,7 @@
                     document.getElementById('overlay').style.display = 'none';
                 }
             } catch (error) {
-                console.error('Error:', error);
+                
             }
         }
 
@@ -154,7 +154,7 @@
                 const encryptedPassword = await encrypt(password, key);
                 return encryptedPassword;
             } catch (error) {
-                console.error('Error in checkPassword:', error);
+             
             }
         }
 
@@ -167,7 +167,7 @@
             const phone = localStorage.getItem('phoneNumber');
             const email = localStorage.getItem('email');
 
-            localStorage.setItem('customId', customerId);
+            localStorage.setItem('customerID', customerId);
             localStorage.setItem('phone', phone);
 
 
@@ -197,12 +197,12 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data);
+               
                     window.location.href = "deviceAccesskey.html";
                     document.getElementById('overlay').style.display = 'none';
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                   
                 });
         }
 

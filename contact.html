@@ -16,123 +16,23 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet" href="inputs.css">
-    <!-- <link rel="stylesheet" href="form.css"> -->
+    <!-- Js link  -->
     <script defer src="contact.js"></script>
     <link rel="icon" href="Image/app_logo.png">
+    <!-- css link  -->
     <link rel="stylesheet" href="employee_list.css">
     <link rel="stylesheet" href="report_summary.css">
+    <!-- Web app nav style  -->
     <link rel="stylesheet" href="nav.css">
+    <!-- web app footer style  -->
     <link rel="stylesheet" href="footer.css">
-
-
+    <!-- Contact page styles  -->
+    <link rel="stylesheet" href="contact.css">
+    <!-- Input styles  -->
+    <link rel="stylesheet" href="inputs.css">
+    <!-- Sidebar mobile view menu css  -->
+     <link rel="stylesheet" href="sidebarmenu.css">
 </head>
-
-<style>
-    .no {
-        color: white;
-        border: solid 1px #02066F !important;
-        padding: 5px 21px !important;
-    }
-
-    .yes {
-        color: white;
-        background-color: #02066F;
-        padding: 5px 24px !important;
-    }
-
-    .navbar-toggler {
-        background-color: #02066F;
-        color: white;
-        border: 2px solid white;
-        padding: 10px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .navbar-toggler-icon {
-        background-color: white;
-    }
-
-
-    #main {
-        transition: margin-left .5s;
-        padding: 16px;
-    }
-
-    .footer {
-        overflow: hidden !important;
-
-    }
-
-    .logo {
-        width: 101px;
-        height: 73.53px;
-        margin-right: 20px;
-    }
-
-    @media screen and (max-width: 768px) {
-        .sidebar {
-            width: 300px;
-            padding-top: 40px;
-            margin-top: 10%;
-        }
-
-        .sidebar a {
-            font-size: 20px;
-            padding: 10px 20px;
-        }
-
-        .sidebar .closebtn {
-            font-size: 30px;
-            right: 15px;
-        }
-
-        #main {
-            margin-left: 0;
-        }
-    }
-
-
-    @media screen and (max-width: 480px) {
-        .sidebar {
-            width: 250px;
-            padding-top: 30px;
-            margin-top: 2%;
-        }
-
-        .sidebar a {
-            font-size: 13px;
-            padding: 8px 15px;
-        }
-
-        .sidebar .closebtn {
-            font-size: 24px;
-            right: 10px;
-        }
-    }
-
-    .sidebar a i {
-        margin-right: 15px;
-    }
-
-    .sidebar button {
-        background-color: white;
-        color: #02066F;
-        margin: 20px;
-        font-size: 18px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .sidebar button:hover {
-        background-color: gray;
-        color: #02066F;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    }
-</style>
 
 <body>
     <!-- Nav bar  -->
@@ -170,6 +70,7 @@
             </div>
         </div>
     </nav>
+    <!-- End Nav bar  -->
 
 
     <!-- Go to home page modal -->
@@ -206,53 +107,38 @@
         <button class="btn logoutButton" onclick="logOutACtion()">Logout</button>
     </div>
 
+    <!-- Body Contents  -->
     <section>
         <div class="container box-sty mt-5">
             <h3 class=" text-center fw-bold mb-3" id="myModalLabel">Contact Us</h3>
+            <!-- Contact Page Form  -->
             <form id="emp_form" class="p-2 text-center">
-                <!-- <div class="material-textfield mb-3 form-group"> -->
-                <!-- <input id="cname" class="form-control" placeholder=" Name*" type="text" required
-                                    onblur="validCName()"> -->
-                <!-- <label class="cname">Name <span class="text-danger">*</span></label>
-                                <span id="error-name" class="text-danger"></span> -->
+                <!-- Name  -->
                 <input type="text" id="cname" placeholder="Name" onblur="validCName()" class="all-input-style mb-3"
                     required>
                 <span id="error-name" class="text-danger"></span>
-                <!-- </div> -->
-                <!-- <div class="material-textfield mb-3 form-group"> -->
-                <!-- <input id="cemail" class="form-control" placeholder="Email* " type="email" required
-                                    onblur="validCEmail()"> -->
-                <!-- <label class="cemail">Email <span class="text-danger">*</span></label>
-                                <span id="error-email" class="text-danger"></span> -->
+                <!-- Email  -->
                 <input type="email" id="cemail" placeholder="Email" class="all-input-style mb-3" required>
-                <!-- </div> -->
-                <!-- <div class="material-textfield mb-3 form-group"> -->
-                <!-- <textarea name="question" id="question" class="form-control" placeholder=" Message/Queries" required
-                                    onblur="validCQueries()"></textarea> -->
-                <!-- <label class="queries">Message/Queries <span class="text-danger">*</span></label>
-                                <span id="error-textarea" class="text-danger"></span> -->
+                <!-- Messege  -->
                 <textarea name="question" id="question" class="all-input-style mb-3" placeholder=" Message/Queries"
                     required onblur="validCQueries()"></textarea>
                 <span id="error-textarea" class="text-danger"></span>
-                <!-- </div> -->
-                <!-- <div class="material-textfield mb-3 form-group"> -->
-                <!-- <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
-                                    placeholder="phoneNumber " oninput="formatPhoneNumber()" onblur="validatePhoneNumber()"
-                                    required> -->
-                <!-- <label>Phone Number <span class="text-danger">*</span></label>
-                                <span class="text-danger" id="error-phone"></span> -->
+                <!-- Phone number  -->
                 <input type="tel" id="phoneNumber" placeholder="phoneNumber" oninput="formatPhoneNumber()"
                     onblur="validatePhoneNumber()" class="all-input-style mb-3" required>
                 <span class="text-danger" id="error-phone"></span>
-                <!-- </div> -->
+                <!-- Email Id  -->
                 <div class="d-flex justify-content-center align-items-baseline textfond">
                     <h6 class="me-2 link-text"><b>Write to us at :</b></h6>
                     <p class="ms-1"><a href="mailto:contact@tap-time.com" target="_blank"
                             class="link-style">contact@tap-time.com</a></p>
                 </div>
+                <!-- Submit button  -->
                 <input type="submit" class="btn btn-green" value="Submit">
             </form>
+            <!-- End Contact Page Form  -->
 
+            <!-- When the form submiting successFul then run this modal part  -->
             <!-- Show the Response modal -->
             <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel"
                 aria-hidden="true">
@@ -275,12 +161,12 @@
             </div>
             <!--End Show the Response modal -->
 
-            <!-- Log out  -->
+            <!-- Log out Button Modal  -->
             <div class="modal fade" id="logOut" tabindex="-1" aria-labelledby="logOutLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="logOutLabel">Logout</h5>
+                            <h5 class="modal-title" id="logOutLabel" style="text-align: center; width: 100%;">Logout</h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
@@ -294,14 +180,16 @@
                     </div>
                 </div>
             </div>
+            <!-- End Log out Button Modal  -->
 
         </div>
     </section>
+    <!-- End Body Contents  -->
 
     <!-- Footer  -->
     <footer>
         <div class="footer-container container-fluid mt-5">
-            <!-- Logo and Social Links Section -->
+            <!-- Logo and Social Media Links Section -->
             <div class="logo-social">
                 <div class="logo ">
                     <img src="icon/logo.png" alt="Tap Time Logo">
@@ -339,7 +227,6 @@
             </div>
 
             <!-- Address Section -->
-
             <div class="address">
                 <div style="display: inline-flex;">
                     <img src="icon/location-pin (1) 1.png"
@@ -362,8 +249,10 @@
                 </div>
 
             </div>
+
         </div>
     </footer>
+    <!-- End Footer  -->
 
     <script>
         function logoutCall() {

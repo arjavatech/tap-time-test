@@ -74,7 +74,7 @@
         justify-content: center;
     }
 
-    #add-entry {
+    .addEntryBtnStyle {
         margin-left: 0%;
     }
 }
@@ -193,7 +193,7 @@
         max-width: 100%;
     }
 
-    #add-entry {
+    .addEntryBtnStyle {
         border: 1px solid #02066F;
         color: #02066F;
         margin-left: -100%;
@@ -203,7 +203,7 @@
 }
 
 @media (min-width:1200px) {
-    #add-entry{
+    .addEntryBtnStyle{
         margin-inline-end: 150px;
     }
 }
@@ -304,7 +304,7 @@ td {
     font-size: 18px;
 }
 
-#add-entry {
+.addEntryBtnStyle {
     border: 1px solid #02066F;
     color: #02066F;
     background-color: white;

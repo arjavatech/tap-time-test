@@ -1,19 +1,19 @@
 /* Navbar Styles */
-.bg-green {
+/* .bg-green {
     background-color: #02066F;
-}
+} */
 
-.navbar-dark .navbar-nav .nav-link {
+/* .navbar-dark .navbar-nav .nav-link {
     color: #fff ;
     font-size: 18px;
     font-weight: 600;
-}
+} */
 
-.rounded-pill-active {
+/* .rounded-pill-active {
     border-radius: 50rem;
     background-color: #fff;
     color: #02066F !important;
-}
+} */
 
 /* Form Styles */
 /* General Form Layout */
@@ -27,42 +27,11 @@
     margin: 0 auto; /* Center the box horizontally */
 }
 
-.material-textfield {
-    position: relative;
-}
-
-.material-textfield input,
-.material-textfield textarea {
-    background-color: transparent;
-    font-size: 16px;
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    transition: border-color 0.2s;
-}
-
-.material-textfield input:focus,
-.material-textfield textarea:focus {
-    border-bottom: 1px solid #02066F;
-    outline: none;
-}
-
-.material-textfield label {
-    position: absolute;
-    top: 10px;
-    left: 0;
-    color: #999;
-    pointer-events: none;
-    transition: all 0.2s;
-    font-size: 12px;
-}
-
 textarea {
     min-height: 50px;
 }
 
-form h6 {
+.link-text {
     font-size: 14px;
 }
 
@@ -128,4 +97,108 @@ form .btn-green:hover {
     }
 
 
+}
+
+
+.no {
+    color: white;
+    border: solid 1px #02066F !important;
+    padding: 5px 21px !important;
+}
+
+.yes {
+    color: white;
+    background-color: #02066F;
+    padding: 5px 24px !important;
+}
+
+.navbar-toggler {
+    background-color: #02066F;
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-toggler-icon {
+    background-color: white;
+}
+
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+.footer {
+    overflow: hidden !important;
+
+}
+
+.logo {
+    width: 101px;
+    height: 73.53px;
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+.sidebar {
+    width: 200px;
+    padding-top: 40px;
+    margin-top: 0;
+}
+
+.sidebar a {
+    font-size: 10px;
+    padding: 10px 20px;
+}
+
+
+.sidebar button {
+    font-size: 11px; 
+    padding: 6px 6px;
+    margin: 6px; 
+}
+
+.sidebar .closebtn {
+    font-size: 30px;
+    right: 15px;
+}
+
+#main {
+    margin-left: 0;
+}
+
+
+.app_logo {
+    width: 60px; 
+    height: auto;
+    margin-left: 1px; 
+    margin-right: auto; 
+}
+}
+
+
+
+
+.sidebar a i {
+    margin-right: 15px;
+}
+
+.sidebar button {
+    background-color: white;
+    color: #02066F;
+    margin: 20px;
+    font-size: 11px !important; /* Apply font-size 8px */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.sidebar button:hover {
+    background-color: gray;
+    color: #02066F;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }

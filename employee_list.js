@@ -1,6 +1,6 @@
 
-const apiUrlBase = 'https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/employee';
-let adminCount = 0;
+const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/employee';
+var adminCount = 0;
 
 // When I click close modal with have any error in this form we need to clear all error msg 
 $('#myModal').on('hidden.bs.modal', function () {
@@ -25,7 +25,18 @@ document.getElementById('emp_form').addEventListener('submit', function(event) {
 
 // Remove Data
 
-function dataRemove(e) {
+function dataRemove(getid) {
+    if(getid == 'empDetail'){
+        document.getElementById('Dropdown').classList.add('none');
+    }
+    else{
+        document.getElementById('myModalLabel').textContent = 'Admin Details';
+        document.getElementById('Dropdown').classList.remove('none');
+    }
+    document.getElementById('mainBtn').value = 'Submit';
+    const formModalElement = document.getElementById('myModal');
+    const formModalInstance = new bootstrap.Modal(formModalElement);
+    formModalInstance.show();
     document.getElementById("instructor").value = "";
     document.getElementById("fName").value = "";
     document.getElementById("lName").value = "";
@@ -136,7 +147,7 @@ function addEmpdetails(event) {
 
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                
                 });
         } else {
             const apiUrl = `${apiUrlBase}/update/${empupdateid}`;
@@ -185,7 +196,7 @@ function addEmpdetails(event) {
 
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    
                 });
         }
 
@@ -236,13 +247,23 @@ function viewEmpdetails() {
             adminCount = 0;
             // Populate the table body with fetched data
             employeesData.forEach(element => {
+                    document.getElementById("Dropdown").disabled = false;
+                    document.getElementById("Dropdown").value = "false";
                 
-
-                if(adminCount >= 3){
+                console.log("adc= "+adminCount)
+               
+                 if(adminCount > 2)
+                {
+                    
+                    document.getElementById('add-entry-admin').disabled = true;
+                    document.getElementById('add-entry-admin').style.backgroundColor = '#A0A0A0';
+                    document.getElementById('add-entry-admin').style.color = '	#141414';
+                    document.getElementById('add-entry-admin').style.cursor = 'not-allowed';
                     document.getElementById("Dropdown").disabled = true;
                     document.getElementById("Dropdown").value = "false";
                 }
-                else{
+                else
+                {
                     document.getElementById("Dropdown").disabled = false;
                     document.getElementById("Dropdown").value = "false";
                 }
@@ -263,13 +284,17 @@ function viewEmpdetails() {
                 `;
                 // tableBody.appendChild(newRow);
                 if(element.IsAdmin == 0){
+                   
                     tableBody.appendChild(newRow);
                 }
                 else{
                     if(adminCount<3){
-                    tableBody2.appendChild(newRow); 
+                       
+                    tableBody2.appendChild(newRow);
+                    
                     }
-                    adminCount+=1;
+                    adminCount+=1;  
+                    console.log(adminCount);
                 }
                 index++;
                 if(index===5){
@@ -289,7 +314,7 @@ function viewEmpdetails() {
             document.getElementById('overlay').style.display = 'none';
         })
         .catch(error => {
-            console.error('Fetch error:', error);
+        
             document.getElementById('overlay').style.display = 'none';
         });
 }
@@ -326,7 +351,7 @@ function editEmpdetails(emId) {
             });
         })
         .catch(error => {
-            console.error('Error:', error);
+       
         });
 }
 
@@ -334,7 +359,6 @@ function editEmpdetails(emId) {
 
 function deleteEmpdetails(emId) {
     const apiUrl = `${apiUrlBase}/delete/${emId}/Admin`;
-
     fetch(apiUrl, {
         method: 'PUT'
     })
@@ -362,8 +386,8 @@ function deleteEmpdetails(emId) {
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            ;
+      
+            
         });
 }
 
@@ -505,22 +529,4 @@ function filterAdmin() {
     });
 }
 
-// // Dummy functions for modal actions
-// function addEmpdetails(event) {
-//     // Logic to save employee details
-//     console.log("Employee details added");
-// }
 
-function addAdminDetails(event) {
-    // Logic to save admin details
-    console.log("Admin details added");
-}
-
-// function validFName() { /* Validation Logic */ }
-// function validLName() { /* Validation Logic */ }
-// function validAdminFName() { /* Validation Logic */ }
-// function validAdminLName() { /* Validation Logic */ }
-// function formatPhoneNumber() { /* Phone Number Formatting */ }
-// function formatAdminPhoneNumber() { /* Admin Phone Number Formatting */ }
-// function validateInstructerPin() { /* Validation Logic */ }
-// function validateAdminInstructerPin() { /* Validation Logic */ }

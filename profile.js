@@ -30,7 +30,7 @@ document.addEventListener('click', function (event) {
 let profileData; // Variable to hold the profile data
 let getCustomerDatasFromDb;
 const cid = localStorage.getItem('companyID');
-const customerId = localStorage.getItem('customerID');
+let customerId = localStorage.getItem('customerId');
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('overlay').style.display = 'flex';
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to load profile data from the API
 async function loadProfileDataFromAPI() {
-    const url = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/company/get/${cid}`;
+    const url = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company/get/${cid}`;
 
     try {
         const response = await fetch(url);
@@ -59,11 +59,11 @@ async function loadProfileDataFromAPI() {
 
         // Process and populate the response data
         populateProfileData(profileData);
-console.log(customerId);
+
         document.getElementById('overlay').style.display = 'none';
     } catch (error) {
         document.getElementById('overlay').style.display = 'none';
-        console.error('Error in loadProfileDataFromAPI:', error.message);
+    
     }
 
     try {
@@ -73,18 +73,21 @@ console.log(customerId);
         }
         getCustomerDatasFromDb = await customerResponse.json(); // Store data in the global variable
 
+
         // Process and populate the response data
         customerDatasPopulate(getCustomerDatasFromDb);
 
         document.getElementById('overlay').style.display = 'none';
     } catch (error) {
         document.getElementById('overlay').style.display = 'none';
-        console.error('Error in loadProfileDataFromAPI:', error.message);
+       
     }
 
 }
 
 function customerDatasPopulate(data){
+
+    customerId = data.CustomerID || '';
      // Customer datas 
      document.getElementById('firstName').value = data.FName || '';
      document.getElementById('lastName').value = data.LName || '';
@@ -106,7 +109,7 @@ function populateProfileData(data) {
         image.src = comLoDataUrl; // Set the image source to the data URL
         localStorage.setItem("imageFile", comLoDataUrl); // Save logo to localStorage
     } else {
-        console.error('Invalid data URL:', comLoDataUrl); qaa
+      
     }
 
     // Set other form fields with data
@@ -142,7 +145,6 @@ function saveFormDataToLocalStorage() {
 
 function initializeFormSubmission(event) {
     event.preventDefault();
-    console.log("helo");
     let button = document.getElementById("submiting");
     event.preventDefault();
     if (button.value === "Edit") {
@@ -163,7 +165,6 @@ function initializeFormSubmission(event) {
         });
 
         if (isPhone && isRequiredFieldsValid) {
-            console.log("Correct");
             saveFormDataToLocalStorage();
             updateApiData();
         }
@@ -303,18 +304,18 @@ function saveFormDataToLocalStorage() {
             localStorage.setItem(field, `${document.getElementById('customerStreet').value}--${document.getElementById('customerCity').value}--${document.getElementById('customerState').value}--${document.getElementById('customerZip').value}--`);
         }
         else {
-            console.log(field);
+           
             localStorage.setItem(field, document.getElementById(field).value);
         }
     });
 }
 
-const customerAPIUrlBase = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/customer`;
-const companyAPIUrlBase = `https://397vncv6uh.execute-api.us-west-2.amazonaws.com/test/company`;
+const customerAPIUrlBase = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/customer`;
+const companyAPIUrlBase = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company`;
 
 function updateApiData() {
+
     if (!cid || !customerId) {
-        console.error("UUID or CustomerID is missing in localStorage");
         return;
     }
 
@@ -333,8 +334,7 @@ function updateApiData() {
         IsActive: true,
         LastModifiedBy: 'Admin'
     };
-    console.log('--------------------');
-    console.log(document.getElementById('username').value);
+
     const companyData = {
         CID: cid,
         UserName: document.getElementById('username').value,
@@ -382,7 +382,7 @@ function updateApiData() {
                 document.querySelectorAll('.disabledData').forEach(function (input) {
                     input.disabled = true;
                 });
-                console.log("update");
+             
             }
 
             return response.json();

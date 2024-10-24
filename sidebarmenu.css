@@ -1,0 +1,60 @@
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 300px;
+        padding-top: 40px;
+        margin-top: 10%;
+    }
+
+    .sidebar a {
+        font-size: 20px;
+        padding: 10px 20px;
+    }
+
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .sidebar {
+        width: 250px;
+        padding-top: 30px;
+        margin-top: 2%;
+    }
+
+    .sidebar a {
+        font-size: 13px;
+        padding: 8px 15px;
+    }
+
+    .sidebar .closebtn {
+        font-size: 24px;
+        right: 10px;
+    }
+}
+
+.sidebar a i {
+    margin-right: 15px;
+}
+
+.sidebar button {
+    background-color: white;
+    color: #02066F;
+    margin: 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar button:hover {
+    background-color: gray;
+    color: #02066F;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}

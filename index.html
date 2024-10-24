@@ -83,7 +83,7 @@
             <!-- Left Image Section -->
             <div class="col-md-6 col-sm-12">
                 <div class="sec-col d-flex justify-content-center align-items-center">
-                    <img src="web_Image/main image.png" alt="Login Image" class="img-fluid sec-img">
+                    <img src="web_Image/main image.jpeg" alt="Login Image" class="img-fluid sec-img h-100">
                 </div>
             </div>
 
@@ -96,7 +96,7 @@
                             <img src="web_Image/Mask group.png" alt="Photo Capture" class="inside-col-img-sty">
                         </div>
                         <div class="col-10">
-                            <h4 class="text-left">Facial Recognition</h4>
+                            <h4 class="text-left">Facial recognition</h4>
                             <p>Snap photo to log hours instantly.</p>
                         </div>
                     </div>
@@ -168,26 +168,26 @@
 
     <!-- CONTACT  -->
     <h1 class="text-center mt-5 font-weight-bold">Contact</h1>
-    <div class="container d-flex justify-content-center mb-4" id="contact">
+    <div class="container d-flex justify-content-center mb-3" id="contact">
         <div class="box-sty p-5">
             <form id="emp_form">
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" id="fname" placeholder="First Name" class="all-input-style mb-3" required>
+                        <input type="text" id="fname" placeholder="First Name" class="all-input-style mb-3" style="text-align: center;" required>
                         <div id="errorMsgFName" class="text-danger text-center"></div>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" id="lname" placeholder="Last Name" class="all-input-style mb-3" required>
+                        <input type="text" id="lname" placeholder="Last Name" class="all-input-style mb-3" style="text-align: center;"required>
                         <div id="errorMsgLName" class="text-danger text-center"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="email" id="email" placeholder="Email" class="all-input-style mb-3" required>
+                        <input type="email" id="email" placeholder="Email" class="all-input-style mb-3" style="text-align: center;"required>
                         <div id="EmailError" class="text-danger text-center"></div>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" id="phone" placeholder="Phone" class="all-input-style mb-3"
+                        <input type="text" id="phone" placeholder="Phone" class="all-input-style mb-3" style="text-align: center;"
                             oninput="formatPhoneNumber(this.id)" required>
                         <div id="phoneError" class="text-danger text-center"></div>
 
@@ -195,24 +195,24 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" id="street" placeholder="Street" class="all-input-style mb-3" required>
+                        <input type="text" id="street" placeholder="Street" class="all-input-style mb-3" style="text-align: center;" required>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" id="city" placeholder="City" class="all-input-style mb-3" required>
+                        <input type="text" id="city" placeholder="City" class="all-input-style mb-3" style="text-align: center;" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <input type="text" id="zipCode" placeholder="Zip" class="all-input-style mb-3" required>
+                        <input type="text" id="zipCode" placeholder="Zip" class="all-input-style mb-3"  style="text-align: center;"required>
                         <div id="zipError" class="text-danger text-center"></div>
                     </div>
                     <div class="col-sm-6">
-                        <input type="text" id="state" placeholder="State" class="all-input-style mb-3" required>
+                        <input type="text" id="state" placeholder="State" class="all-input-style mb-3" style="text-align: center;" required>
                     </div>
                 </div>
-                <input type="text" id="sub" placeholder="Subject" class="all-input-style mb-3" required>
-                <textarea name="" id="messege" class="all-input-style mb-3" required>Message...</textarea>
-                <input type="submit" class="btn-green mt-3" value="Submit">
+                <input type="text" id="sub" placeholder="Subject" class="all-input-style mb-3" style="text-align: center;" required>
+                <textarea name="" id="message" class="all-input-style mb-3"  style="text-align: center;" required placeholder="Message..."></textarea>
+                <input type="submit" class="btn-green mt-3" onclick="actionFun(event)" style="text-align: center;" value="Submit">
                 <!-- <button class="btn-green mt-3" id="subButton">Submit</button> -->
             </form>
         </div>

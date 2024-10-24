@@ -260,46 +260,44 @@
         background-color: white;
     }
 
-    @media screen and (max-width: 768px) {
-        .sidebar {
-            width: 300px;
-            padding-top: 40px;
-            margin-top: 10%;
-        }
-
-        .sidebar a {
-            font-size: 20px;
-            padding: 10px 20px;
-        }
-
-        .sidebar .closebtn {
-            font-size: 30px;
-            right: 15px;
-        }
-
-        #main {
-            margin-left: 0;
-        }
+    @media screen and (max-width: 1000px) {
+    .sidebar {
+        width: 200px;
+        padding-top: 40px;
+        margin-top: 0;
     }
 
-
-    @media screen and (max-width: 480px) {
-        .sidebar {
-            width: 250px;
-            padding-top: 30px;
-            margin-top: 2%;
-        }
-
-        .sidebar a {
-            font-size: 13px;
-            padding: 8px 15px;
-        }
-
-        .sidebar .closebtn {
-            font-size: 24px;
-            right: 10px;
-        }
+    .sidebar a {
+        font-size: 10px;
+        padding: 10px 20px;
     }
+
+    
+    .sidebar button {
+        font-size: 11px; 
+        padding: 6px 6px;
+        margin: 6px; 
+    }
+
+    .sidebar .closebtn {
+        font-size: 30px;
+        right: 15px;
+    }
+
+    #main {
+        margin-left: 0;
+    }
+
+   
+    .app_logo {
+        width: 60px; 
+        height: auto;
+        margin-left: 1px; 
+        margin-right: auto; 
+    }
+}
+
+
 
     .sidebar a i {
         margin-right: 15px;
@@ -309,7 +307,7 @@
         background-color: white;
         color: #02066F;
         margin: 20px;
-        font-size: 18px;
+        /* font-size: 18px; */
         border-radius: 6px;
         cursor: pointer;
         transition: background-color 0.3s ease, color 0.3s ease;
@@ -443,21 +441,6 @@
                         Current Day Report</h5>
                 </div>
             </div>
-
-            <!-- Date on the left and Add Entry button on the right -->
-            <!-- <div class="row mt-3">
-                <div class="col-6 text-left">
-                    <h5 class="Date" id="Date">Date: <span id="current-checkin-header"></span></h5>
-                </div>
-                <div class="col-6 text-right">
-                    <button class="btn float-end" id="add-entry">Add Entry</button>
-                </div>
-            </div> -->
-
-            <!-- <div class="date-entry-container">
-                    <h5 class="date" id="Date">Date: <span id="current-checkin-header"></span></h5>
-                    <button class="btn add-entry-btn" id="add-entry">Add Entry</button>
-            </div> -->
         </div>
 
 
@@ -468,7 +451,7 @@
                         <h5 class="Date" id="Date">Date: <span id="current-checkin-header"></span></h5>
                     </div>
                     <div class="col-6 text-right">
-                        <button class="btn float-end" id="add-entry">Add Entry</button>
+                        <button class="btn float-end addEntryBtnStyle" id="add-entry">Add Entry</button>
                     </div>
                 </div>
             </div>
@@ -526,32 +509,19 @@
                                 </select>
                                 <div id="EmpTypeError" class="error text-center"></div>
                             </div>
-                            <!-- </div> -->
-                            <!-- <div class="material-textfield m-2 mt-3"> -->
-                            <!-- <input type="date" class="input-sty form-control" id="datePicker" name="date"
-                                    placeholder=" " max="" required>
-                                <label for="datePicker">Check-in Date (yyyy-mm-dd):</label>
-                                 -->
+                          
                             <input type="date" id="datePicker" placeholder="Check-in Date (yyyy-mm-dd):" max=""
                                 class="all-input-style mb-3" required>
                             <div id="dateError" class="error text-center"></div>
-                            <!-- </div> -->
-                            <!-- <div class="material-textfield m-2 mt-3"> -->
-                            <!-- <input type="time" class="input-sty form-control" id="checkinTime" name="checkinTime"
-                                    placeholder=" " required>
-                                <label for="checkinTime">Check-in Time:</label> -->
+                        
                             <input type="time" id="checkinTime" placeholder="Check-in Time:"
                                 class="all-input-style mb-3" required>
                             <div id="startTimeError" class="error text-center"></div>
-                            <!-- </div> -->
-                            <!-- <div class="material-textfield m-2 mt-3"> -->
-                            <!-- <input type="time" class="input-sty form-control" id="checkoutTime" name="checkoutTime"
-                                    placeholder=" " disabled required>
-                                <label for="checkoutTime">Check-out Time:</label> -->
+                       
                             <input type="time" id="checkoutTime" placeholder="Check-out Time:"
                                 class="all-input-style mb-3" disabled required>
                             <div id="endTimeError" class="error text-center"></div>
-                            <!-- </div> -->
+                        
 
                             <div class="text-center">
                                 <button type="button" class="btn btn-green mt-2" id="AddEmployee" disabled>Add</button>
@@ -567,7 +537,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content" id="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEntryModalLabel1">Logout</h5>
+                        <h5 class="modal-title" id="addEntryModalLabel1" style="text-align: center; width: 100%;">Logout</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>

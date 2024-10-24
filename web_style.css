@@ -35,10 +35,27 @@
 
 /* CONTACT  */
 
+#contact {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    /* min-height: 100vh;  */
+}
+
 .box-sty {
-    width: 80%;
+    width: 100%; 
+    max-width: 600px; 
+    padding: 2rem; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+#contact {
+    display: flex;
+    justify-content: center; 
+}
+/* .box-sty {
+    width: 80%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
 
 .btn-green {
         background-color: #02066F;

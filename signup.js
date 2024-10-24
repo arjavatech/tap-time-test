@@ -69,7 +69,7 @@ function validateForm(event) {
         isRequiredFieldsValid &&
         isUsernameValid &&
         isPasswordValid) {
-        console.log('logged');
+      
         document.querySelector('.progress-bar').style.width = '50%';
         // Store the values in localStorage
         const companyName = document.getElementById('companyName').value;
@@ -84,7 +84,7 @@ function validateForm(event) {
         const password = document.getElementById('password').value;
         const logoInput = document.getElementById('companyLogo');
 
-        console.log(logoInput);
+       
         // Check if a file is selected
         if (logoInput.files.length > 0) {
             const file = logoInput.files[0];
@@ -110,7 +110,7 @@ function validateForm(event) {
 
             // Simulate a delay for the progress bar
         } else {
-            console.log("No file selected.");
+          
         }
 
         setTimeout(() => {
