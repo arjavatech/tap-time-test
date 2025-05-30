@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reCAPTCHA v2 Example</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+
+    <form id="myForm">
+        <input type="text" name="username" placeholder="Enter your username" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        
+        <!-- Google reCAPTCHA -->
+        <div class="g-recaptcha" data-sitekey="6LeTBAYrAAAAADgPhM4nEE0RuIbIO7Vx9qhmnHdg"></div>
+        
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            let formData = new FormData(this);
+            let recaptchaResponse = document.querySelector(".g-recaptcha-response").value;
+
+            if (!recaptchaResponse) {
+                alert("Please complete the reCAPTCHA.");
+                return;
+            }
+
+            // Include reCAPTCHA token in request payload
+            let payload = {
+                username: formData.get("username"),
+                password: formData.get("password"),
+                recaptcha_token: recaptchaResponse
+            };
+
+            try {
+               // Fetch the data with the reCAPTCHA token in headers
+                let response = await fetch(`http://localhost:8000/hs_marks/get/1`, {
+                    method: "GET",
+                    headers: {
+                        "reCAPTCHA-Token": recaptchaResponse,  // Pass token in headers
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                console.log(recaptchaResponse)
+
+                let result = await response.json();
+
+                console.log(result);
+                alert(result.message);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+    </script>
+
+</body>
+</html>

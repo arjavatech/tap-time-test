@@ -1,5 +1,5 @@
 
-const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/dailyreport/getdatebasedata';
+const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/getdatebasedata';
 
 const cid = localStorage.getItem('companyID');
 

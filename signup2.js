@@ -74,9 +74,9 @@ function validatePhoneNumber() {
 // API link 
 // Signup second page link
 
-const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/customer';
+const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/customer';
 const cid = uuid.v4();
-const firstSignupPageapiUrlBase = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company`;
+const firstSignupPageapiUrlBase = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/company`;
 
 async function validateForm(event) {
     event.preventDefault();
@@ -367,14 +367,14 @@ async function createCheckoutSession() {
     try {
         const link = "http://127.0.0.1:5504";
         const link2 = "https://tap-time.com";
-        const link3 = "https://arjavatech.github.io/tap-time-test"
-        const response = await fetch(`https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/create-checkout-session`, {
+        const link3 = "https://arunkavitha1982.github.io/icode"
+        const response = await fetch(`https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/create-checkout-session`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "url": link3,
+                "url": link2,
                 "productName": "EMS Product",
                 "amount": 2000
             })

@@ -1,12 +1,5 @@
 
-const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company-report-type';
-
-document.addEventListener("DOMContentLoaded", function () {
-    selectedValue = localStorage.getItem('reportType');
-    document.getElementById("reportViewType").textContent = selectedValue;
-});
-
-// Remove Data
+const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/company-report-type';
 
 function dataRemove(e) {
     document.getElementById("remail").value = "";
@@ -298,7 +291,7 @@ function editEmpdetails(companyEmail) {
 
 function editReportdetails(reportType) {
     const company_id = localStorage.getItem('companyID');
-    const apiUrl = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/admin-report-type/update/${company_id}`;
+    const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/admin-report-type/update/${company_id}`;
     const freqselect = document.getElementById('frequencySelect2');
     const freqselectedValues = [];
     
@@ -449,19 +442,6 @@ function resetFormAndErrors() {
     document.getElementById('selectError').textContent = ''; // Clear frequency select error
 }
 
-// Function to handle adding report details
-function addreportdetails(event) {
-    const isEmailValid = validREmail();
-    const isDaysValid = validReportDays();
-
-    if (isEmailValid && isDaysValid) {
-        // Proceed with saving the details
-       
-    } else {
-        event.preventDefault(); // Prevent modal close if validation fails
-        
-    }
-}
 
 // Function to validate the second report days selection
 function validReportDays2() {
@@ -490,7 +470,7 @@ function updateReportdetails() {
         const selectedValues = Array.from(reportSelect.selectedOptions).map(option => option.value);
         const company_id = localStorage.getItem('companyID');
 
-        const apiUrl = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/admin-report-type/update/${company_id}`;
+        const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/admin-report-type/update/${company_id}`;
 
         const reportObject = {
             CID: company_id,

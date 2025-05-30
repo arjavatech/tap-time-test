@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/dailyreport/getdatebasedata';
+const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/getdatebasedata';
 
 
 const cid = localStorage.getItem('companyID');
@@ -184,7 +184,7 @@ function viewCurrentDateReport() {
   document.getElementById("dynamicDropdown").addEventListener('change', myFunction);
 
   // Check employee API URL
-  const employeeApiURL = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/employee/getall/${cid}`;
+  const employeeApiURL = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee/getall/${cid}`;
   
 
   fetch(employeeApiURL)
@@ -348,7 +348,7 @@ async function updateDailyReportAPiData(emp_id, cid, date, type, checkin_snap, c
     LastModifiedBy:'Admin'
   }
 
-  var apiBaseUrl = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/dailyreport/update/${emp_id}/${cid}/${checkin_time}`;
+  var apiBaseUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/update/${emp_id}/${cid}/${checkin_time}`;
 
   try {
     const response = await fetch(apiBaseUrl, {
@@ -672,7 +672,7 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       // Send Post request
-      fetch('https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/dailyreport/create', {
+      fetch('https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

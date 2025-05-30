@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to load profile data from the API
 async function loadProfileDataFromAPI() {
-    const url = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company/get/${cid}`;
+    const url = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/company/get/${cid}`;
 
     try {
         const response = await fetch(url);
@@ -310,8 +310,8 @@ function saveFormDataToLocalStorage() {
     });
 }
 
-const customerAPIUrlBase = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/customer`;
-const companyAPIUrlBase = `https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/company`;
+const customerAPIUrlBase = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/customer`;
+const companyAPIUrlBase = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/company`;
 
 function updateApiData() {
 

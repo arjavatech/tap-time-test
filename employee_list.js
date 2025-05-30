@@ -1,5 +1,5 @@
 
-const apiUrlBase = 'https://xz00ygqxf0.execute-api.us-west-2.amazonaws.com/test/employee';
+const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee';
 var adminCount = 0;
 
 // When I click close modal with have any error in this form we need to clear all error msg 
@@ -250,7 +250,6 @@ function viewEmpdetails() {
                     document.getElementById("Dropdown").disabled = false;
                     document.getElementById("Dropdown").value = "false";
                 
-                console.log("adc= "+adminCount)
                
                  if(adminCount > 2)
                 {
@@ -294,7 +293,6 @@ function viewEmpdetails() {
                     
                     }
                     adminCount+=1;  
-                    console.log(adminCount);
                 }
                 index++;
                 if(index===5){
