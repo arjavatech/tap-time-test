@@ -123,6 +123,7 @@ function viewDatewiseReport(dateValue) {
   document.getElementById('overlay').style.display = 'flex';
   document.querySelector(".custom-table-container").style.display = "block";
   document.getElementById("noDateSelect").style.display = "none";
+  document.getElementById("download-buttons").style.display = "none";
   const tableBody = document.getElementById("tbody");
   tableBody.innerHTML = '';
  
@@ -145,6 +146,9 @@ function viewDatewiseReport(dateValue) {
               try {
                   tableBody.innerHTML = "";
                   let index = 1;
+                  // Store data globally for PDF download
+                  window.reportData = data.filter(element => element.CheckOutTime != null);
+                  
                   data.forEach(element => {
                       const newRow = document.createElement('tr');
                       if (element.CheckOutTime != null) {
@@ -156,27 +160,29 @@ function viewDatewiseReport(dateValue) {
                           const checkOutTimeFormatted = convertToAmPm(checkOutTimeUTC);
 
                           newRow.innerHTML = `
-                              <td class="Name">${(element.Name).split(" ")[0]}</td>
+                              <td class="Name">${element.Name}</td>
                               <td class="Pin">${element.Pin}</td>
                               <td class="CheckInTime">${checkInTimeFormatted}</td>
                               <td class="CheckOutTime">${checkOutTimeFormatted}</td>
                               <td class="TimeWorked">${element.TimeWorked}</td>
                           `;
                           tableBody.appendChild(newRow);
-                          // index++;
-                          // if(index===5){
-                          //   document.getElementById("footer_id").style.position = "unset";
-                          // }
                       }
                   });
 
-                  // Initialize DataTable after populating the table
-                  $('#employeeTable').DataTable({
-                      "paging": true,
-                      "searching": true,
-                      "ordering": true,
-                      "info": true
-                  });
+                  // Only show download buttons if there's actual data
+                  if (window.reportData && window.reportData.length > 0) {
+                      // Initialize DataTable after populating the table
+                      $('#employeeTable').DataTable({
+                          "paging": true,
+                          "searching": true,
+                          "ordering": true,
+                          "info": true
+                      });
+                      
+                      // Show download buttons when data is loaded
+                      document.getElementById("download-buttons").style.display = "flex";
+                  }
 
               } catch {
                   const newRow = document.createElement('tr');
@@ -269,3 +275,70 @@ function homePage(){
 document.getElementById('homePageYes').addEventListener('click',function (){
   window.open('index.html', 'noopener, noreferrer');
 })
+
+function downloadPdf() {
+  if (!window.reportData || window.reportData.length === 0) {
+    alert('No data to download.');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const selectedDate = document.getElementById('dailyReportDate').value;
+  const formattedDate = selectedDate ? new Date(selectedDate).toLocaleDateString() : 'Selected Date';
+  
+  doc.setFontSize(16);
+  doc.text(`Day Wise Report - ${formattedDate}`, 14, 20);
+
+  const columns = ['Employee Name', 'Employee ID', 'Check-in Time', 'Check-out Time', 'Time Worked Hours (HH:MM)'];
+
+  const data = window.reportData.map(element => [
+    (element.Name).split(" ")[0],
+    element.Pin,
+    convertToAmPm(new Date(element.CheckInTime)),
+    convertToAmPm(new Date(element.CheckOutTime)),
+    element.TimeWorked
+  ]);
+
+  doc.autoTable({
+    head: [columns],
+    body: data,
+    startY: 30,
+    styles: { fontSize: 10 },
+    headStyles: { fillColor: [2, 6, 111] }
+  });
+
+  doc.save(`day_wise_report_${selectedDate || 'report'}.pdf`);
+}
+
+function downloadCsv() {
+  if (!window.reportData || window.reportData.length === 0) {
+    alert('No data to download.');
+    return;
+  }
+
+  const selectedDate = document.getElementById('dailyReportDate').value;
+  const headers = ['Employee Name', 'Employee ID', 'Check-in Time', 'Check-out Time', 'Time Worked Hours (HH:MM)'];
+  
+  const csvData = window.reportData.map(element => [
+    (element.Name).split(" ")[0],
+    element.Pin,
+    convertToAmPm(new Date(element.CheckInTime)),
+    convertToAmPm(new Date(element.CheckOutTime)),
+    element.TimeWorked
+  ]);
+
+  let csvContent = headers.join(',') + '\n';
+  csvData.forEach(row => {
+    csvContent += row.join(',') + '\n';
+  });
+
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `day_wise_report_${selectedDate || 'report'}.csv`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}

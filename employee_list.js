@@ -270,7 +270,7 @@ function viewEmpdetails() {
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
                     <td class="pin-column">${element.Pin}</td>
-                    <td class="name-column">${element.FName}</td>
+                    <td class="name-column">${element.FName + " " + element.LName}</td>
                     <td class="phone-column">${element.PhoneNumber}</td>
                     <td class="action-column">
                     <button class="btn icon-button" style="color: #02066F;" onclick="editEmpdetails('${element.EmpID}')" data-bs-toggle="modal" data-bs-target="#myModal">

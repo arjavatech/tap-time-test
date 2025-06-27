@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+</head>
+<body>
+
+<div id="loginPage">
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="homePage" style="display:none;">
+  <h2>Welcome!</h2>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+  console.log("-----------------------------------------------")
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("function calling!")
+    var email = localStorage.getItem("email");
+    console.log(email)
+    if (email !== null && email !== "") {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("homePage").style.display = "block";
+    }
+  });
+
+  function login() {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+
+    if (email !== null && email !== "" && password !== null && password !== "") {
+      localStorage.setItem("email", email);
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("homePage").style.display = "block";
+    } else {
+      alert("Please enter both email and password.");
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem("email");
+    document.getElementById("loginPage").style.display = "block";
+    document.getElementById("homePage").style.display = "none";
+  }
+</script>
+
+</body>
+</html>

@@ -15,26 +15,15 @@
     <link rel="stylesheet" href="web_nav.css">
     <link rel="stylesheet" href="inputs.css">
     <title>Tap time</title>
-    <style>
-        body {
-             overflow-y: hidden !important; 
-             overflow-x: hidden !important; 
-        }
+<style>
 
         .nav-link {
             position: relative;
             display: inline-block;
-            /* Ensures the link is inline and allows margin */
             text-decoration: none;
-            /* Removes underline from links */
             color: gray !important;
-            /* Sets the text color */
             margin: 0 28px;
-            /* Adds horizontal margin */
             font-size: 17px;
-            /* Sets the font size */
-
-            /* Sets the font weight */
         }
 
         .navbar-toggler {
@@ -50,7 +39,6 @@
             background-color: white;
         }
 
-        /* Loading  */
         .overlay {
             display: none;
             position: fixed;
@@ -169,10 +157,97 @@
         #logo {
             width: 30%;
         }
+    </style>
+    <style>
 
-        /* nav {
-            display: none !important;
-        } */
+
+        .span-content {
+            font-weight: bold;
+        }
+
+        .material-textfield {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .material-textfield input {
+            width: 100%;
+            padding: 0.8rem !important;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 1px solid #02066F;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .material-textfield label {
+            position: absolute;
+            top: 0.75rem;
+            left: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+            padding: 0 0.25rem;
+            color: #02066F;
+            pointer-events: none;
+        }
+
+        .material-textfield input:focus+label,
+        .material-textfield input:not(:placeholder-shown)+label {
+            top: -0.75rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            color: #02066F;
+        }
+
+        .material-textfield input:focus {
+            outline: none;
+            border-color: #02066F;
+        }
+
+
+        .span-sty {
+            color: #02066F;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .span-colo {
+            color: #02066F;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .col-sty {
+            height: 100vh;
+            background-color: #D9E9FB;
+        }
+
+        .btn-green {
+            background-color: #02066F;
+            border: none;
+            color: white;
+            width: 100%;
+            padding: 0.8rem !important;
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+
+        .btn-green:hover {
+            background-color: #02066F !important;
+            color: white !important;
+            padding: 0.8rem !important;
+
+        }
+
+        .login-img-sty {
+            max-width: 60%;
+            height: auto;
+        }
+
+        #logo {
+            width: 30%;
+        }
+
 
         @media (max-width: 768px) {
             .container-sty {
@@ -247,9 +322,6 @@
                 display: none !important;
             }
 
-            /* nav {
-                display: block !important;
-            } */
             body {
                 overflow-x: hidden !important;
             }
@@ -401,8 +473,8 @@
         </div>
     </div>
 
-    <script>
-        // Side BAR 
+    <script defer>
+        // Side BAR
 
         const sidebar = document.getElementById('sidebar');
         const toggler = document.querySelector('.navbar-toggler');
@@ -458,7 +530,8 @@
                     if (isAuthenticated) {
 
                         const cid1 = localStorage.getItem("companyID");
-                        const customerDataPromise = getCustmData(cid1);
+                        const customerDataPromise = "PST";
+                        // getCustmData(cid1);
                         const timeZonePromise = getTimeZone(cid1);
 
                         Promise.all([customerDataPromise, timeZonePromise])

@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" />
     <link rel="stylesheet" href="report_summary.css">
     <link rel="stylesheet" href="employee_list.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script defer src="day_wise_report.js"></script>
     <link rel="icon" href="Image/app_logo.png">
     <link rel="stylesheet" href="nav.css">
@@ -515,9 +517,13 @@
             </div>
             <div class="emp-table table-responsive mt-5">
                 <p id="noDateSelect" style="text-align: center;">Please select a date to show report.</p>
-                <div class="custom-table-container">
+                <div class="custom-table-container mt-15">
+                    <div class="d-flex justify-content-center gap-3 mb-3" id="download-buttons" style="display: none;">
+                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-pdf" onclick="downloadPdf()">Download PDF</button>
+                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-csv" onclick="downloadCsv()">Download CSV</button>
+                    </div>
 
-                    <table id="employeeTable" class="table custom-table table-bordered">
+                    <table id="employeeTable" class="table custom-table table-bordered mt-15">
                         <thead>
                             <tr>
                                 <th style="border-bottom: 1px solid #cdcdcd;">Employee Name</th>

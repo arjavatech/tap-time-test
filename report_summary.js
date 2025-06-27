@@ -254,7 +254,7 @@ function viewCurrentDateReport() {
 
           newRow.innerHTML = `
               <td class="Pin">${element.Pin}</td>
-              <td class="Name">${(element.Name).split(" ")[0]}</td>
+              <td class="Name">${element.Name}</td>
               <td class="CheckInTime">${checkInTimeFormatted}</td>
               <td>
                 <div class="text-center">
@@ -304,7 +304,7 @@ function viewCurrentDateReport() {
 
           newRow.innerHTML = `
               <td class="Pin">${element.Pin}</td>
-              <td class="Name">${(element.Name).split(" ")[0]}</td>
+              <td class="Name">${element.Name}</td>
               <td class="CheckInTime">${checkInTimeFormatted}</td>
               <td class="CheckOutTime">${checkOutTimeFormatted}</td>
               <td class="text-center">

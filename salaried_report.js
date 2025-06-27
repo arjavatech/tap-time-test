@@ -97,12 +97,24 @@ function viewDateRangewiseReport() {
           });
         }
 
+        // Store data globally for download
+        window.reportData = Object.entries(totalTimeWorked).map(([pin, data]) => ({
+          Name: data.name,
+          Pin: pin,
+          TotalHours: data.totalHoursWorked
+        }));
+
         $('#employeeTable').DataTable({ // Reinitialize DataTable
           "paging": true,
           "searching": true,
           "ordering": true,
           "info": true
         });
+
+        // Show download buttons when data is loaded
+        if (window.reportData && window.reportData.length > 0) {
+          document.getElementById("download-buttons").style.display = "flex";
+        }
 
         document.getElementById('overlay').style.display = 'none';
       } catch (error) {
@@ -267,3 +279,67 @@ function homePage(){
 document.getElementById('homePageYes').addEventListener('click',function (){
   window.open('index.html', 'noopener, noreferrer');
 })
+
+function downloadPdf() {
+  if (!window.reportData || window.reportData.length === 0) {
+    alert('No data to download.');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const selectedValue = localStorage.getItem('reportType');
+  const startDate = document.getElementById('start-date-header').textContent;
+  const endDate = document.getElementById('end-date-header').textContent;
+  
+  doc.setFontSize(16);
+  doc.text(`${selectedValue} Report (${startDate} to ${endDate})`, 14, 20);
+
+  const columns = ['Name', 'Pin', 'Total Worked Hours (HH:MM)'];
+
+  const data = window.reportData.map(element => [
+    element.Name,
+    element.Pin,
+    element.TotalHours
+  ]);
+
+  doc.autoTable({
+    head: [columns],
+    body: data,
+    startY: 30,
+    styles: { fontSize: 10 },
+    headStyles: { fillColor: [2, 6, 111] }
+  });
+
+  doc.save(`${selectedValue.toLowerCase()}_report.pdf`);
+}
+
+function downloadCsv() {
+  if (!window.reportData || window.reportData.length === 0) {
+    alert('No data to download.');
+    return;
+  }
+
+  const headers = ['Name', 'Pin', 'Total Worked Hours (HH:MM)'];
+  
+  const csvData = window.reportData.map(element => [
+    element.Name,
+    element.Pin,
+    element.TotalHours
+  ]);
+
+  let csvContent = headers.join(',') + '\n';
+  csvData.forEach(row => {
+    csvContent += row.join(',') + '\n';
+  });
+
+  const selectedValue = localStorage.getItem('reportType');
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${selectedValue.toLowerCase()}_report.csv`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
