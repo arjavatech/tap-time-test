@@ -2,6 +2,8 @@
 const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee';
 var adminCount = 0;
 
+const AdminType = localStorage.getItem('adminType');
+
 // When I click close modal with have any error in this form we need to clear all error msg 
 $('#myModal').on('hidden.bs.modal', function () {
     // Clear error messages
@@ -217,6 +219,19 @@ let employeesData = [];  // Variable to store fetched employee data
 
 // Function to fetch and display employee data
 function viewEmpdetails() {
+    // Check AdminType and show/hide sections accordingly
+    const adminType = localStorage.getItem('adminType');
+    const employeeSection = document.getElementById('employee-section');
+    const adminSection = document.getElementById('admin-section');
+    
+    if (adminType === 'Admin') {
+        employeeSection.style.display = 'block';
+        adminSection.style.display = 'none';
+    } else if (adminType === 'SuperAdmin') {
+        employeeSection.style.display = 'block';
+        adminSection.style.display = 'block';
+    }
+    
     // document.getElementById("footer_id").style.position = "fixed";
     const tableBody = document.getElementById("tBody");
     const tableBody2 = document.getElementById("tBody2");

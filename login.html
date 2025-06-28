@@ -613,6 +613,7 @@
                     localStorage.setItem('username', data["UserName"]);
                     localStorage.setItem('password', data["Password"]);
                     localStorage.setItem('reportType', data["ReportType"]);
+                    localStorage.setItem('adminType', "SuperAdmin");
 
                     const user = data["UserName"] === username && decryptPassword === password;
 
