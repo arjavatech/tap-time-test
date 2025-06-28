@@ -30,6 +30,11 @@ document.getElementById('admin_form').addEventListener('submit', function(event)
     addAdminDetails(event);
 });
 
+document.getElementById('superadmin_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    addSuperAdminDetails(event);
+});
+
 // Remove Data
 
 function dataRemove(getid) {
@@ -222,18 +227,23 @@ function viewEmpdetails() {
     const adminType = localStorage.getItem('adminType');
     const employeeSection = document.getElementById('employee-section');
     const adminSection = document.getElementById('admin-section');
+    const superAdminSection = document.getElementById('superadmin-section');
     
     if (adminType === 'Admin') {
         employeeSection.style.display = 'block';
         adminSection.style.display = 'none';
+        superAdminSection.style.display = 'none';
+
     } else if (adminType === 'SuperAdmin') {
         employeeSection.style.display = 'block';
         adminSection.style.display = 'block';
+        superAdminSection.style.display = 'block';
     }
     
     // document.getElementById("footer_id").style.position = "fixed";
     const tableBody = document.getElementById("tBody");
     const tableBody2 = document.getElementById("tBody2");
+    const tableBody3 = document.getElementById("tBody3");
     const company_id = localStorage.getItem('companyID');
     const apiUrl = `${apiUrlBase}/getall/${company_id}`;
     
@@ -258,6 +268,7 @@ function viewEmpdetails() {
             // Clear the existing table body content
             tableBody.innerHTML = '';
             tableBody2.innerHTML = '';
+            tableBody3.innerHTML = '';
             adminCount = 0;
             // Populate the table body with fetched data
             employeesData.forEach(element => {
@@ -297,16 +308,16 @@ function viewEmpdetails() {
                 `;
                 // tableBody.appendChild(newRow);
                 if(element.IsAdmin == 0){
-                   
                     tableBody.appendChild(newRow);
                 }
-                else{
+                else if(element.IsAdmin == 1){
                     if(adminCount<3){
-                       
-                    tableBody2.appendChild(newRow);
-                    
+                        tableBody2.appendChild(newRow);
                     }
                     adminCount+=1;  
+                }
+                else if(element.IsAdmin == 2){
+                    tableBody3.appendChild(newRow);
                 }
                 index++;
                 if(index===5){
@@ -533,6 +544,177 @@ function filterAdmin() {
     rows.forEach(row => {
         const cells = row.querySelectorAll('td');
         const nameCell = cells[1].textContent.toLowerCase(); // Assuming the name is in the second column
+        if (nameCell.includes(searchInput)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function showSuperAdminModal() {
+    document.getElementById('superAdminFName').value = '';
+    document.getElementById('superAdminLName').value = '';
+    document.getElementById('superAdminPhoneNumber').value = '';
+    document.getElementById('superAdminInstructor').value = '';
+    document.getElementById('superAdminEmail').value = '';
+    document.getElementById('showSuperAdminMsg1').textContent = '';
+    document.getElementById('showSuperAdminMsg2').textContent = '';
+    document.getElementById('showSuperAdminMsg3').textContent = '';
+    document.getElementById('showSuperAdminMsg').textContent = '';
+    document.getElementById('showSuperAdminMsg4').textContent = '';
+    const modal = new bootstrap.Modal(document.getElementById('myModal3'));
+    modal.show();
+}
+
+function formatSuperAdminPhoneNumber() {
+    const inputField = document.getElementById('superAdminPhoneNumber');
+    let value = inputField.value;
+    value = value.replace(/\D/g, '');
+    if (value.length > 3 && value.length <= 6) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+    } else if (value.length > 6) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+    } else if (value.length > 3) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+    }
+    inputField.value = value;
+    
+    const superAdminPin = document.getElementById('superAdminInstructor');
+    superAdminPin.value = (inputField.value).substring((inputField.value).length - 4);
+    
+    const phoneError = document.getElementById('showSuperAdminMsg3');
+    const phoneRegex = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
+    
+    if (inputField.value === '') {
+        phoneError.textContent = '';
+        return false;
+    } else if (!phoneRegex.test(inputField.value)) {
+        phoneError.textContent = 'Invalid phone number.';
+        return false;
+    } else {
+        phoneError.textContent = '';
+        return true;
+    }
+}
+
+function validSuperAdminFName() {
+    const fname = document.getElementById('superAdminFName').value;
+    const errorFName = document.getElementById('showSuperAdminMsg1');
+    if (fname.trim() === '') {
+        errorFName.textContent = '';
+        return false;
+    }
+    else if (!isAlpha.test(fname)) {
+        errorFName.textContent = 'Only use letters, don\'t use digits';
+        return false;
+    }
+    errorFName.textContent = '';
+    return true;
+}
+
+function validSuperAdminLName() {
+    const lname = document.getElementById('superAdminLName').value;
+    const errorLName = document.getElementById('showSuperAdminMsg2');
+    if (lname.trim() === '') {
+        errorLName.textContent = '';
+        return false;
+    }
+    else if (!isAlpha.test(lname)) {
+        errorLName.textContent = 'Only use letters, don\'t use digits';
+        return false;
+    }
+    errorLName.textContent = '';
+    return true;
+}
+
+function validSuperAdminEmail() {
+    const email = document.getElementById('superAdminEmail').value;
+    const errorEmail = document.getElementById('showSuperAdminMsg4');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (email.trim() === '') {
+        errorEmail.textContent = '';
+        return false;
+    }
+    else if (!emailRegex.test(email)) {
+        errorEmail.textContent = 'Please enter a valid email address';
+        return false;
+    }
+    errorEmail.textContent = '';
+    return true;
+}
+
+function addSuperAdminDetails(event) {
+    event.preventDefault();
+    
+    const isValidFName = validSuperAdminFName();
+    const isValidLName = validSuperAdminLName();
+    const isValidPhoneNumber = formatSuperAdminPhoneNumber();
+    const isValidEmail = validSuperAdminEmail();
+    
+    if (isValidFName && isValidLName && isValidPhoneNumber && isValidEmail) {
+        $('#myModal3').modal('hide');
+        
+        const superAdminFName = document.getElementById('superAdminFName').value;
+        const superAdminLName = document.getElementById('superAdminLName').value;
+        const superAdminPhoneNumber = document.getElementById('superAdminPhoneNumber').value;
+        const superAdminPin = document.getElementById('superAdminInstructor').value;
+        const superAdminEmail = document.getElementById('superAdminEmail').value;
+        const companyId = localStorage.getItem('companyID');
+        const empId = 'eid_' + Math.random().toString(36).substr(2, 12);
+        
+        const superAdminObject = {
+            EmpID: empId,
+            CID: companyId,
+            FName: superAdminFName,
+            LName: superAdminLName,
+            IsActive: true,
+            PhoneNumber: superAdminPhoneNumber,
+            Pin: superAdminPin,
+            Email: superAdminEmail,
+            IsAdmin: 2,
+            LastModifiedBy: 'Admin'
+        };
+        
+        fetch(`${apiUrlBase}/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(superAdminObject)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                document.querySelector(".e-msg").textContent = data.error;
+                setTimeout(() => {
+                    window.location.href = "employee_list.html";
+                }, 1000);
+            } else {
+                document.querySelector(".s-msg").textContent = data.message;
+                setTimeout(() => {
+                    window.location.href = "employee_list.html";
+                }, 1000);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+}
+
+function filterSuperAdmin() {
+    const searchInput = document.getElementById('searchSuperAdmin').value.toLowerCase();
+    const rows = document.querySelectorAll('#tBody3 tr');
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const nameCell = cells[1].textContent.toLowerCase();
         if (nameCell.includes(searchInput)) {
             row.style.display = '';
         } else {

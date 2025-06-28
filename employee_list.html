@@ -691,6 +691,76 @@
 
                 </div>
             </section>
+
+            <!-- SuperAdmin Section -->
+            <section id="superadmin-section" class="mt-5">
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <h3 class="fw-bold mb-1 admin-head">SuperAdmin Details</h3>
+                    </div>
+                    <div class="col-6">
+                        <span id="current-checkin-header"></span>
+                        <span style="float:right;">
+                            <button class="btn float-end addEntryBtnStyle" id="add-entry-superadmin" onclick="showSuperAdminModal()"
+                                >Add Entry</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="custom-table-container">
+                    <div class="custom-search-box">
+                        <label>Search:</label>
+                        <input type="text" id="searchSuperAdmin" placeholder="" class="search-input" oninput="filterSuperAdmin()">
+                    </div>
+                    <table class="table custom-table table-bordered" id="superAdminTable">
+                        <thead>
+                            <tr>
+                                <th>Pin</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBody3">
+                            <!-- Table rows will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+
+                    <!-- SuperAdmin Modal -->
+                    <div class="modal fade" id="myModal3" tabindex="-1" aria-labelledby="myModalLabel3"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="width: 300px; text-align: center;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="myModalLabel3" style="text-align: center; width: 100%;">SuperAdmin Details</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="superadmin_form" class="p-2 text-center">
+                                        <input type="text" id="superAdminFName" placeholder="First Name"
+                                            class="all-input-style mb-3" onblur="validSuperAdminFName()" required>
+                                        <span class="text-danger" id="showSuperAdminMsg1"></span>
+                                        <input type="text" id="superAdminLName" placeholder="Last Name"
+                                            class="all-input-style mb-3" onblur="validSuperAdminLName()" required>
+                                        <span class="text-danger" id="showSuperAdminMsg2"></span>
+                                        <input type="tel" id="superAdminPhoneNumber" placeholder="Phone Number"
+                                            oninput="formatSuperAdminPhoneNumber()" class="all-input-style mb-3" required>
+                                        <span class="text-danger" id="showSuperAdminMsg3"></span>
+                                        <input type="text" id="superAdminInstructor" placeholder="Pin"
+                                            class="all-input-style mb-3" disabled required>
+                                        <span class="text-danger" id="showSuperAdminMsg"></span>
+                                        <input type="email" id="superAdminEmail" placeholder="Email"
+                                            class="all-input-style mb-3" onblur="validSuperAdminEmail()" required>
+                                        <span class="text-danger" id="showSuperAdminMsg4"></span>
+                                        <button type="submit" id="saveSuperAdminBtn" class="settings-btn-sty btn-green">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
         </div>
     </section>
 
