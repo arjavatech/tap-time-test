@@ -631,7 +631,7 @@
                     <div class="col-6">
                         <span id="current-checkin-header"></span>
                         <span style="float:right;">
-                            <button class="btn float-end addEntryBtnStyle" id="add-entry-admin" onclick="dataRemove('adminDetail')"
+                            <button class="btn float-end addEntryBtnStyle" id="add-entry-admin" onclick="showAdminModal()"
                                 >Add Entry</button>
                         </span>
                     </div>
@@ -656,50 +656,33 @@
                     </table>
 
                     <!-- Admin Modal -->
-                    <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="myModalLabel"
+                    <div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="myModalLabel2"
                         aria-hidden="true">
                         <div class="modal-dialog">
-                            <div class="modal-content" style="width: 350px;">
+                            <div class="modal-content" style="width: 300px; text-align: center;">
                                 <div class="modal-header">
-                                    <h5 class="modal-title fw-bold" id="myModalLabel" style="text-align: center; width: 100%;">Admin Details</h5>
+                                    <h5 class="modal-title fw-bold" id="myModalLabel2" style="text-align: center; width: 100%;">Admin Details</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form id="admin_form" class="p-2 text-center">
-                                        <div class="material-textfield mb-3">
-                                            <input type="text" id="adminFName" name="adminFName" placeholder=" "
-                                                required onblur="validAdminFName()">
-                                            <label>First Name</label><br>
-                                            <span class="text-danger" id="showAdminMsg1"></span>
-                                        </div>
-                                        <div class="material-textfield mb-3">
-                                            <input type="text" id="adminLName" name="adminLName" placeholder=" "
-                                                onblur="validAdminLName()">
-                                            <label>Last Name</label><br>
-                                            <span class="text-danger" id="showAdminMsg2"></span>
-                                        </div>
-                                        <div class="material-textfield mb-3">
-                                            <input type="tel" id="adminPhoneNumber" name="adminPhoneNumber"
-                                                placeholder=" " oninput="formatAdminPhoneNumber()">
-                                            <label>Phone Number</label><br>
-                                            <span class="text-danger" id="showAdminMsg3"></span>
-                                        </div>
-                                        <div class="material-textfield mb-3">
-                                            <input id="adminInstructor" placeholder=" " type="text"
-                                                onblur="validateAdminInstructerPin()" disabled>
-                                            <label>Instructor Pin</label><br>
-                                            <span class="text-danger" id="showAdminMsg"></span>
-                                        </div>
-                                        <div class="material-textfield mb-3">
-                                            <select id="adminDropdown" class="input-sty form-control mt-3" value="true">
-                                                <option value="true">true</option>
-                                                <option value="false">false</option>
-                                            </select>
-                                        </div>
-                                        <button type="button" id="saveAdminBtn" class="settings-btn-sty btn btn-green"
-                                            onclick="addAdminDetails(event)" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal">Save</button>
+                                        <input type="text" id="adminFName" placeholder="First Name"
+                                            class="all-input-style mb-3" onblur="validAdminFName()" required>
+                                        <span class="text-danger" id="showAdminMsg1"></span>
+                                        <input type="text" id="adminLName" placeholder="Last Name"
+                                            class="all-input-style mb-3" onblur="validAdminLName()" required>
+                                        <span class="text-danger" id="showAdminMsg2"></span>
+                                        <input type="tel" id="adminPhoneNumber" placeholder="Phone Number"
+                                            oninput="formatAdminPhoneNumber()" class="all-input-style mb-3" required>
+                                        <span class="text-danger" id="showAdminMsg3"></span>
+                                        <input type="text" id="adminInstructor" placeholder="Pin"
+                                            class="all-input-style mb-3" disabled required>
+                                        <span class="text-danger" id="showAdminMsg"></span>
+                                        <input type="email" id="adminEmail" placeholder="Email"
+                                            class="all-input-style mb-3" onblur="validAdminEmail()" required>
+                                        <span class="text-danger" id="showAdminMsg4"></span>
+                                        <button type="submit" id="saveAdminBtn" class="settings-btn-sty btn-green">Save</button>
                                     </form>
                                 </div>
                             </div>

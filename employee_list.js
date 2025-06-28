@@ -25,6 +25,11 @@ document.getElementById('emp_form').addEventListener('submit', function(event) {
     }
 });
 
+document.getElementById('admin_form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    addAdminDetails(event);
+});
+
 // Remove Data
 
 function dataRemove(getid) {
@@ -98,7 +103,6 @@ function addEmpdetails(event) {
         const empphoneno = document.getElementById("phoneNumber").value;
         const empinst = document.getElementById("instructor").value;
         const empactive = true;
-        const admin  = document.getElementById("Dropdown").value==='true' ? true : false;
         const empid = 'eid_' + Math.random().toString(36).substr(2, 12);
         const empcid = localStorage.getItem('companyID');
 
@@ -112,8 +116,9 @@ function addEmpdetails(event) {
                 LName: emplname,
                 IsActive: empactive,
                 PhoneNumber: empphoneno,
+                Email: null,
                 Pin: empinst,
-                IsAdmin: admin,
+                IsAdmin: 0,
                 LastModifiedBy:'Admin'
             };
 
@@ -161,8 +166,9 @@ function addEmpdetails(event) {
                 LName: emplname,
                 IsActive: empactive,
                 PhoneNumber: empphoneno,
+                Email: null,
                 Pin: empinst,
-                IsAdmin: admin,
+                IsAdmin: 0,
                 LastModifiedBy:'Admin'
             };
 
@@ -540,6 +546,163 @@ function filterAdmin() {
             row.style.display = 'none';
         }
     });
+}
+
+function showAdminModal() {
+    document.getElementById('adminFName').value = '';
+    document.getElementById('adminLName').value = '';
+    document.getElementById('adminPhoneNumber').value = '';
+    document.getElementById('adminInstructor').value = '';
+    document.getElementById('adminEmail').value = '';
+    document.getElementById('showAdminMsg1').textContent = '';
+    document.getElementById('showAdminMsg2').textContent = '';
+    document.getElementById('showAdminMsg3').textContent = '';
+    document.getElementById('showAdminMsg').textContent = '';
+    document.getElementById('showAdminMsg4').textContent = '';
+    const modal = new bootstrap.Modal(document.getElementById('myModal2'));
+    modal.show();
+}
+
+function formatAdminPhoneNumber() {
+    const inputField = document.getElementById('adminPhoneNumber');
+    let value = inputField.value;
+    value = value.replace(/\D/g, '');
+    if (value.length > 3 && value.length <= 6) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+    } else if (value.length > 6) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+    } else if (value.length > 3) {
+        value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+    }
+    inputField.value = value;
+    
+    const adminPin = document.getElementById('adminInstructor');
+    adminPin.value = (inputField.value).substring((inputField.value).length - 4);
+    
+    const phoneError = document.getElementById('showAdminMsg3');
+    const phoneRegex = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
+    
+    if (inputField.value === '') {
+        phoneError.textContent = '';
+        return false;
+    } else if (!phoneRegex.test(inputField.value)) {
+        phoneError.textContent = 'Invalid phone number.';
+        return false;
+    } else {
+        phoneError.textContent = '';
+        return true;
+    }
+}
+
+function validAdminFName() {
+    const fname = document.getElementById('adminFName').value;
+    const errorFName = document.getElementById('showAdminMsg1');
+    if (fname.trim() === '') {
+        errorFName.textContent = '';
+        return false;
+    }
+    else if (!isAlpha.test(fname)) {
+        errorFName.textContent = 'Only use letters, don\'t use digits';
+        return false;
+    }
+    errorFName.textContent = '';
+    return true;
+}
+
+function validAdminLName() {
+    const lname = document.getElementById('adminLName').value;
+    const errorLName = document.getElementById('showAdminMsg2');
+    if (lname.trim() === '') {
+        errorLName.textContent = '';
+        return false;
+    }
+    else if (!isAlpha.test(lname)) {
+        errorLName.textContent = 'Only use letters, don\'t use digits';
+        return false;
+    }
+    errorLName.textContent = '';
+    return true;
+}
+
+function validAdminEmail() {
+    const email = document.getElementById('adminEmail').value;
+    const errorEmail = document.getElementById('showAdminMsg4');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (email.trim() === '') {
+        errorEmail.textContent = '';
+        return false;
+    }
+    else if (!emailRegex.test(email)) {
+        errorEmail.textContent = 'Please enter a valid email address';
+        return false;
+    }
+    errorEmail.textContent = '';
+    return true;
+}
+
+function addAdminDetails(event) {
+    event.preventDefault();
+    
+    const isValidFName = validAdminFName();
+    const isValidLName = validAdminLName();
+    const isValidPhoneNumber = formatAdminPhoneNumber();
+    const isValidEmail = validAdminEmail();
+    
+    if (isValidFName && isValidLName && isValidPhoneNumber && isValidEmail) {
+        $('#myModal2').modal('hide');
+        
+        const adminFName = document.getElementById('adminFName').value;
+        const adminLName = document.getElementById('adminLName').value;
+        const adminPhoneNumber = document.getElementById('adminPhoneNumber').value;
+        const adminPin = document.getElementById('adminInstructor').value;
+        const adminEmail = document.getElementById('adminEmail').value;
+        const companyId = localStorage.getItem('companyID');
+        const empId = 'eid_' + Math.random().toString(36).substr(2, 12);
+        
+        const adminObject = {
+            EmpID: empId,
+            CID: companyId,
+            FName: adminFName,
+            LName: adminLName,
+            IsActive: true,
+            PhoneNumber: adminPhoneNumber,
+            Pin: adminPin,
+            Email: adminEmail,
+            IsAdmin: 1,
+            LastModifiedBy: 'Admin'
+        };
+        
+        fetch(`${apiUrlBase}/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(adminObject)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                document.querySelector(".e-msg").textContent = data.error;
+                setTimeout(() => {
+                    window.location.href = "employee_list.html";
+                }, 1000);
+            } else {
+                document.querySelector(".s-msg").textContent = data.message;
+                setTimeout(() => {
+                    window.location.href = "employee_list.html";
+                }, 1000);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
 }
 
 
