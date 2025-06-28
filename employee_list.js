@@ -85,14 +85,7 @@ function addEmpdetails(event) {
     const isValidLName = validLName();
     const isValidPhoneNumber = formatPhoneNumber();
     let isRequiredFieldsValid = true;
-    let inputs = document.querySelectorAll('.all-input-style');
 
-    // Required atribute validation check 
-    inputs.forEach(input => {
-        if (input.hasAttribute('required') && input.value.trim() === "") {
-            isRequiredFieldsValid = false;
-        }
-    });
 
     if (isValidFName && isValidLName && isValidPhoneNumber && isRequiredFieldsValid) {
         $('#myModal').modal('hide');
@@ -103,6 +96,7 @@ function addEmpdetails(event) {
         const empphoneno = document.getElementById("phoneNumber").value;
         const empinst = document.getElementById("instructor").value;
         const empactive = true;
+        
         const empid = 'eid_' + Math.random().toString(36).substr(2, 12);
         const empcid = localStorage.getItem('companyID');
 
@@ -210,8 +204,7 @@ function addEmpdetails(event) {
 
     }
     else {
-        // alert('Please fix the errors in the form');
-        document.getElementById('selectError').textContent = null;
+        alert('Please fix the errors in the form');
     }
 }
 
