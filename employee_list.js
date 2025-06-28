@@ -39,11 +39,11 @@ document.getElementById('superadmin_form').addEventListener('submit', function(e
 
 function dataRemove(getid) {
     if(getid == 'empDetail'){
-        document.getElementById('Dropdown').classList.add('none');
+        // document.getElementById('Dropdown').classList.add('none');
     }
     else{
         document.getElementById('myModalLabel').textContent = 'Admin Details';
-        document.getElementById('Dropdown').classList.remove('none');
+        // document.getElementById('Dropdown').classList.remove('none');
     }
     document.getElementById('mainBtn').value = 'Submit';
     const formModalElement = document.getElementById('myModal');
@@ -272,8 +272,8 @@ function viewEmpdetails() {
             adminCount = 0;
             // Populate the table body with fetched data
             employeesData.forEach(element => {
-                    document.getElementById("Dropdown").disabled = false;
-                    document.getElementById("Dropdown").value = "false";
+                    // document.getElementById("Dropdown").disabled = false;
+                    // document.getElementById("Dropdown").value = "false";
                 
                
                  if(adminCount > 2)
@@ -283,13 +283,13 @@ function viewEmpdetails() {
                     document.getElementById('add-entry-admin').style.backgroundColor = '#A0A0A0';
                     document.getElementById('add-entry-admin').style.color = '	#141414';
                     document.getElementById('add-entry-admin').style.cursor = 'not-allowed';
-                    document.getElementById("Dropdown").disabled = true;
-                    document.getElementById("Dropdown").value = "false";
+                    // document.getElementById("Dropdown").disabled = true;
+                    // document.getElementById("Dropdown").value = "false";
                 }
                 else
                 {
-                    document.getElementById("Dropdown").disabled = false;
-                    document.getElementById("Dropdown").value = "false";
+                    // document.getElementById("Dropdown").disabled = false;
+                    // document.getElementById("Dropdown").value = "false";
                 }
 
                 const newRow = document.createElement('tr');
@@ -298,7 +298,7 @@ function viewEmpdetails() {
                     <td class="name-column">${element.FName + " " + element.LName}</td>
                     <td class="phone-column">${element.PhoneNumber}</td>
                     <td class="action-column">
-                    <button class="btn icon-button" style="color: #02066F;" onclick="editEmpdetails('${element.EmpID}')" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <button class="btn icon-button" style="color: #02066F;" onclick="${element.IsAdmin == 0 ? `editEmpdetails('${element.EmpID}')` : element.IsAdmin == 1 ? `editAdmindetails('${element.EmpID}')` : `editSuperAdmindetails('${element.EmpID}')`}" data-bs-toggle="modal" data-bs-target="${element.IsAdmin == 0 ? "#myModal" : element.IsAdmin == 1 ? "#myModal2" : "#myModal3"}">
                     <i class="fas fa-pencil-alt"></i>
                     </button>
                     <button class="btn icon-button" style="color: #02066F;" onclick="showLogoutModal('${element.EmpID}')">
@@ -354,7 +354,7 @@ document.getElementById('overlay').style.display = 'flex';
 function editEmpdetails(emId) {
     document.getElementById("showMsg1").textContent = "";
     document.getElementById("showMsg2").textContent = "";
-    document.getElementById('mainBtn').value = "Update";
+    document.getElementById('savebtn').value = "Update";
     const apiUrl = `${apiUrlBase}/get/` + emId;
     fetch(apiUrl)
         .then(response => {
@@ -369,12 +369,68 @@ function editEmpdetails(emId) {
                 document.getElementById("fName").value = formvalue.FName;
                 document.getElementById("lName").value = formvalue.LName;
                 document.getElementById("phoneNumber").value = formvalue.PhoneNumber;
-                document.getElementById("Dropdown").value = (formvalue.IsAdmin == 0 ? false : true) 
+                // document.getElementById("Dropdown").value = (formvalue.IsAdmin == 0 ? false : true) 
                 document.getElementById("savebtn").value = formvalue.EmpID;
             });
         })
         .catch(error => {
        
+        });
+}
+
+function editAdmindetails(emId) {
+    document.getElementById("showAdminMsg1").textContent = "";
+    document.getElementById("showAdminMsg2").textContent = "";
+    document.getElementById('saveAdminBtn').textContent = "Update";
+    const apiUrl = `${apiUrlBase}/get/` + emId;
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(formvalue => {
+                document.getElementById("adminInstructor").value = formvalue.Pin;
+                document.getElementById("adminFName").value = formvalue.FName;
+                document.getElementById("adminLName").value = formvalue.LName;
+                document.getElementById("adminPhoneNumber").value = formvalue.PhoneNumber;
+                document.getElementById("adminEmail").value = formvalue.Email;
+                // document.getElementById("Dropdown").value = (formvalue.IsAdmin == 0 ? false : true) 
+                document.getElementById("saveAdminBtn").setAttribute('data-empid', formvalue.EmpID);
+            });
+        })
+        .catch(error => {
+       
+        });
+}
+
+
+function editSuperAdmindetails(emId) {
+    document.getElementById("showSuperAdminMsg1").textContent = "";
+    document.getElementById("showSuperAdminMsg2").textContent = "";
+    document.getElementById('saveSuperAdminBtn').textContent = "Update";
+    const apiUrl = `${apiUrlBase}/get/` + emId;
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            data.forEach(formvalue => {
+                document.getElementById("superAdminInstructor").value = formvalue.Pin;
+                document.getElementById("superAdminFName").value = formvalue.FName;
+                document.getElementById("superAdminLName").value = formvalue.LName;
+                document.getElementById("superAdminPhoneNumber").value = formvalue.PhoneNumber;
+                document.getElementById("superAdminEmail").value = formvalue.Email;
+                document.getElementById("saveSuperAdminBtn").setAttribute('data-empid', formvalue.EmpID);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
 }
 
@@ -662,7 +718,8 @@ function addSuperAdminDetails(event) {
         const superAdminPin = document.getElementById('superAdminInstructor').value;
         const superAdminEmail = document.getElementById('superAdminEmail').value;
         const companyId = localStorage.getItem('companyID');
-        const empId = 'eid_' + Math.random().toString(36).substr(2, 12);
+        const updateEmpId = document.getElementById('saveSuperAdminBtn').getAttribute('data-empid');
+        const empId = updateEmpId || 'eid_' + Math.random().toString(36).substr(2, 12);
         
         const superAdminObject = {
             EmpID: empId,
@@ -677,8 +734,11 @@ function addSuperAdminDetails(event) {
             LastModifiedBy: 'Admin'
         };
         
-        fetch(`${apiUrlBase}/create`, {
-            method: 'POST',
+        const apiUrl = updateEmpId ? `${apiUrlBase}/update/${updateEmpId}` : `${apiUrlBase}/create`;
+        const method = updateEmpId ? 'PUT' : 'POST';
+        
+        fetch(apiUrl, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -833,7 +893,8 @@ function addAdminDetails(event) {
         const adminPin = document.getElementById('adminInstructor').value;
         const adminEmail = document.getElementById('adminEmail').value;
         const companyId = localStorage.getItem('companyID');
-        const empId = 'eid_' + Math.random().toString(36).substr(2, 12);
+        const updateEmpId = document.getElementById('saveAdminBtn').getAttribute('data-empid');
+        const empId = updateEmpId || 'eid_' + Math.random().toString(36).substr(2, 12);
         
         const adminObject = {
             EmpID: empId,
@@ -848,8 +909,11 @@ function addAdminDetails(event) {
             LastModifiedBy: 'Admin'
         };
         
-        fetch(`${apiUrlBase}/create`, {
-            method: 'POST',
+        const apiUrl = updateEmpId ? `${apiUrlBase}/update/${updateEmpId}` : `${apiUrlBase}/create`;
+        const method = updateEmpId ? 'PUT' : 'POST';
+        
+        fetch(apiUrl, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
