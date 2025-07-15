@@ -1,34 +1,41 @@
-
 /* FIRST ROW SECTION  */
-    /* first row second column images  */
-    .inside-col-img-sty {
-        width: 35%;
-        max-width: 150px;
-    }
+/* first row second column images  */
+.inside-col-img-sty {
+    width: 35%;
+    max-width: 150px;
+}
 
-    /* Heading sty  */
-    .head-sty {
-        color: #02066F;
-        font-weight: bold;
-    }
+/* Heading sty  */
+.head-sty {
+    color: #02066F;
+    font-weight: bold;
+}
+
+.sec-img {
+    height: 500px;
+}
 
 /* First row second column section  */
 .feature-section {
-    margin-bottom: 25px; /* Increase space between sections for desktop */
+    margin-bottom: 25px;
+    /* Increase space between sections for desktop */
 }
 
 .inside-col-img-sty {
-    width: 70px; /* Larger icons for desktop */
+    width: 70px;
+    /* Larger icons for desktop */
     height: auto;
 }
 
 .feature-section h4 {
-    font-size: 1.6em; /* Larger title font size for desktop */
-    margin-bottom: 10px; 
+    font-size: 1.6em;
+    /* Larger title font size for desktop */
+    margin-bottom: 10px;
 }
 
 .feature-section p {
-    font-size: 1.1em; /* Larger text size for desktop */
+    font-size: 1.1em;
+    /* Larger text size for desktop */
     line-height: 1.6;
 }
 
@@ -37,37 +44,39 @@
 
 #contact {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
     /* min-height: 100vh;  */
 }
 
 .box-sty {
-    width: 100%; 
-    max-width: 600px; 
-    padding: 2rem; 
+    width: 100%;
+    max-width: 900px;
+    padding: 2rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 #contact {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
+
 /* .box-sty {
     width: 80%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 } */
 
 .btn-green {
-        background-color: #02066F;
-        border: none;
-        color: white;
-        width: 100%;
-        padding: 0.6rem !important;
-        font-size: 1.2rem;
-        border-radius: 10px;
-    }
+    background-color: #02066F;
+    border: none;
+    color: white;
+    width: 100%;
+    padding: 0.6rem !important;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
 
-    /* Loading process  */
+/* Loading process  */
 
 .overlay {
     display: none;
@@ -103,7 +112,7 @@
 
 /* PRIVACY POLICY */
 
-.policy-box{
+.policy-box {
     border: 2px solid #02066F;
     border-radius: 20px;
 }
@@ -118,15 +127,17 @@
     .inside-head {
         font-size: 1rem;
     }
+
     /* first row first column image */
-    .sec-img{
+    .sec-img {
         margin-top: 100px;
     }
 }
 
 @media (max-width:358px) {
+
     /* Contact page form box  */
-    .box-sty{
+    .box-sty {
         width: 100% !important;
         font-size: 0.8rem;
     }
@@ -140,7 +151,8 @@
     }
 
     .inside-col-img-sty {
-        width: 65px; /* Slightly smaller icons for medium screens */
+        width: 65px;
+        /* Slightly smaller icons for medium screens */
     }
 
     .feature-section h4 {
@@ -159,7 +171,8 @@
     }
 
     .inside-col-img-sty {
-        width: 60px; /* Smaller icons for tablet */
+        width: 60px;
+        /* Smaller icons for tablet */
     }
 
     .feature-section h4 {
@@ -174,23 +187,28 @@
 /* Responsive adjustments for mobile screens */
 @media (max-width: 576px) {
     .feature-section {
-        margin-bottom: 10px; /* Reduce space for mobile */
+        margin-bottom: 10px;
+        /* Reduce space for mobile */
     }
 
     .inside-col-img-sty {
-        width: 40px; /* Smaller icons for mobile to fit better */
+        width: 40px;
+        /* Smaller icons for mobile to fit better */
         height: auto;
     }
 
     .feature-section h4 {
-        font-size: 1.2em; /* Smaller title for mobile */
+        font-size: 1.2em;
+        /* Smaller title for mobile */
         margin-bottom: 8px;
     }
 
     .feature-section p {
-        font-size: 0.85em; /* Smaller text for mobile */
+        font-size: 0.85em;
+        /* Smaller text for mobile */
         line-height: 1.4;
-        margin: 0 10px; /* Reduce padding for text on mobile */
+        margin: 0 10px;
+        /* Reduce padding for text on mobile */
         text-align: left;
     }
 }
@@ -206,6 +224,7 @@
     .feature-section p {
         text-align: left;
     }
+
     .inside-col-img-sty {
         margin-top: 20px !important;
     }

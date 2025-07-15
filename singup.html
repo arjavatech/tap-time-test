@@ -56,6 +56,40 @@
             }
         }
 
+        /* File input style  */
+        .file-upload-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .file-upload-label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #999;
+            pointer-events: none;
+            font-weight: 500;
+        }
+
+        .file-upload-input {
+            position: relative;
+            z-index: 1;
+            padding-left: 150px;
+            /* space for label */
+            cursor: pointer;
+        }
+
+        #companyLogo {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        /* Nav bar  */
         .navbar-toggler {
             background-color: #02066F;
             color: white;
@@ -463,9 +497,12 @@
                 <br>
                 <span class="text-danger d-flex justify-content-center" id="errorCompanyLogo"></span>
             </div> -->
-            <p class="text-center caddHeadSty">Company Logo</p>
-                    <input type="file" id="companyLogo" placeholder="Upload Company Logo" class="all-input-style mb-3"
-                        accept="image/png,image/jpeg,image/jpg" required>
+                    <p class="text-center caddHeadSty">Company Logo</p>
+                    <div class="file-upload-wrapper all-input-style mb-3">
+                        <span class="file-upload-label">Upload Company Logo</span>
+                        <input type="file" id="companyLogo" class="file-upload-input"
+                            accept="image/png,image/jpeg,image/jpg" required>
+                    </div>
 
                     <div class="caddsty p-3 mb-3">
                         <p class="text-center caddHeadSty">Company Address</p>

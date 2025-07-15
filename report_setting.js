@@ -23,14 +23,16 @@ document.addEventListener('click', function (event) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    const currentLocation = location.href; 
+    const currentLocation = location.href;
     const menuItems = document.querySelectorAll('.sidebar a');
 
     menuItems.forEach(item => {
         if (item.href === currentLocation) {
-            item.classList.add('active'); 
+            item.classList.add('active');
         }
     });
+    viewSecondReportdetails();
+    viewReportdetails();
 });
 
 // Create Data and Update Data
@@ -77,7 +79,7 @@ function addreportdetails() {
                 IsBiWeeklyReportActive: BiWeeklyReportActive,
                 IsMonthlyReportActive: MonthlyReportActive,
                 IsBiMonthlyReportActive: BiMonthlyReportActive,
-                LastModifiedBy:'Admin'
+                LastModifiedBy: 'Admin'
             };
 
             fetch(apiUrl, {
@@ -123,7 +125,7 @@ function addreportdetails() {
                 IsBiWeeklyReportActive: BiWeeklyReportActive,
                 IsMonthlyReportActive: MonthlyReportActive,
                 IsBiMonthlyReportActive: BiMonthlyReportActive,
-            LastModifiedBy:'Admin'
+                LastModifiedBy: 'Admin'
             };
 
             fetch(apiUrl, {
@@ -156,78 +158,82 @@ function addreportdetails() {
 
                 })
                 .catch(error => {
-                   
+
                 });
         }
 
     }
     else {
         // alert('Please fix the errors in the form');
-       
+
     }
 }
 
 
 // View Data
 
+// ✅ Helper to render data
+function renderReportDetails(data, tableBody) {
+    data.forEach(element => {
+        const ReportActive = [];
+        if (element.IsDailyReportActive == 1) ReportActive.push('Daily');
+        if (element.IsWeeklyReportActive == 1) ReportActive.push('Weekly');
+        if (element.IsBiWeeklyReportActive == 1) ReportActive.push('Biweekly');
+        if (element.IsMonthlyReportActive == 1) ReportActive.push('Monthly');
+        if (element.IsBiMonthlyReportActive == 1) ReportActive.push('Bimonthly');
+
+        const Frequency = ReportActive.join(',');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td class="ReporterEmail">${element.CompanyReporterEmail}</td>
+            <td class="ReportActive">${Frequency}</td>
+            <td>
+                <button class="btn icon-button" style="color: #02066F;" onclick="editEmpdetails('${element.CompanyReporterEmail}')" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="btn icon-button" style="color: #02066F;" id="buttonClick" onclick="showLogoutModal('${element.CompanyReporterEmail}')">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(newRow);
+    });
+}
+
 function viewReportdetails() {
     document.getElementById('overlay').style.display = 'flex';
     const tableBody = document.getElementById("tBody");
     const company_id = localStorage.getItem('companyID');
-    const apiUrl = `${apiUrlBase}/getAllReportEmail/${company_id}`;
+    const storageKey = `reportDetails_${company_id}`;
+    const cachedData = localStorage.getItem(storageKey);
 
+    // ✅ If cached data exists, use it
+    if (cachedData) {
+        try {
+            const parsedData = JSON.parse(cachedData);
+            renderReportDetails(parsedData, tableBody);
+            document.getElementById('overlay').style.display = 'none';
+            return;
+        } catch (e) {
+            // If parsing fails, continue to fetch from API
+        }
+    }
+
+    // ❌ No cache, fetch from API
+    const apiUrl = `${apiUrlBase}/getAllReportEmail/${company_id}`;
     fetch(apiUrl)
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
             return response.json();
         })
         .then(data => {
-            
-            data.forEach(element => {
-                const ReportActive = [];
-                if (element.IsDailyReportActive == 1) {
-                    ReportActive.push('Daily');
-                }   
-                if (element.IsWeeklyReportActive == 1) {
-                    ReportActive.push('Weekly');
-                } 
-                if (element.IsBiWeeklyReportActive == 1) {
-                    ReportActive.push('Biweekly');
-                }
-                if (element.IsMonthlyReportActive == 1) {
-                    ReportActive.push('Monthly');
-                } 
-                if (element.IsBiMonthlyReportActive == 1) {
-                    ReportActive.push('Bimonthly');
-                }
-                
-              // Convert the array to a comma-separated string
-                const Frequency = ReportActive.join(',');
-                const newRow = document.createElement('tr');
-
-                newRow.innerHTML = `
-                <td class="ReporterEmail">${element.CompanyReporterEmail}</td>
-                <td class="ReportActive">${Frequency}</td>
-                <td>
-                <button class="btn icon-button" style="color: #02066F;" onclick="editEmpdetails('${element.CompanyReporterEmail}')" data-bs-toggle="modal" data-bs-target="#myModal">
-                <i class="fas fa-pencil-alt"></i>
-                </button>
-                <button class="btn icon-button" style="color: #02066F;" id="buttonClick" onclick="showLogoutModal ('${element.CompanyReporterEmail}')">
-                <i class="fas fa-trash"></i>
-                </button>
-                </td>
-
-            `;
-                tableBody.appendChild(newRow);
-                document.getElementById('overlay').style.display = 'none';
-            });
+            localStorage.setItem(storageKey, JSON.stringify(data));
+            renderReportDetails(data, tableBody);
+            document.getElementById('overlay').style.display = 'none';
         })
-        .catch(error => {
+        .catch(() => {
             document.getElementById('overlay').style.display = 'none';
         });
-
 }
 
 function viewSecondReportdetails() {
@@ -238,7 +244,7 @@ function viewSecondReportdetails() {
 
     const newRow = document.createElement('tr');
 
-                newRow.innerHTML = `
+    newRow.innerHTML = `
                 <td class="ReportActive">${reportType}</td>
 <td>
     <button class="btn icon-button" onclick="editReportdetails('${reportType}')" data-bs-toggle="modal" data-bs-target="#myModal2" style="background: none; border: none; padding: 0;">
@@ -247,13 +253,9 @@ function viewSecondReportdetails() {
 </td>
 
             `;
-                tableBody.appendChild(newRow);
+    tableBody.appendChild(newRow);
 
 }
-
-// Call fetchData when the page is fully loaded
-document.addEventListener('DOMContentLoaded', viewReportdetails);
-document.addEventListener('DOMContentLoaded', viewSecondReportdetails);
 
 
 // Edit Data
@@ -263,7 +265,7 @@ function editEmpdetails(companyEmail) {
     const apiUrl = `${apiUrlBase}/get/${companyEmail}/${company_id}`;
     const freqselect = document.getElementById('frequencySelect');
     const freqselectedValues = [];
-    
+
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -294,7 +296,7 @@ function editReportdetails(reportType) {
     const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/admin-report-type/update/${company_id}`;
     const freqselect = document.getElementById('frequencySelect2');
     const freqselectedValues = [];
-    
+
     freqselectedValues.push(reportType);
 
     $(freqselect).selectpicker('val', freqselectedValues);
@@ -333,7 +335,7 @@ function deleteEmpdetails(companyEmail) {
             }
         })
         .catch(error => {
-           
+
             ;
         });
 }
@@ -469,6 +471,7 @@ function updateReportdetails() {
         const reportSelect = document.getElementById("frequencySelect2");
         const selectedValues = Array.from(reportSelect.selectedOptions).map(option => option.value);
         const company_id = localStorage.getItem('companyID');
+        localStorage.setItem("reportSettingsType", selectedValues[0]);
 
         const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/admin-report-type/update/${company_id}`;
 
@@ -476,7 +479,7 @@ function updateReportdetails() {
             CID: company_id,
             ReportType: selectedValues[0]
         };
-        
+
 
         fetch(apiUrl, {
             method: 'PUT',
@@ -485,32 +488,32 @@ function updateReportdetails() {
             },
             body: JSON.stringify(reportObject)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                $(".error-msg").show();
-                setTimeout(function () {
-                    $(".error-msg").hide();
-                    window.location.href = "report_setting.html";
-                }, 1000);
-            } else {
-                localStorage.setItem("reportType", selectedValues[0]);
-              
-                $(".success-msg").show();
-                setTimeout(function () {
-                    $(".success-msg").hide();
-                    window.location.href = "report_setting.html";
-                }, 1000);
-            }
-        })
-        .catch(error => {
-           
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    $(".error-msg").show();
+                    setTimeout(function () {
+                        $(".error-msg").hide();
+                        window.location.href = "report_setting.html";
+                    }, 1000);
+                } else {
+                    localStorage.setItem("reportType", selectedValues[0]);
+
+                    $(".success-msg").show();
+                    setTimeout(function () {
+                        $(".success-msg").hide();
+                        window.location.href = "report_setting.html";
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+
+            });
     } else {
         document.getElementById('selectError2').textContent = '';
     }
@@ -548,16 +551,16 @@ function showLogoutModal(empId) {
 }
 
 // Attach the reset function to the 'Add Entry' button click event
- document.getElementById('add-entry').addEventListener('click', resetFormAndErrors);
- 
+document.getElementById('add-entry').addEventListener('click', resetFormAndErrors);
+
 
 // When I click Logo go to home page 
-function homePage(){
+function homePage() {
     const modalElement = document.getElementById('homePageModal');
     const modalInstance = new bootstrap.Modal(modalElement);
     modalInstance.show();
 }
 
-document.getElementById('homePageYes').addEventListener('click',function (){
+document.getElementById('homePageYes').addEventListener('click', function () {
     window.open('index.html', 'noopener, noreferrer');
 })

@@ -1,13 +1,13 @@
 // When I click close modal with have any error in this form we need to clear all error msg 
 $('#addEntryModal').on('hidden.bs.modal', function () {
   // Clear error messages
-  $('#EmpNameError').text(''); 
-  $('#EmpTypeError').text(''); 
-  $('#dateError').text(''); 
-  $('#startTimeError').text(''); 
-  $('#endTimeError').text(''); 
+  $('#EmpNameError').text('');
+  $('#EmpTypeError').text('');
+  $('#dateError').text('');
+  $('#startTimeError').text('');
+  $('#endTimeError').text('');
   $('#AddEmployee').prop('disabled', true);
-  $('#datePicker').prop('value',"");
+  $('#datePicker').prop('value', "");
 
 });
 
@@ -16,25 +16,14 @@ const toggler = document.querySelector('.navbar-toggler');
 
 // Toggle sidebar open/close
 toggler.addEventListener('click', function () {
-    sidebar.classList.toggle('open');
+  sidebar.classList.toggle('open');
 });
 
 document.addEventListener('click', function (event) {
-    const isClickInside = sidebar.contains(event.target) || toggler.contains(event.target);
-    if (!isClickInside) {
-        sidebar.classList.remove('open');
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const currentLocation = location.href; 
-    const menuItems = document.querySelectorAll('.sidebar a');
-
-    menuItems.forEach(item => {
-        if (item.href === currentLocation) {
-            item.classList.add('active'); 
-        }
-    });
+  const isClickInside = sidebar.contains(event.target) || toggler.contains(event.target);
+  if (!isClickInside) {
+    sidebar.classList.remove('open');
+  }
 });
 
 const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/getdatebasedata';
@@ -66,9 +55,12 @@ datePicker.setAttribute('max', formattedToday);
 
 // Enable end time only after start time is selected
 checkinTimeButton.addEventListener('change', () => {
+  document.querySelector('.placeholder-time-wrapper').classList.remove('placeholder-time-wrapper');
   if (checkinTimeButton.value) {
     checkoutTimeButton.disabled = false;
     startTimeError.textContent = ''; // Clear any previous error
+    AddEmployee.disabled = false;
+
   } else {
     checkoutTimeButton.disabled = true;
     startTimeError.textContent = 'Please select a valid start time.';
@@ -76,8 +68,8 @@ checkinTimeButton.addEventListener('change', () => {
 });
 // Enable the button only if end time is greater than start time
 checkoutTimeButton.addEventListener('change', () => {
-  if (checkinTimeButton.value && checkoutTimeButton.value > checkinTimeButton.value) {
-    AddEmployee.disabled = false;
+  document.querySelector('.placeholder-time-wrapper').classList.remove('placeholder-time-wrapper');
+  if (checkinTimeButton.value && checkinTimeButton.value && checkoutTimeButton.value > checkinTimeButton.value) {
     endTimeError.textContent = ''; // Clear any previous error
   } else {
     endTimeError.textContent = 'End time must be greater than start time.';
@@ -172,166 +164,161 @@ function viewCurrentDateReport() {
   const heading = document.getElementById("current-checkin-header");
   tableBody3.innerHTML = '';
 
-  // if ($.fn.DataTable.isDataTable('#employeeTable')) {
-  //   $('#employeeTable').DataTable().destroy();
-  // }
+  const today = getCurrentLocalTime().substring(0, 10);
+  const employeeApiURL = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee/getall/${cid}`;
+  const reportApiURL = `${apiUrlBase}/${cid}/${today}`;
 
+  heading.innerHTML = today;
 
-  function myFunction() {
-    dropdownValue = document.getElementById("dynamicDropdown").value;
+  // 🔁 1. Load employee dropdown from localStorage or API
+  const cachedEmployees = localStorage.getItem("employeeDropdownList");
+  if (cachedEmployees) {
+    populateDropdown(JSON.parse(cachedEmployees));
+  } else {
+    fetch(employeeApiURL)
+      .then(response => {
+        if (!response.ok) throw new Error('Error fetching employee data');
+        return response.json();
+      })
+      .then(data => {
+        let optionsList = [];
+        data.forEach(element => {
+          let temp = `${element.FName}`;
+          employeeDetails[temp] = element;
+          optionsList.push(temp);
+        });
+        localStorage.setItem("employeeDropdownList", JSON.stringify(optionsList));
+        populateDropdown(optionsList);
+      })
+      .catch(error => {
+        console.error("Employee Dropdown Error", error);
+      });
   }
 
-  document.getElementById("dynamicDropdown").addEventListener('change', myFunction);
-
-  // Check employee API URL
-  const employeeApiURL = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee/getall/${cid}`;
-  
-
-  fetch(employeeApiURL)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error fetching employee data');
-      }
-      return response.json();
-    })
-    .then(data => {
-      
-
-      // Populate dropdown with employee names
-      let optionsList = [];
-      data.forEach(element => {
-        let temp = `${element.FName}`;
-        employeeDetails[temp] = element;
-        optionsList.push(temp);
-      });
-
-      const dropdown = document.getElementById("dynamicDropdown");
-      dropdown.innerHTML = '<option value="">Select Employee</option>';
-      optionsList.forEach(option => {
-        const newOption = document.createElement("option");
-        newOption.value = option;
-        newOption.text = option;
-        dropdown.appendChild(newOption);
-      });
-    })
-    .catch(error => {
-      
+  function populateDropdown(optionsList) {
+    const dropdown = document.getElementById("dynamicDropdown");
+    dropdown.innerHTML = '<option value="">Select Employee</option>';
+    optionsList.forEach(option => {
+      const newOption = document.createElement("option");
+      newOption.value = option;
+      newOption.text = option;
+      dropdown.appendChild(newOption);
     });
+    document.getElementById("dynamicDropdown").addEventListener('change', function () {
+      dropdownValue = this.value;
+    });
+  }
 
-  // Check current date report API
-  var date = getCurrentLocalTime().substring(0, 10);
-  const apiUrl = `${apiUrlBase}/${cid}/${date}`;
-
-
-  heading.innerHTML = date;
-
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-
-
-      if (!data.length) {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `<td colspan="5" class="text-center">No Records Found</td>`;
-        tableBody3.appendChild(newRow);
+  // 🔁 2. Load today's report from localStorage or API
+  const cachedReport = localStorage.getItem(`todayReport-${today}`);
+  if (cachedReport) {
+    renderCheckinTable(JSON.parse(cachedReport));
+  } else {
+    fetch(reportApiURL)
+      .then(response => {
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        return response.json();
+      })
+      .then(data => {
+        localStorage.setItem(`todayReport-${today}`, JSON.stringify(data));
+        renderCheckinTable(data);
+      })
+      .catch(error => {
+        console.error("Report API Error", error);
         document.getElementById('overlay').style.display = 'none';
-        return;
+      });
+  }
+
+  function renderCheckinTable(data) {
+    if (!data.length) {
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = `<td colspan="5" class="text-center">No Records Found</td>`;
+      tableBody3.appendChild(newRow);
+      document.getElementById('overlay').style.display = 'none';
+      return;
+    }
+
+    data.forEach(element => {
+      const newRow = document.createElement('tr');
+      const checkInTimeUTC = new Date(element.CheckInTime);
+      const checkInTimeFormatted = convertToAmPm(checkInTimeUTC);
+
+      if (element.CheckOutTime == null) {
+        const datetimeId = `datetime-${element.CheckInTime}-${element.Pin}`;
+        const checkOutId = `check_out-${element.CheckInTime}-${element.Pin}`;
+
+        newRow.innerHTML = `
+            <td class="Pin">${element.Pin}</td>
+            <td class="Name">${element.Name}</td>
+            <td class="CheckInTime">${checkInTimeFormatted}</td>
+            <td>
+              <div class="text-center">
+                <input type="time" id="${datetimeId}" name="time" class="time-input" step="1">
+                <div class="calendar-icon" onclick="openTimePicker();"></div>
+              </div>
+            </td>
+            <td class="text-center">
+              <button type="button" class="btn btn-green" id="${checkOutId}" disabled>Check-out</button>
+            </td>
+          `;
+
+        tableBody3.appendChild(newRow);
+
+        const datetimeInput = document.getElementById(datetimeId);
+        const checkOutButton = document.getElementById(checkOutId);
+
+        datetimeInput.addEventListener('change', function () {
+          checkOutButton.disabled = !this.value;
+        });
+
+        checkOutButton.addEventListener('click', function () {
+          document.getElementById('overlay').style.display = 'flex';
+
+          const dateWithTime = getDateTimeFromTimePicker(datetimeInput.value);
+          const date2 = new Date(element.CheckInTime);
+          const date1 = new Date(dateWithTime);
+
+          const diffInMs = date1 - date2;
+          const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
+          const totalHours = Math.floor(diffInMinutes / 60);
+          const minutes = diffInMinutes % 60;
+
+          const timeWorkedHours = `${String(totalHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+
+          updateDailyReportAPiData(element.EmpID, element.CID, today, element.Type, element.CheckInSnap, element.CheckInTime, element.CheckOutSnap, dateWithTime, timeWorkedHours);
+
+          datetimeInput.value = '';
+          checkOutButton.disabled = true;
+        });
+      } else {
+        const checkOutTimeFormatted = convertToAmPm(new Date(element.CheckOutTime));
+
+        newRow.innerHTML = `
+            <td class="Pin">${element.Pin}</td>
+            <td class="Name">${element.Name}</td>
+            <td class="CheckInTime">${checkInTimeFormatted}</td>
+            <td class="CheckOutTime">${checkOutTimeFormatted}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-grey" disabled>Check-out</button>
+            </td>
+          `;
+        tableBody3.appendChild(newRow);
       }
-
-      data.forEach(element => {
-        const newRow = document.createElement('tr');
-        const checkInTimeUTC = new Date(element.CheckInTime);
-        const checkInTimeFormatted = convertToAmPm(checkInTimeUTC);
-
-        if (element.CheckOutTime == null) {
-          const datetimeId = `datetime-${element.CheckInTime}-${element.Pin}`;
-          const checkOutId = `check_out-${element.CheckInTime}-${element.Pin}`;
-
-          newRow.innerHTML = `
-              <td class="Pin">${element.Pin}</td>
-              <td class="Name">${element.Name}</td>
-              <td class="CheckInTime">${checkInTimeFormatted}</td>
-              <td>
-                <div class="text-center">
-                  <input type="time" id="${datetimeId}" name="time" class="time-input" step="1">
-                  <div class="calendar-icon" onclick="openTimePicker();"></div>
-                </div>
-              </td>
-              <td class="text-center">
-                <button type="button" class="btn btn-green" id="${checkOutId}" disabled>Check-out</button>
-              </td>
-            `;
-
-          tableBody3.appendChild(newRow);
-
-          const datetimeInput = document.getElementById(datetimeId);
-          const checkOutButton = document.getElementById(checkOutId);
-
-          datetimeInput.addEventListener('change', function () {
-            checkOutButton.disabled = !this.value;
-          });
-
-          checkOutButton.addEventListener('click', function () {
-            document.getElementById('overlay').style.display = 'flex';
-
-            const dateWithTime = getDateTimeFromTimePicker(datetimeInput.value);
-
-            const date2 = new Date(element.CheckInTime);
-            const date1 = new Date(dateWithTime);
-
-            const diffInMs = date1 - date2;
-            const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
-            const totalHours = Math.floor(diffInMinutes / 60);
-            const minutes = diffInMinutes % 60;
-
-            const timeWorkedHours = `${String(totalHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-
-            updateDailyReportAPiData(element.EmpID, element.CID, date, element.Type, element.CheckInSnap, element.CheckInTime, element.CheckOutSnap, dateWithTime, timeWorkedHours);
-
-            datetimeInput.value = '';
-            checkOutButton.disabled = true;
-          });
-        } else {
-          const checkInTimeIST = new Date(element.CheckInTime);
-          const checkOutTimeIST = new Date(element.CheckOutTime);
-          const checkInTimeFormatted = convertToAmPm(new Date(checkInTimeIST));
-          const checkOutTimeFormatted = convertToAmPm(new Date(checkOutTimeIST));
-
-          newRow.innerHTML = `
-              <td class="Pin">${element.Pin}</td>
-              <td class="Name">${element.Name}</td>
-              <td class="CheckInTime">${checkInTimeFormatted}</td>
-              <td class="CheckOutTime">${checkOutTimeFormatted}</td>
-              <td class="text-center">
-                <button type="button" class="btn btn-grey" disabled>Check-out</button>
-              </td>
-            `;
-          tableBody3.appendChild(newRow);
-        }
-      });
-
-      // Initialize DataTable
-      $('#employeeTable').DataTable({
-        "paging": true,
-        "searching": true,
-        "ordering": true,
-        "info": true
-      });
-
-      document.getElementById('overlay').style.display = 'none';
-    })
-    .catch(error => {
-    
-      document.getElementById('overlay').style.display = 'none';
     });
+
+    // Apply DataTable
+    $('#employeeTable').DataTable({
+      "paging": true,
+      "searching": true,
+      "ordering": true,
+      "info": true
+    });
+
+    document.getElementById('overlay').style.display = 'none';
+  }
 }
 
-document.addEventListener('DOMContentLoaded', viewCurrentDateReport);
+
 
 async function updateDailyReportAPiData(emp_id, cid, date, type, checkin_snap, checkin_time, checkout_snap, checkout_time, time_worked) {
 
@@ -345,7 +332,7 @@ async function updateDailyReportAPiData(emp_id, cid, date, type, checkin_snap, c
     CheckOutSnap: checkout_snap,
     CheckOutTime: checkout_time,
     TimeWorked: time_worked,
-    LastModifiedBy:'Admin'
+    LastModifiedBy: 'Admin'
   }
 
   var apiBaseUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/update/${emp_id}/${cid}/${checkin_time}`;
@@ -551,6 +538,18 @@ function getDateTimeFromTimePicker(timeValue) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+  const currentLocation = location.href;
+  const menuItems = document.querySelectorAll('.sidebar a');
+
+
+  menuItems.forEach(item => {
+    if (item.href === currentLocation) {
+      item.classList.add('active');
+    }
+  });
+
+  viewCurrentDateReport();
+
   // Initialize Flatpickr
   flatpickr(".datetime", {
     enableTime: true,
@@ -560,140 +559,142 @@ document.addEventListener('DOMContentLoaded', function () {
     dateFormat: "Y-m-d h:i:S",
     minuteIncrement: 1,
     allowInput: true
-  });
-
-  // Show modal on button click
-  document.getElementById('add-entry').addEventListener('click', function () {
-    document.getElementById("checkinTime").value = '';
-    document.getElementById("checkoutTime").value = '';
-    document.getElementById("type").value = '';
-    document.getElementById("dynamicDropdown").value = '';
-    var modal = new bootstrap.Modal(document.getElementById('addEntryModal'));
-    modal.show();
-  });
-
-  // Handle form submission
-  var form = document.getElementById('entryForm');
-
-  // Show the formatted start and end datetime with validation
-  AddEmployee.addEventListener('click', (event) => {
-    let isValid = true;
-    // Check if date is selected
-    if (!datePicker.value) {
-      dateError.textContent = 'Please select a valid date.';
-      isValid = false;
-    } else {
-      dateError.textContent = '';
-      EmpTypeError.textContent = "";
-      startTimeError.textContent = "";
-      EmpNameError.textContent = "";
-      endTimeError.textContent = "";
-    }
-    if (document.getElementById("type").value === "") {
-      EmpTypeError.textContent = 'Please select a type.';
-      isValid = false;
-      dateError.textContent = '';
-      startTimeError.textContent = "";
-      EmpNameError.textContent = "";
-      endTimeError.textContent = "";
-    }
-
-    if (document.getElementById("dynamicDropdown").value === "") {
-      EmpNameError.textContent = 'Please select a Employee.';
-      isValid = false;
-      dateError.textContent = '';
-      EmpTypeError.textContent = "";
-      startTimeError.textContent = "";
-      endTimeError.textContent = "";
-    }
-    // Check if start time is selected
-    if (!checkinTimeButton.value) {
-      startTimeError.textContent = 'Please select a valid check in time.';
-      isValid = false;
-      dateError.textContent = '';
-      EmpTypeError.textContent = "";
-      EmpNameError.textContent = "";
-      endTimeError.textContent = "";
-    }
-    // Check if end time is valid
-    if (!checkoutTimeButton.value || checkoutTimeButton.value <= checkinTimeButton.value) {
-      endTimeError.textContent = 'Checkout time must be greater than check in time.';
-      isValid = false;
-      dateError.textContent = '';
-      EmpTypeError.textContent = "";
-      startTimeError.textContent = "";
-      EmpNameError.textContent = "";
-    }
-    if (isValid) {
-      var datePickerValue = datePicker.value;
-      const checkinTimeValue = checkinTimeButton.value;
-      const checkoutTimeValue = checkoutTimeButton.value;
-      const startDateTime = datePickerValue + ' ' + checkinTimeValue + ":00";
-      const endDateTimeValue = datePickerValue + ' ' + checkoutTimeValue + ":00";
-
-
-      document.getElementById('overlay').style.display = 'flex';
-      var name = document.getElementById('dynamicDropdown').value;
-      var type = document.getElementById('type').value;
-
-
-      const cid = localStorage.getItem('companyID');
-      const date1 = new Date(endDateTimeValue);
-      const date2 = new Date(startDateTime);
-
-      // Calculate the difference in milliseconds
-      const diffInMs = date1 - date2;
-
-      // Convert the difference from milliseconds to total minutes
-      const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
-
-      // Calculate the total hours and remaining minutes
-      const totalHours = Math.floor(diffInMinutes / 60);
-      const minutes = diffInMinutes % 60;
-
-      // Format the hours and minutes
-      const formattedHours = String(totalHours).padStart(2, '0');
-      const formattedMinutes = String(minutes).padStart(2, '0');
-
-      const timeWorkedHours = formattedHours + ":" + formattedMinutes;
-
-      // Data object to be sent
-      var data = {
-        CID: cid,
-        EmpID: employeeDetails[name]['EmpID'],
-        Date: startDateTime.substring(0, 10),
-        TypeID: type,
-        CheckInSnap: null,
-        CheckInTime: startDateTime,
-        CheckOutSnap: null,
-        CheckOutTime: endDateTimeValue,
-        TimeWorked: timeWorkedHours,
-        LastModifiedBy:'Admin'
-      };
-
-      // Send Post request
-      fetch('https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Close the modal
-          var modal = bootstrap.Modal.getInstance(document.getElementById('addEntryModal'));
-          AddEmployee.disabled = true;
-          modal.hide();
-          viewCurrentDateReport();
-          // Optionally, you can refresh data or provide a success message
-        })
-        .catch((error) => {
-         
-        });
-    }
-  });
+  }
+  );
 });
+
+// Show modal on button click
+document.getElementById('add-entry').addEventListener('click', function () {
+  document.getElementById("checkinTime").value = '';
+  document.getElementById("checkoutTime").value = '';
+  document.getElementById("type").value = '';
+  document.getElementById("dynamicDropdown").value = '';
+  var modal = new bootstrap.Modal(document.getElementById('addEntryModal'));
+  modal.show();
+});
+
+// Handle form submission
+var form = document.getElementById('entryForm');
+
+// Show the formatted start and end datetime with validation
+AddEmployee.addEventListener('click', (event) => {
+  let isValid = true;
+  // Check if date is selected
+  if (!datePicker.value) {
+    dateError.textContent = 'Please select a valid date.';
+    isValid = false;
+  } else {
+    dateError.textContent = '';
+    EmpTypeError.textContent = "";
+    startTimeError.textContent = "";
+    EmpNameError.textContent = "";
+    endTimeError.textContent = "";
+  }
+  if (document.getElementById("type").value === "") {
+    EmpTypeError.textContent = 'Please select a type.';
+    isValid = false;
+    dateError.textContent = '';
+    startTimeError.textContent = "";
+    EmpNameError.textContent = "";
+    endTimeError.textContent = "";
+  }
+
+  if (document.getElementById("dynamicDropdown").value === "") {
+    EmpNameError.textContent = 'Please select a Employee.';
+    isValid = false;
+    dateError.textContent = '';
+    EmpTypeError.textContent = "";
+    startTimeError.textContent = "";
+    endTimeError.textContent = "";
+  }
+  // Check if start time is selected
+  if (!checkinTimeButton.value) {
+    startTimeError.textContent = 'Please select a valid check in time.';
+    isValid = false;
+    dateError.textContent = '';
+    EmpTypeError.textContent = "";
+    EmpNameError.textContent = "";
+    endTimeError.textContent = "";
+  }
+  // Check if end time is valid
+  if (checkoutTimeButton.value == ' ' && checkoutTimeButton.value <= checkinTimeButton.value) {
+    endTimeError.textContent = 'Checkout time must be greater than check in time.';
+    isValid = false;
+    dateError.textContent = '';
+    EmpTypeError.textContent = "";
+    startTimeError.textContent = "";
+    EmpNameError.textContent = "";
+  }
+  if (isValid) {
+    var datePickerValue = datePicker.value;
+    const checkinTimeValue = checkinTimeButton.value;
+    const checkoutTimeValue = checkoutTimeButton.value;
+    const startDateTime = datePickerValue + ' ' + checkinTimeValue + ":00";
+    const endDateTimeValue = checkoutTimeButton.value == ' ' ? null : datePickerValue + ' ' + checkoutTimeValue + ":00";
+
+
+    document.getElementById('overlay').style.display = 'flex';
+    var name = document.getElementById('dynamicDropdown').value;
+    var type = document.getElementById('type').value;
+
+
+    const cid = localStorage.getItem('companyID');
+    const date1 = new Date(endDateTimeValue);
+    const date2 = new Date(startDateTime);
+
+    // Calculate the difference in milliseconds
+    const diffInMs = date1 - date2;
+
+    // Convert the difference from milliseconds to total minutes
+    const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
+
+    // Calculate the total hours and remaining minutes
+    const totalHours = Math.floor(diffInMinutes / 60);
+    const minutes = diffInMinutes % 60;
+
+    // Format the hours and minutes
+    const formattedHours = String(totalHours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+
+    const timeWorkedHours = formattedHours + ":" + formattedMinutes;
+
+    // Data object to be sent
+    var data = {
+      CID: cid,
+      EmpID: employeeDetails[name]['EmpID'],
+      Date: startDateTime.substring(0, 10),
+      TypeID: type,
+      CheckInSnap: null,
+      CheckInTime: startDateTime,
+      CheckOutSnap: null,
+      CheckOutTime: endDateTimeValue,
+      TimeWorked: timeWorkedHours,
+      LastModifiedBy: 'Admin'
+    };
+
+    // Send Post request
+    fetch('https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/dailyreport/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Close the modal
+        var modal = bootstrap.Modal.getInstance(document.getElementById('addEntryModal'));
+        AddEmployee.disabled = true;
+        modal.hide();
+        viewCurrentDateReport();
+        // Optionally, you can refresh data or provide a success message
+      })
+      .catch((error) => {
+
+      });
+  }
+});
+
 
 
 
@@ -735,12 +736,12 @@ function getCurrentLocalTime() {
 
 // When I click Logo go to home page 
 
-function homePage(){
+function homePage() {
   const modalElement = document.getElementById('homePageModal');
   const modalInstance = new bootstrap.Modal(modalElement);
   modalInstance.show();
 }
 
-document.getElementById('homePageYes').addEventListener('click',function (){
+document.getElementById('homePageYes').addEventListener('click', function () {
   window.open('index.html', 'noopener, noreferrer');
 })

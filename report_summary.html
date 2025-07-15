@@ -38,7 +38,39 @@
 </head>
 
 <style>
-    
+    /* Place holder in check-in and check-out time */
+
+    .placeholder-time-wrapper {
+        position: relative;
+    }
+
+    .placeholder-time-wrapper::before {
+        content: attr(data-placeholder);
+        position: absolute;
+        left: 45px;
+        top: 40%;
+        transform: translateY(-50%);
+        color: #02066F;
+        pointer-events: none;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .placeholder-time-wrapper input:valid {
+        /* color: #000; */
+    }
+
+    .placeholder-time-wrapper input:focus::before,
+    .placeholder-time-wrapper input:valid+div {
+        display: none;
+    }
+
+    .placeholder-time-wrapper input:focus+.error,
+    .placeholder-time-wrapper input:valid+.error {
+        margin-top: 10px;
+    }
+
+
     .all-input-style {
         color: #02066F;
     }
@@ -261,41 +293,41 @@
     }
 
     @media screen and (max-width: 1000px) {
-    .sidebar {
-        width: 200px;
-        padding-top: 40px;
-        margin-top: 0;
-    }
+        .sidebar {
+            width: 200px;
+            padding-top: 40px;
+            margin-top: 0;
+        }
 
-    .sidebar a {
-        font-size: 10px;
-        padding: 10px 20px;
-    }
+        .sidebar a {
+            font-size: 10px;
+            padding: 10px 20px;
+        }
 
-    
-    .sidebar button {
-        font-size: 11px; 
-        padding: 6px 6px;
-        margin: 6px; 
-    }
 
-    .sidebar .closebtn {
-        font-size: 30px;
-        right: 15px;
-    }
+        .sidebar button {
+            font-size: 11px;
+            padding: 6px 6px;
+            margin: 6px;
+        }
 
-    #main {
-        margin-left: 0;
-    }
+        .sidebar .closebtn {
+            font-size: 30px;
+            right: 15px;
+        }
 
-   
-    .app_logo {
-        width: 60px; 
-        height: auto;
-        margin-left: 1px; 
-        margin-right: auto; 
+        #main {
+            margin-left: 0;
+        }
+
+
+        .app_logo {
+            width: 60px;
+            height: auto;
+            margin-left: 1px;
+            margin-right: auto;
+        }
     }
-}
 
 
 
@@ -503,25 +535,28 @@
                                     <option value="Belt">Belt</option>
                                     <option value="Path">Path</option>
                                     <option value="Camp">Camp</option>
-                                    <option value="External">External</option>
+                                    <option value="External">Off site</option>
                                     <option value="Trial">Trial</option>
                                     <option value="Reception">Reception</option>
                                 </select>
                                 <div id="EmpTypeError" class="error text-center"></div>
                             </div>
-                          
+
                             <input type="date" id="datePicker" placeholder="Check-in Date (yyyy-mm-dd):" max=""
                                 class="all-input-style mb-3" required>
                             <div id="dateError" class="error text-center"></div>
-                        
-                            <input type="time" id="checkinTime" placeholder="Check-in Time:"
-                                class="all-input-style mb-3" required>
-                            <div id="startTimeError" class="error text-center"></div>
-                       
-                            <input type="time" id="checkoutTime" placeholder="Check-out Time:"
-                                class="all-input-style mb-3" disabled required>
-                            <div id="endTimeError" class="error text-center"></div>
-                        
+
+                            <div class="placeholder-time-wrapper" data-placeholder="Check-in Time:">
+                                <input type="time" id="checkinTime" class="all-input-style mb-3" required>
+                                <div id="startTimeError" class="error text-center"></div>
+                            </div>
+
+                            <div class="placeholder-time-wrapper" data-placeholder="Check-out Time:">
+                                <input type="time" id="checkoutTime" class="all-input-style mb-3" disabled required>
+                                <div id="endTimeError" class="error text-center"></div>
+                            </div>
+
+
 
                             <div class="text-center">
                                 <button type="button" class="btn btn-green mt-2" id="AddEmployee" disabled>Add</button>
@@ -537,7 +572,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content" id="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEntryModalLabel1" style="text-align: center; width: 100%;">Logout</h5>
+                        <h5 class="modal-title" id="addEntryModalLabel1" style="text-align: center; width: 100%;">Logout
+                        </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>

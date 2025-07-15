@@ -23,16 +23,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const currentLocation = location.href; 
-    const menuItems = document.querySelectorAll('.sidebar a');
-
-    menuItems.forEach(item => {
-        if (item.href === currentLocation) {
-            item.classList.add('active'); 
-        }
-    });
-});
 
 
 
@@ -115,6 +105,15 @@ function formatDateTimeToTimezone(utcDateTime, timezone) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  const currentLocation = location.href; 
+    const menuItems = document.querySelectorAll('.sidebar a');
+
+    menuItems.forEach(item => {
+        if (item.href === currentLocation) {
+            item.classList.add('active'); 
+        }
+    });
+    
   selectedValue = localStorage.getItem('reportType');
   document.getElementById("reportName").textContent = selectedValue + " Report";
 });

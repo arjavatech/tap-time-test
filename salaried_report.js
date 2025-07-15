@@ -5,161 +5,293 @@ const toggler = document.querySelector('.navbar-toggler');
 
 // Toggle sidebar open/close
 toggler.addEventListener('click', function () {
-    sidebar.classList.toggle('open');
+  sidebar.classList.toggle('open');
 });
 
 document.addEventListener('click', function (event) {
-    const isClickInside = sidebar.contains(event.target) || toggler.contains(event.target);
-    if (!isClickInside) {
-        sidebar.classList.remove('open');
-    }
+  const isClickInside = sidebar.contains(event.target) || toggler.contains(event.target);
+  if (!isClickInside) {
+    sidebar.classList.remove('open');
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const currentLocation = location.href; 
-    const menuItems = document.querySelectorAll('.sidebar a');
-
-    menuItems.forEach(item => {
-        if (item.href === currentLocation) {
-            item.classList.add('active'); 
-        }
-    });
-});
-
-
-function viewDateRangewiseReport() {
-  document.getElementById('overlay').style.display = 'flex';
-  const tableBody = document.getElementById("tbody");
-  const table = $('#employeeTable').DataTable(); // Get DataTable instance
-  table.clear().destroy(); // Clear existing DataTable instance
-
-  tableBody.innerHTML = '';
-  const cid = localStorage.getItem('companyID');
-
-  let dateRange = {};
-  const selectedValue = localStorage.getItem('reportType');
-
-  switch (selectedValue) {
-   
-    case "Weekly":
-      dateRange = getLastWeekDateRange();
-      break;
-    case "Monthly":
-      dateRange = getLastMonthStartAndEndDates();
-      break;
-    case "Bimonthly":
-      dateRange = getLastTwoMonthStartAndEndDates();
-      break;
-    case "Biweekly":
-      dateRange = getLastTwoWeeksDateRange();
-      break;
-    default:
- 
-      return;
-  }
-
-  const startVal = dateRange.startRange;
-  const endVal = dateRange.endRange;
-
-  document.getElementById("start-date-header").innerHTML = startVal;
-  document.getElementById("end-date-header").innerHTML = endVal;
-
-  const apiUrl = `${apiUrlBase}/${cid}/${startVal}/${endVal}`;
-
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-   
-      try {
-        const totalTimeWorked = calculateTotalTimeWorked(data);
-      
-
-        if (!Array.isArray(data) || data.length === 0) {
-          const newRow = document.createElement('tr');
-          newRow.innerHTML = `
-                      <td colspan="3" class="text-center">No Records Found</td>
-                  `;
-          tableBody.appendChild(newRow);
-        } else {
-          Object.entries(totalTimeWorked).forEach(([pin, Employeedata]) => {
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                          <td class="Name">${Employeedata.name}</td>
-                          <td class="Pin">${pin}</td>
-                          <td class="TimeWorked">${Employeedata.totalHoursWorked}</td>
-                      `;
-            tableBody.appendChild(newRow);
-          });
-        }
-
-        // Store data globally for download
-        window.reportData = Object.entries(totalTimeWorked).map(([pin, data]) => ({
-          Name: data.name,
-          Pin: pin,
-          TotalHours: data.totalHoursWorked
-        }));
-
-        $('#employeeTable').DataTable({ // Reinitialize DataTable
-          "paging": true,
-          "searching": true,
-          "ordering": true,
-          "info": true
-        });
-
-        // Show download buttons when data is loaded
-        if (window.reportData && window.reportData.length > 0) {
-          document.getElementById("download-buttons").style.display = "flex";
-        }
-
-        document.getElementById('overlay').style.display = 'none';
-      } catch (error) {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-                      <td colspan="3" class="text-center">No Records Found</td>
-                  `;
-        tableBody.appendChild(newRow);
-      
-        document.getElementById('overlay').style.display = 'none';
-      }
-    })
-    .catch(error => {
-  
-      document.getElementById('overlay').style.display = 'none';
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  const selectedValue = localStorage.getItem('reportType');
+    const selectedValue = localStorage.getItem("reportSettingsType");
   document.getElementById("reportName").textContent = `${selectedValue} Report`;
   document.getElementById("report-type-heading").textContent = `${selectedValue} Report`;
+
+  const currentLocation = location.href;
+  const menuItems = document.querySelectorAll('.sidebar a');
+
+  menuItems.forEach(item => {
+    if (item.href === currentLocation) {
+      item.classList.add('active');
+    }
+  });
+
+  const yearSelect = document.getElementById('yearInput');
+  const monthSelect = document.getElementById('monthInput');
+
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+
+  for (let year = 2025; year <= currentYear; year++) {
+    const option = document.createElement('option');
+    option.value = year;
+    option.textContent = year;
+    yearSelect.appendChild(option);
+  }
+
+  const monthNames = [
+    'January', 'February', 'March', 'April',
+    'May', 'June', 'July', 'August',
+    'September', 'October', 'November', 'December'
+  ];
+  monthNames.forEach((month, index) => {
+    const option = document.createElement('option');
+    option.value = index + 1;
+    option.textContent = month;
+    monthSelect.appendChild(option);
+  });
+
+  if (currentMonth === 1) {
+    yearSelect.value = currentYear - 1;
+    monthSelect.value = 12;
+  } else {
+    yearSelect.value = currentYear;
+    monthSelect.value = currentMonth - 1;
+  }
+
+  populateWeekDropdown(parseInt(yearSelect.value), parseInt(monthSelect.value));
   viewDateRangewiseReport();
+  toggleHalfVisibility(); // ✅ Add this
 });
 
+function viewDateRangewiseReport() {
+  const selectedValue = localStorage.getItem("reportSettingsType");
+  const showReports = document.getElementById("showTheReports");
+  showReports.innerHTML = "";
+  document.getElementById("tbody").innerHTML = "";
+
+  const getMonth = parseInt(document.getElementById("monthInput").value);
+  const getYear = parseInt(document.getElementById("yearInput").value);
+  const cid = localStorage.getItem("companyID");
+
+  let dateRanges = [];
+
+  if (selectedValue === "Weekly") {
+    const firstDay = new Date(getYear, getMonth - 1, 1);
+    const lastDay = new Date(getYear, getMonth, 0);
+    let current = new Date(firstDay);
+
+    while (current <= lastDay) {
+      const start = new Date(current);
+      const end = new Date(current);
+      end.setDate(end.getDate() + 6);
+      if (end > lastDay) end.setDate(lastDay.getDate());
+
+      dateRanges.push({ startRange: formatDate(start), endRange: formatDate(end) });
+      current.setDate(current.getDate() + 7);
+    }
+
+  } else if (selectedValue === "Bimonthly") {
+    const daysInMonth = new Date(getYear, getMonth, 0).getDate();
+    const mid = Math.ceil(daysInMonth / 2);
+
+    dateRanges.push({
+      startRange: `${getYear}-${pad(getMonth)}-01`,
+      endRange: `${getYear}-${pad(getMonth)}-${pad(mid)}`
+    });
+    dateRanges.push({
+      startRange: `${getYear}-${pad(getMonth)}-${pad(mid + 1)}`,
+      endRange: `${getYear}-${pad(getMonth)}-${pad(daysInMonth)}`
+    });
+  } else if (selectedValue === "Monthly") {
+    const daysInMonth = new Date(getYear, getMonth, 0).getDate();
+    const start = `${getYear}-${pad(getMonth)}-01`;
+    const end = `${getYear}-${pad(getMonth)}-${pad(daysInMonth)}`;
+    loadReportTable(start, end, cid);
+
+    // ✅ Show the start–end date headers
+    document.getElementById("start-date-header").innerHTML = start;
+    document.getElementById("end-date-header").innerHTML = end;
+    return;
+
+  } else if (selectedValue === "Biweekly") {
+    const today = new Date();
+    const end = new Date(today);
+    const start = new Date(today);
+    start.setDate(end.getDate() - 13);
+
+    const startStr = formatDate(start);
+    const endStr = formatDate(end);
+    loadReportTable(startStr, endStr, cid);
+
+    // ✅ Show the start–end date headers
+    document.getElementById("start-date-header").innerHTML = startStr;
+    document.getElementById("end-date-header").innerHTML = endStr;
+    return;
+  }
+
+  // Create buttons for weekly/bimonthly
+  dateRanges.forEach((range, index) => {
+    const btn = document.createElement("button");
+    btn.textContent = `Report ${index + 1}: ${range.startRange} - ${range.endRange}`;
+    btn.className = "btn report-btn-style m-1 report-button";
+
+    btn.onclick = () => {
+      document.querySelectorAll('.report-button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loadReportTable(range.startRange, range.endRange, cid);
+
+      // ✅ Show the start–end date headers
+      document.getElementById("start-date-header").innerHTML = range.startRange;
+      document.getElementById("end-date-header").innerHTML = range.endRange;
+    };
+
+    showReports.appendChild(btn);
+
+    if (index === 0) btn.click();
+  });
+}
+
+function loadReportTable(startVal, endVal, cid) {
+  document.querySelector(".overlay").style.display = "flex";
+  const tableBody = document.getElementById("tbody");
+  document.getElementById("start-date-header").innerText = startVal;
+  document.getElementById("end-date-header").innerText = endVal;
+
+  tableBody.innerHTML = '';
+  if ($.fn.DataTable.isDataTable('#employeeTable')) {
+    $('#employeeTable').DataTable().clear().destroy();
+  }
+
+  const localStorageKey = `report_${cid}_${startVal}_${endVal}`;
+  const cachedDataRaw = localStorage.getItem(localStorageKey);
+
+  if (cachedDataRaw) {
+    try {
+      const cachedData = JSON.parse(cachedDataRaw);
+      renderReportTable(cachedData, tableBody);
+      document.querySelector(".overlay").style.display = "none";
+      return;
+    } catch (e) {
+      // if corrupted, continue with API call
+    }
+  }
+
+  const apiUrl = `${apiUrlBase}/${cid}/${startVal}/${endVal}`;
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      if (Array.isArray(data)) {
+        localStorage.setItem(localStorageKey, JSON.stringify(data));
+        renderReportTable(data, tableBody);
+      } else {
+        localStorage.setItem(localStorageKey, JSON.stringify([])); // store empty
+        tableBody.innerHTML = `<tr><td colspan="3" class="text-center">No Records Found</td></tr>`;
+        document.getElementById("download-buttons").style.display = "none";
+      }
+      document.querySelector(".overlay").style.display = "none";
+    })
+    .catch(() => {
+      localStorage.setItem(localStorageKey, JSON.stringify([])); // store empty fallback
+      tableBody.innerHTML = `<tr><td colspan="3" class="text-center">No Records Found</td></tr>`;
+      document.querySelector(".overlay").style.display = "none";
+    });
+}
+
+function renderReportTable(data, tableBody) {
+  const totalTimeWorked = calculateTotalTimeWorked(data);
+
+  if (!data || data.length === 0) {
+    tableBody.innerHTML = `<tr><td colspan="3" class="text-center">No Records Found</td></tr>`;
+    document.getElementById("download-buttons").style.display = "none";
+    return;
+  }
+
+  Object.entries(totalTimeWorked).forEach(([pin, emp]) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${emp.name}</td>
+      <td>${pin}</td>
+      <td>${emp.totalHoursWorked}</td>
+    `;
+    tableBody.appendChild(row);
+  });
+
+  $('#employeeTable').DataTable();
+  document.getElementById("download-buttons").style.display = "flex";
+}
+
+
+function pad(n) {
+  return n.toString().padStart(2, '0');
+}
+
+function formatDate(date) {
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+
+
+function toggleHalfVisibility() {
+  const type = localStorage.getItem("reportSettingsType");
+  const weekWrapper = document.getElementById("weekInputWrapper");
+  const halfWrapper = document.getElementById("halfInputWrapper");
+
+  weekWrapper.style.display = (type === "Weekly") ? "inline-block" : "none";
+  halfWrapper.style.display = (type === "Bimonthly") ? "inline-block" : "none";
+
+}
+
+function populateWeekDropdown(year, month) {
+  const weekSelect = document.getElementById('weekInput');
+  weekSelect.innerHTML = '';
+
+  const firstDay = new Date(year, month - 1, 1);
+  const lastDay = new Date(year, month, 0);
+
+  let current = new Date(firstDay);
+  let weekCount = 0;
+
+  while (current <= lastDay) {
+    if (current.getDay() === 1) { // Only if it's Monday
+      weekCount++;
+      const option = document.createElement('option');
+      option.value = weekCount;
+      option.textContent = `Week ${weekCount}`;
+      weekSelect.appendChild(option);
+    }
+    current.setDate(current.getDate() + 1);
+  }
+}
+
 // Weekly Report Date Calculation
-function getLastWeekDateRange() {
-  let today = new Date();
-  let dayOfWeek = today.getDay();
-  let daysSinceLastMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-  let lastMonday = new Date(today);
-  lastMonday.setDate(today.getDate() - daysSinceLastMonday - 7);
-  let lastSunday = new Date(lastMonday);
-  lastSunday.setDate(lastMonday.getDate() + 6);
+function getWeeklyReport(year, month) {
+  const weekNum = parseInt(document.getElementById("weekInput").value);
 
-  let formatDate = (date) => date.toISOString().split('T')[0];
+  const firstDay = new Date(year, month - 1, 1);
+  while (firstDay.getDay() !== 1) {
+    firstDay.setDate(firstDay.getDate() + 1);
+  }
 
-  let lastMondayStr = formatDate(lastMonday);
-  let lastSundayStr = formatDate(lastSunday);
+  const startDate = new Date(firstDay);
+  startDate.setDate(firstDay.getDate() + (weekNum - 1) * 7);
+
+  const endDate = new Date(startDate);
+  endDate.setDate(startDate.getDate() + 6);
+
+  const lastDayOfMonth = new Date(year, month, 0);
+  const format = (d) => d.toISOString().split("T")[0];
 
   return {
-    startRange: lastMondayStr,
-    endRange: lastSundayStr
+    startRange: format(startDate),
+    endRange: format(endDate > lastDayOfMonth ? lastDayOfMonth : endDate)
   };
 }
+
+
 
 function getLastTwoWeeksDateRange() {
   let today = new Date();
@@ -181,34 +313,37 @@ function getLastTwoWeeksDateRange() {
   };
 }
 
-function getLastTwoMonthStartAndEndDates() {
-  const today = new Date();
-  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-  const midMonthDay = Math.ceil(daysInMonth / 2);
+
+function getBimonthlyReport(year, month) {
+  const selectedHalf = document.getElementById("halfInput")?.value || "first";
+  const daysInMonth = new Date(year, month, 0).getDate(); // full days in month
+  const mid = Math.ceil(daysInMonth / 2);
 
   let startDate, endDate;
-  if (today.getDate() >= midMonthDay) {
-    startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    endDate = new Date(today.getFullYear(), today.getMonth(), midMonthDay - 1);
+
+  if (selectedHalf === "first") {
+    startDate = new Date(year, month - 1, 1);
+    endDate = new Date(year, month - 1, mid);
   } else {
-    const previousMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-    const daysInPrevMonth = new Date(previousMonth.getFullYear(), previousMonth.getMonth() + 1, 0).getDate();
-    startDate = new Date(previousMonth.getFullYear(), previousMonth.getMonth(), Math.ceil(daysInPrevMonth / 2));
-    endDate = new Date(previousMonth.getFullYear(), previousMonth.getMonth() + 1, 0);
+    startDate = new Date(year, month - 1, mid + 1);
+    endDate = new Date(year, month - 1, daysInMonth);
   }
 
-  const padToTwoDigits = (num) => num.toString().padStart(2, '0');
+  const pad = (n) => n.toString().padStart(2, '0');
 
   return {
-    startRange: `${startDate.getFullYear()}-${padToTwoDigits(startDate.getMonth() + 1)}-${padToTwoDigits(startDate.getDate())}`,
-    endRange: `${endDate.getFullYear()}-${padToTwoDigits(endDate.getMonth() + 1)}-${padToTwoDigits(endDate.getDate())}`
+    startRange: `${startDate.getFullYear()}-${pad(startDate.getMonth() + 1)}-${pad(startDate.getDate())}`,
+    endRange: `${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}`
   };
 }
 
-function getLastMonthStartAndEndDates() {
+
+function getMonthlyReport(year, month) {
   const today = new Date();
-  const startDateLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-  const endDateLastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+  // const startDateLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+  // const endDateLastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+  const startDateLastMonth = new Date(year, month - 1, 1);
+  const endDateLastMonth = new Date(year, month, 0);
 
   return {
     startRange: formatDate(startDateLastMonth),
@@ -244,7 +379,7 @@ function calculateTotalTimeWorked(data) {
     const { Name, Pin, CheckInTime, CheckOutTime } = entry;
 
     if (!Name || !Pin || !CheckInTime) {
-   
+
       return;
     }
 
@@ -266,17 +401,16 @@ function calculateTotalTimeWorked(data) {
     details.totalHoursWorked = minutesToTime(details.totalMinutes);
   }
 
- 
   return employeeTimes;
 }
 
-function homePage(){
+function homePage() {
   const modalElement = document.getElementById('homePageModal');
   const modalInstance = new bootstrap.Modal(modalElement);
   modalInstance.show();
 }
 
-document.getElementById('homePageYes').addEventListener('click',function (){
+document.getElementById('homePageYes').addEventListener('click', function () {
   window.open('index.html', 'noopener, noreferrer');
 })
 
@@ -292,7 +426,7 @@ function downloadPdf() {
   const selectedValue = localStorage.getItem('reportType');
   const startDate = document.getElementById('start-date-header').textContent;
   const endDate = document.getElementById('end-date-header').textContent;
-  
+
   doc.setFontSize(16);
   doc.text(`${selectedValue} Report (${startDate} to ${endDate})`, 14, 20);
 
@@ -322,7 +456,7 @@ function downloadCsv() {
   }
 
   const headers = ['Name', 'Pin', 'Total Worked Hours (HH:MM)'];
-  
+
   const csvData = window.reportData.map(element => [
     element.Name,
     element.Pin,

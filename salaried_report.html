@@ -32,14 +32,32 @@
 
 <style>
     /* Start date end date style  */
-    
-    .start-date-sty{
+
+    .start-date-sty {
         margin-left: 24% !important;
     }
 
-    .end-date-sty{
+    .end-date-sty {
         margin-left: 46% !important;
     }
+
+    /* Report button style  */
+
+    .report-btn-style{
+        background-color: white;
+        border: 2px solid #02066F;
+        color: #02066F;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .report-button.active {
+  background-color:  #02066F;
+  color: #fff ;}
+
 
     /* Loading  */
     .overlay {
@@ -116,7 +134,6 @@
         .nav-bar-style {
             font-size: 14px;
         }
-
     }
 
 
@@ -304,7 +321,7 @@
         margin-left: -130%;
     }
 
-     @media (max-width: 1024px) {
+    @media (max-width: 1024px) {
         .Date {
             font-size: 16px;
             margin-left: 5%;
@@ -325,9 +342,9 @@
             font-size: 14px;
             margin-left: 2%;
         }
-    } 
+    }
 
-    
+
     .no {
         color: #02066F !important;
         border: solid 1px #02066F !important;
@@ -422,7 +439,7 @@
         padding: 16px;
     }
 
-    
+
     .logo {
         width: 101px;
         height: 73.53px;
@@ -430,67 +447,86 @@
         float: right;
 
     }
+
     @media screen and (max-width: 1000px) {
-    .sidebar {
-        width: 200px;
-        padding-top: 40px;
-        margin-top: 0;
+        .sidebar {
+            width: 200px;
+            padding-top: 40px;
+            margin-top: 0;
+        }
+
+        .sidebar a {
+            font-size: 10px;
+            padding: 10px 20px;
+        }
+
+
+        .sidebar button {
+            font-size: 11px;
+            padding: 6px 6px;
+            margin: 6px;
+        }
+
+        .sidebar .closebtn {
+            font-size: 30px;
+            right: 15px;
+        }
+
+        #main {
+            margin-left: 0;
+        }
+
+
+        .app_logo {
+            width: 60px;
+            height: auto;
+            margin-left: 1px;
+            margin-right: auto;
+        }
     }
 
-    .sidebar a {
-        font-size: 10px;
-        padding: 10px 20px;
+    .dropdown-input {
+        border: 1px solid #02066F;
+        color: #02066F;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 5px;
+        margin: 0 10px;
     }
 
-    
-    .sidebar button {
-        font-size: 11px; 
-        padding: 6px 6px;
-        margin: 6px; 
+    .label-style {
+        font-weight: 600;
+        margin-right: 10px;
     }
-
-    .sidebar .closebtn {
-        font-size: 30px;
-        right: 15px;
-    }
-
-    #main {
-        margin-left: 0;
-    }
-
-   
-    .app_logo {
-        width: 60px; 
-        height: auto;
-        margin-left: 1px; 
-        margin-right: auto; 
-    }
-}
-
 </style>
 
 <body>
     <!-- Nav bar  -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+    <nav class="navbar navbar-expand-lg navbar-light"
+        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
         <div class="container-fluid">
-            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()" style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
-    
+            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="justify-content: end;">
                 <div class="navbar-nav">
                     <a class="nav-link" href="device.html" style="color: #02066F; padding: 5px 10px;">Device</a>
-                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee Management</a>
+                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee
+                        Management</a>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#service" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" style="color: #02066F; padding: 5px 10px;">
                             Report
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report Summary</a></li>
-                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report Settings</a></li>
+                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report
+                                    Summary</a></li>
+                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report
+                                    Settings</a></li>
                         </ul>
                     </li>
                     <a class="nav-link" href="profile.html" style="color: #02066F; padding: 5px 10px;">Profile</a>
@@ -500,12 +536,12 @@
             </div>
         </div>
     </nav>
-    
+
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar" style="width: 250px;  padding: 10px;">
         <img src="Image/Group 91.png" alt="Tap Time Logo" class="app_logo">
-            
+
 
         <a href="device.html"> Device</a>
         <a href="employee_list.html"> Employee Management</a>
@@ -567,8 +603,33 @@
         <div class="container mt-5 mb-5">
             <h5 class="text-center fw-bold" id="report-type-heading"></h5>
 
-
             <div class="emp-table table-responsive mt-5">
+                <div class="text-center mb-3" id="add-entry-year-month">
+                    <label for="yearInput" class="label-style">Year:</label>
+                    <select id="yearInput" class="dropdown-input"
+                        onchange="toggleHalfVisibility(); viewDateRangewiseReport()"></select>
+
+                    <label for="monthInput" class="label-style">Month:</label>
+                    <select id="monthInput" class="dropdown-input"
+                        onchange="toggleHalfVisibility(); viewDateRangewiseReport()"></select>
+
+                    <div id="weekInputWrapper" class="label-style" style="display: none;">
+                        <label for="weekInput">Week:</label>
+                        <select id="weekInput" class="dropdown-input" onchange="viewDateRangewiseReport()"></select>
+                    </div>
+
+                    <div id="halfInputWrapper" class="label-style" style="display: none;">
+                        <label for="halfInput">Half:</label>
+                        <select id="halfInput" class="dropdown-input" onchange="viewDateRangewiseReport()">
+                            <option value="first">First Half</option>
+                            <option value="second">Second Half</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mb-3">
+                    <div id="showTheReports"></div>
+                </div>
+
                 <div class="row">
                     <div class="col-sm-6">
                         <h5 class="Date start-date-sty" id="Date">Start Date: <span id="start-date-header"></span></h5>
@@ -579,8 +640,10 @@
                 </div>
                 <div class="custom-table-container">
                     <div class="d-flex justify-content-center gap-3 mb-3" id="download-buttons" style="display: none;">
-                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-pdf" onclick="downloadPdf()">Download PDF</button>
-                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-csv" onclick="downloadCsv()">Download CSV</button>
+                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-pdf"
+                            onclick="downloadPdf()">Download PDF</button>
+                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-csv"
+                            onclick="downloadCsv()">Download CSV</button>
                     </div>
                     <table id="employeeTable" class="table custom-table table-bordered">
                         <thead>
@@ -598,7 +661,6 @@
             </div>
         </div>
     </section>
-
 
     <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="addEntryModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -618,7 +680,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Footer  -->
     <footer id="footer_id">
@@ -686,7 +747,6 @@
             </div>
         </div>
     </footer>
-
 
     <script>
         function logoutCall() {

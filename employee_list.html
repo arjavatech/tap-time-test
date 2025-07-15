@@ -344,7 +344,7 @@
         }
 
 
-        
+
         .logo {
             width: 101px;
             height: 73.53px;
@@ -352,41 +352,41 @@
         }
 
         @media screen and (max-width: 1000px) {
-    .sidebar {
-        width: 200px;
-        padding-top: 40px;
-        margin-top: 0;
-    }
+            .sidebar {
+                width: 200px;
+                padding-top: 40px;
+                margin-top: 0;
+            }
 
-    .sidebar a {
-        font-size: 10px;
-        padding: 10px 20px;
-    }
+            .sidebar a {
+                font-size: 10px;
+                padding: 10px 20px;
+            }
 
-    
-    .sidebar button {
-        font-size: 11px; 
-        padding: 6px 6px;
-        margin: 6px; 
-    }
 
-    .sidebar .closebtn {
-        font-size: 30px;
-        right: 15px;
-    }
+            .sidebar button {
+                font-size: 11px;
+                padding: 6px 6px;
+                margin: 6px;
+            }
 
-    #main {
-        margin-left: 0;
-    }
+            .sidebar .closebtn {
+                font-size: 30px;
+                right: 15px;
+            }
 
-   
-    .app_logo {
-        width: 60px; 
-        height: auto;
-        margin-left: 1px; 
-        margin-right: auto; 
-    }
-}
+            #main {
+                margin-left: 0;
+            }
+
+
+            .app_logo {
+                width: 60px;
+                height: auto;
+                margin-left: 1px;
+                margin-right: auto;
+            }
+        }
 
 
 
@@ -429,7 +429,7 @@
             margin-left: 3px;
 
         }
-       
+
 
         label {
             display: inline-block;
@@ -447,10 +447,10 @@
         .admin-head {
             margin-right: 20%;
         }
-        .none{
+
+        .none {
             display: none;
         }
-        
     </style>
 </head>
 
@@ -554,10 +554,10 @@
                             <div class="col-6">
                                 <span id="current-checkin-header"></span>
                                 <span style="float:right;">
-                                    <button class="btn float-end addEntryBtnStyle employee-add-entry" id="add-entry" onclick="dataRemove('empDetail')"
-                                        >Add Entry</button>
-                                        
-                                        <!-- data-bs-toggle="modal" data-bs-target="#myModal"  -->
+                                    <button class="btn float-end addEntryBtnStyle employee-add-entry" id="add-entry"
+                                        onclick="dataRemove('empDetail')">Add Entry</button>
+
+                                    <!-- data-bs-toggle="modal" data-bs-target="#myModal"  -->
                                 </span>
                             </div>
                         </div>
@@ -584,7 +584,8 @@
                             <div class="modal-dialog">
                                 <div class="modal-content" style="width: 300px; text-align: center; ">
                                     <div class="modal-header">
-                                        <h5 class=" CenterAlign modal-title fw-bold " id="myModalLabel" style="text-align: center; width: 100%;">Employee Details</h5>
+                                        <h5 class=" CenterAlign modal-title fw-bold " id="myModalLabel"
+                                            style="text-align: center; width: 100%;">Employee Details</h5>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -631,8 +632,8 @@
                     <div class="col-6">
                         <span id="current-checkin-header"></span>
                         <span style="float:right;">
-                            <button class="btn float-end addEntryBtnStyle" id="add-entry-admin" onclick="showAdminModal()"
-                                >Add Entry</button>
+                            <button class="btn float-end addEntryBtnStyle" id="add-entry-admin"
+                                onclick="showAdminModal()">Add Entry</button>
                         </span>
                     </div>
                 </div>
@@ -661,7 +662,8 @@
                         <div class="modal-dialog">
                             <div class="modal-content" style="width: 300px; text-align: center;">
                                 <div class="modal-header">
-                                    <h5 class="modal-title fw-bold" id="myModalLabel2" style="text-align: center; width: 100%;">Admin Details</h5>
+                                    <h5 class="modal-title fw-bold" id="myModalLabel2"
+                                        style="text-align: center; width: 100%;">Admin Details</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -682,7 +684,8 @@
                                         <input type="email" id="adminEmail" placeholder="Email"
                                             class="all-input-style mb-3" onblur="validAdminEmail()" required>
                                         <span class="text-danger" id="showAdminMsg4"></span>
-                                        <button type="submit" id="saveAdminBtn" class="settings-btn-sty btn-green">Save</button>
+                                        <button type="submit" id="saveAdminBtn"
+                                            class="settings-btn-sty btn-green">Save</button>
                                     </form>
                                 </div>
                             </div>
@@ -701,15 +704,16 @@
                     <div class="col-6">
                         <span id="current-checkin-header"></span>
                         <span style="float:right;">
-                            <button class="btn float-end addEntryBtnStyle" id="add-entry-superadmin" onclick="showSuperAdminModal()"
-                                >Add Entry</button>
+                            <button class="btn float-end addEntryBtnStyle" id="add-entry-superadmin"
+                                onclick="showSuperAdminModal()">Add Entry</button>
                         </span>
                     </div>
                 </div>
                 <div class="custom-table-container">
                     <div class="custom-search-box">
                         <label>Search:</label>
-                        <input type="text" id="searchSuperAdmin" placeholder="" class="search-input" oninput="filterSuperAdmin()">
+                        <input type="text" id="searchSuperAdmin" placeholder="" class="search-input"
+                            oninput="filterSuperAdmin()">
                     </div>
                     <table class="table custom-table table-bordered" id="superAdminTable">
                         <thead>
@@ -731,7 +735,8 @@
                         <div class="modal-dialog">
                             <div class="modal-content" style="width: 300px; text-align: center;">
                                 <div class="modal-header">
-                                    <h5 class="modal-title fw-bold" id="myModalLabel3" style="text-align: center; width: 100%;">SuperAdmin Details</h5>
+                                    <h5 class="modal-title fw-bold" id="myModalLabel3"
+                                        style="text-align: center; width: 100%;">SuperAdmin Details</h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
@@ -744,7 +749,8 @@
                                             class="all-input-style mb-3" onblur="validSuperAdminLName()" required>
                                         <span class="text-danger" id="showSuperAdminMsg2"></span>
                                         <input type="tel" id="superAdminPhoneNumber" placeholder="Phone Number"
-                                            oninput="formatSuperAdminPhoneNumber()" class="all-input-style mb-3" required>
+                                            oninput="formatSuperAdminPhoneNumber()" class="all-input-style mb-3"
+                                            required>
                                         <span class="text-danger" id="showSuperAdminMsg3"></span>
                                         <input type="text" id="superAdminInstructor" placeholder="Pin"
                                             class="all-input-style mb-3" disabled required>
@@ -752,7 +758,8 @@
                                         <input type="email" id="superAdminEmail" placeholder="Email"
                                             class="all-input-style mb-3" onblur="validSuperAdminEmail()" required>
                                         <span class="text-danger" id="showSuperAdminMsg4"></span>
-                                        <button type="submit" id="saveSuperAdminBtn" class="settings-btn-sty btn-green">Save</button>
+                                        <button type="submit" id="saveSuperAdminBtn"
+                                            class="settings-btn-sty btn-green">Save</button>
                                     </form>
                                 </div>
                             </div>
@@ -771,7 +778,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" id="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addEntryModalLabel" style="text-align: center; width: 100%;" >Logout</h5>
+                    <h5 class="modal-title" id="addEntryModalLabel" style="text-align: center; width: 100%;">Logout</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>

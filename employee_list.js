@@ -1,8 +1,8 @@
 
 const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee';
 var adminCount = 0;
+let employeesData = JSON.parse(localStorage.getItem("allAdminDetails"));
 
-const AdminType = localStorage.getItem('adminType');
 
 // When I click close modal with have any error in this form we need to clear all error msg 
 $('#myModal').on('hidden.bs.modal', function () {
@@ -13,7 +13,28 @@ $('#myModal').on('hidden.bs.modal', function () {
 
 });
 
-document.getElementById('emp_form').addEventListener('submit', function(event) {
+// Fetch employee,admin,super admin data 
+async function fetchEmployeeData() {
+    console.log("Fetching employee data...");
+    const company_id = localStorage.getItem('companyID');
+    const apiUrl = `${apiUrlBase}/getall/${company_id}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+        const data = await response.json();
+        console.log("Login data:", data);
+        localStorage.setItem("allAdminDetails", JSON.stringify(data));
+        viewEmpdetails();
+        return data;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        return null;
+    }
+}
+
+
+document.getElementById('emp_form').addEventListener('submit', function (event) {
     // Check if the form is valid before running custom code
     if (this.checkValidity()) {
         event.preventDefault(); // Prevent form from submitting immediately
@@ -25,12 +46,12 @@ document.getElementById('emp_form').addEventListener('submit', function(event) {
     }
 });
 
-document.getElementById('admin_form').addEventListener('submit', function(event) {
+document.getElementById('admin_form').addEventListener('submit', function (event) {
     event.preventDefault();
     addAdminDetails(event);
 });
 
-document.getElementById('superadmin_form').addEventListener('submit', function(event) {
+document.getElementById('superadmin_form').addEventListener('submit', function (event) {
     event.preventDefault();
     addSuperAdminDetails(event);
 });
@@ -38,10 +59,10 @@ document.getElementById('superadmin_form').addEventListener('submit', function(e
 // Remove Data
 
 function dataRemove(getid) {
-    if(getid == 'empDetail'){
+    if (getid == 'empDetail') {
         // document.getElementById('Dropdown').classList.add('none');
     }
-    else{
+    else {
         document.getElementById('myModalLabel').textContent = 'Admin Details';
         // document.getElementById('Dropdown').classList.remove('none');
     }
@@ -55,6 +76,7 @@ function dataRemove(getid) {
     document.getElementById("phoneNumber").value = "";
     document.getElementById("savebtn").value = "";
 }
+
 const sidebar = document.getElementById('sidebar');
 const toggler = document.querySelector('.navbar-toggler');
 
@@ -71,14 +93,22 @@ document.addEventListener('click', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const currentLocation = location.href; 
+    const currentLocation = location.href;
     const menuItems = document.querySelectorAll('.sidebar a');
 
     menuItems.forEach(item => {
         if (item.href === currentLocation) {
-            item.classList.add('active'); 
+            item.classList.add('active');
         }
     });
+    console.log("check emplyee data",employeesData)
+    if (employeesData.length === 0) {
+        fetchEmployeeData();
+    }
+    else {
+        // Get employee,admin,super admin details 
+        viewEmpdetails();
+    }
 });
 
 // Create Data
@@ -101,7 +131,7 @@ function addEmpdetails(event) {
         const empphoneno = document.getElementById("phoneNumber").value;
         const empinst = document.getElementById("instructor").value;
         const empactive = true;
-        
+
         const empid = 'eid_' + Math.random().toString(36).substr(2, 12);
         const empcid = localStorage.getItem('companyID');
 
@@ -118,7 +148,7 @@ function addEmpdetails(event) {
                 Email: null,
                 Pin: empinst,
                 IsAdmin: 0,
-                LastModifiedBy:'Admin'
+                LastModifiedBy: 'Admin'
             };
 
             fetch(apiUrl, {
@@ -153,7 +183,7 @@ function addEmpdetails(event) {
 
                 })
                 .catch(error => {
-                
+
                 });
         } else {
             const apiUrl = `${apiUrlBase}/update/${empupdateid}`;
@@ -168,7 +198,7 @@ function addEmpdetails(event) {
                 Email: null,
                 Pin: empinst,
                 IsAdmin: 0,
-                LastModifiedBy:'Admin'
+                LastModifiedBy: 'Admin'
             };
 
             fetch(apiUrl, {
@@ -203,7 +233,7 @@ function addEmpdetails(event) {
 
                 })
                 .catch(error => {
-                    
+
                 });
         }
 
@@ -213,141 +243,106 @@ function addEmpdetails(event) {
     }
 }
 
-
-
 // Pagination variables
 const rowsPerPage = 10;
 let currentPage = 1;
-let employeesData = [];  // Variable to store fetched employee data
 
 
-// Function to fetch and display employee data
-function viewEmpdetails() {
-    // Check AdminType and show/hide sections accordingly
+async function viewEmpdetails() {
     const adminType = localStorage.getItem('adminType');
     const employeeSection = document.getElementById('employee-section');
     const adminSection = document.getElementById('admin-section');
     const superAdminSection = document.getElementById('superadmin-section');
-    
+
     if (adminType === 'Admin') {
         employeeSection.style.display = 'block';
         adminSection.style.display = 'none';
         superAdminSection.style.display = 'none';
-
     } else if (adminType === 'SuperAdmin') {
         employeeSection.style.display = 'block';
         adminSection.style.display = 'block';
         superAdminSection.style.display = 'block';
     }
-    
-    // document.getElementById("footer_id").style.position = "fixed";
+
     const tableBody = document.getElementById("tBody");
     const tableBody2 = document.getElementById("tBody2");
     const tableBody3 = document.getElementById("tBody3");
-    const company_id = localStorage.getItem('companyID');
-    const apiUrl = `${apiUrlBase}/getall/${company_id}`;
+
+    tableBody.innerHTML = '';
+    tableBody2.innerHTML = '';
+    tableBody3.innerHTML = '';
+
     
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            
-            let index = 1;
-            // Store the fetched data
-            employeesData = data;
+    if (!employeesData) {
+        // Data not in localStorage, fetch it
+        document.getElementById('overlay').style.display = 'block';
+        employeesData = await fetchEmployeeData();
+    }
 
-            // Clear any existing DataTables instance
-            if ($.fn.DataTable.isDataTable('#employeeTable')) {
-                $('#employeeTable').DataTable().clear().destroy();
-            }
+    if (!employeesData) {
+        document.getElementById('overlay').style.display = 'none';
+        return; // Stop if still no data
+    }
 
-            // Clear the existing table body content
-            tableBody.innerHTML = '';
-            tableBody2.innerHTML = '';
-            tableBody3.innerHTML = '';
-            adminCount = 0;
-            // Populate the table body with fetched data
-            employeesData.forEach(element => {
-                    // document.getElementById("Dropdown").disabled = false;
-                    // document.getElementById("Dropdown").value = "false";
-                
-               
-                 if(adminCount > 2)
-                {
-                    
-                    document.getElementById('add-entry-admin').disabled = true;
-                    document.getElementById('add-entry-admin').style.backgroundColor = '#A0A0A0';
-                    document.getElementById('add-entry-admin').style.color = '	#141414';
-                    document.getElementById('add-entry-admin').style.cursor = 'not-allowed';
-                    // document.getElementById("Dropdown").disabled = true;
-                    // document.getElementById("Dropdown").value = "false";
-                }
-                else
-                {
-                    // document.getElementById("Dropdown").disabled = false;
-                    // document.getElementById("Dropdown").value = "false";
-                }
+    let index = 1;
+    let adminCount = 0;
 
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td class="pin-column">${element.Pin}</td>
-                    <td class="name-column">${element.FName + " " + element.LName}</td>
-                    <td class="phone-column">${element.PhoneNumber}</td>
-                    <td class="action-column">
-                    <button class="btn icon-button" style="color: #02066F;" onclick="${element.IsAdmin == 0 ? `editEmpdetails('${element.EmpID}')` : element.IsAdmin == 1 ? `editAdmindetails('${element.EmpID}')` : `editSuperAdmindetails('${element.EmpID}')`}" data-bs-toggle="modal" data-bs-target="${element.IsAdmin == 0 ? "#myModal" : element.IsAdmin == 1 ? "#myModal2" : "#myModal3"}">
+    employeesData.forEach(element => {
+        if (element.Email != null) {
+            localStorage.setItem("AdminDetails", JSON.stringify(element));
+        }
+
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td class="pin-column">${element.Pin}</td>
+            <td class="name-column">${element.FName + " " + element.LName}</td>
+            <td class="phone-column">${element.PhoneNumber}</td>
+            <td class="action-column">
+                <button class="btn icon-button" style="color: #02066F;" onclick="${element.IsAdmin == 0 ? `editEmpdetails('${element.EmpID}')` : element.IsAdmin == 1 ? `editAdmindetails('${element.EmpID}')` : `editSuperAdmindetails('${element.EmpID}')`}" data-bs-toggle="modal" data-bs-target="${element.IsAdmin == 0 ? "#myModal" : element.IsAdmin == 1 ? "#myModal2" : "#myModal3"}">
                     <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button class="btn icon-button" style="color: #02066F;" onclick="showLogoutModal('${element.EmpID}')">
+                </button>
+                <button class="btn icon-button" style="color: #02066F;" onclick="showLogoutModal('${element.EmpID}')">
                     <i class="fas fa-trash"></i>
-                    </button>
-                    </td>
-                `;
-                // tableBody.appendChild(newRow);
-                if(element.IsAdmin == 0){
-                    tableBody.appendChild(newRow);
-                }
-                else if(element.IsAdmin == 1){
-                    if(adminCount<3){
-                        tableBody2.appendChild(newRow);
-                    }
-                    adminCount+=1;  
-                }
-                else if(element.IsAdmin == 2){
-                    tableBody3.appendChild(newRow);
-                }
-                index++;
-                if(index===5){
-                //   document.getElementById("footer_id").style.position = "unset";
-                }
-           
-            });
+                </button>
+            </td>
+        `;
 
-            // Initialize DataTables
-            $('#employeeTable').DataTable({
-                "paging": true,
-                "searching": true,
-                "ordering": true,
-                "info": true
-            });
+        if (element.IsAdmin == 0) {
+            tableBody.appendChild(newRow);
+        } else if (element.IsAdmin == 1) {
+            if (adminCount < 3) {
+                tableBody2.appendChild(newRow);
+            }
+            adminCount++;
+        } else if (element.IsAdmin == 2) {
+            tableBody3.appendChild(newRow);
+        }
 
-            document.getElementById('overlay').style.display = 'none';
-        })
-        .catch(error => {
-        
-            document.getElementById('overlay').style.display = 'none';
-        });
+        if (adminCount > 2) {
+            const btn = document.getElementById('add-entry-admin');
+            btn.disabled = true;
+            btn.style.backgroundColor = '#A0A0A0';
+            btn.style.color = '#141414';
+            btn.style.cursor = 'not-allowed';
+        }
+
+        index++;
+    });
+
+    $('#employeeTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true
+    });
+
+    document.getElementById('overlay').style.display = 'none';
 }
 
-// Call viewEmpdetails to fetch data and initialize the table
-viewEmpdetails();
+
 
 
 // Call fetchData when the page is fully loaded
-document.addEventListener('DOMContentLoaded', viewEmpdetails);
 document.getElementById('overlay').style.display = 'flex';
 // Edit Data
 
@@ -374,7 +369,7 @@ function editEmpdetails(emId) {
             });
         })
         .catch(error => {
-       
+
         });
 }
 
@@ -402,7 +397,7 @@ function editAdmindetails(emId) {
             });
         })
         .catch(error => {
-       
+
         });
 }
 
@@ -465,8 +460,8 @@ function deleteEmpdetails(emId) {
             }
         })
         .catch(error => {
-      
-            
+
+
         });
 }
 
@@ -554,8 +549,8 @@ function formatPhoneNumber() {
     }
 }
 
-    function showLogoutModal(empId) {
-        const modalHTML = `
+function showLogoutModal(empId) {
+    const modalHTML = `
         <div class="modal fade" id="addEntryModal2" tabindex="-1" aria-labelledby="addEntryModalLabel2" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -574,24 +569,24 @@ function formatPhoneNumber() {
             </div>
         </div>
         `;
-    
-        // Append the modal to the body
-        document.body.innerHTML += modalHTML;
-    
-        // Show the modal using Bootstrap's modal plugin
-        const modalElement = document.getElementById('addEntryModal2');
-        const modalInstance = new bootstrap.Modal(modalElement);
-        modalInstance.show();
-    }
-    
+
+    // Append the modal to the body
+    document.body.innerHTML += modalHTML;
+
+    // Show the modal using Bootstrap's modal plugin
+    const modalElement = document.getElementById('addEntryModal2');
+    const modalInstance = new bootstrap.Modal(modalElement);
+    modalInstance.show();
+}
+
 // When I click Logo go to home page
-function homePage(){
+function homePage() {
     const modalElement = document.getElementById('homePageModal');
     const modalInstance = new bootstrap.Modal(modalElement);
     modalInstance.show();
 }
 
-document.getElementById('homePageYes').addEventListener('click',function (){
+document.getElementById('homePageYes').addEventListener('click', function () {
     window.open('index.html', 'noopener, noreferrer');
 })
 function filterAdmin() {
@@ -635,13 +630,13 @@ function formatSuperAdminPhoneNumber() {
         value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
     }
     inputField.value = value;
-    
+
     const superAdminPin = document.getElementById('superAdminInstructor');
     superAdminPin.value = (inputField.value).substring((inputField.value).length - 4);
-    
+
     const phoneError = document.getElementById('showSuperAdminMsg3');
     const phoneRegex = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
-    
+
     if (inputField.value === '') {
         phoneError.textContent = '';
         return false;
@@ -688,7 +683,7 @@ function validSuperAdminEmail() {
     const email = document.getElementById('superAdminEmail').value;
     const errorEmail = document.getElementById('showSuperAdminMsg4');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (email.trim() === '') {
         errorEmail.textContent = '';
         return false;
@@ -703,15 +698,15 @@ function validSuperAdminEmail() {
 
 function addSuperAdminDetails(event) {
     event.preventDefault();
-    
+
     const isValidFName = validSuperAdminFName();
     const isValidLName = validSuperAdminLName();
     const isValidPhoneNumber = formatSuperAdminPhoneNumber();
     const isValidEmail = validSuperAdminEmail();
-    
+
     if (isValidFName && isValidLName && isValidPhoneNumber && isValidEmail) {
         $('#myModal3').modal('hide');
-        
+
         const superAdminFName = document.getElementById('superAdminFName').value;
         const superAdminLName = document.getElementById('superAdminLName').value;
         const superAdminPhoneNumber = document.getElementById('superAdminPhoneNumber').value;
@@ -720,7 +715,7 @@ function addSuperAdminDetails(event) {
         const companyId = localStorage.getItem('companyID');
         const updateEmpId = document.getElementById('saveSuperAdminBtn').getAttribute('data-empid');
         const empId = updateEmpId || 'eid_' + Math.random().toString(36).substr(2, 12);
-        
+
         const superAdminObject = {
             EmpID: empId,
             CID: companyId,
@@ -733,10 +728,10 @@ function addSuperAdminDetails(event) {
             IsAdmin: 2,
             LastModifiedBy: 'Admin'
         };
-        
+
         const apiUrl = updateEmpId ? `${apiUrlBase}/update/${updateEmpId}` : `${apiUrlBase}/create`;
         const method = updateEmpId ? 'PUT' : 'POST';
-        
+
         fetch(apiUrl, {
             method: method,
             headers: {
@@ -744,28 +739,28 @@ function addSuperAdminDetails(event) {
             },
             body: JSON.stringify(superAdminObject)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                document.querySelector(".e-msg").textContent = data.error;
-                setTimeout(() => {
-                    window.location.href = "employee_list.html";
-                }, 1000);
-            } else {
-                document.querySelector(".s-msg").textContent = data.message;
-                setTimeout(() => {
-                    window.location.href = "employee_list.html";
-                }, 1000);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    document.querySelector(".e-msg").textContent = data.error;
+                    setTimeout(() => {
+                        window.location.href = "employee_list.html";
+                    }, 1000);
+                } else {
+                    document.querySelector(".s-msg").textContent = data.message;
+                    setTimeout(() => {
+                        window.location.href = "employee_list.html";
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 }
 
@@ -810,13 +805,13 @@ function formatAdminPhoneNumber() {
         value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
     }
     inputField.value = value;
-    
+
     const adminPin = document.getElementById('adminInstructor');
     adminPin.value = (inputField.value).substring((inputField.value).length - 4);
-    
+
     const phoneError = document.getElementById('showAdminMsg3');
     const phoneRegex = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
-    
+
     if (inputField.value === '') {
         phoneError.textContent = '';
         return false;
@@ -863,7 +858,7 @@ function validAdminEmail() {
     const email = document.getElementById('adminEmail').value;
     const errorEmail = document.getElementById('showAdminMsg4');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
     if (email.trim() === '') {
         errorEmail.textContent = '';
         return false;
@@ -878,15 +873,15 @@ function validAdminEmail() {
 
 function addAdminDetails(event) {
     event.preventDefault();
-    
+
     const isValidFName = validAdminFName();
     const isValidLName = validAdminLName();
     const isValidPhoneNumber = formatAdminPhoneNumber();
     const isValidEmail = validAdminEmail();
-    
+
     if (isValidFName && isValidLName && isValidPhoneNumber && isValidEmail) {
         $('#myModal2').modal('hide');
-        
+
         const adminFName = document.getElementById('adminFName').value;
         const adminLName = document.getElementById('adminLName').value;
         const adminPhoneNumber = document.getElementById('adminPhoneNumber').value;
@@ -895,7 +890,7 @@ function addAdminDetails(event) {
         const companyId = localStorage.getItem('companyID');
         const updateEmpId = document.getElementById('saveAdminBtn').getAttribute('data-empid');
         const empId = updateEmpId || 'eid_' + Math.random().toString(36).substr(2, 12);
-        
+
         const adminObject = {
             EmpID: empId,
             CID: companyId,
@@ -908,10 +903,10 @@ function addAdminDetails(event) {
             IsAdmin: 1,
             LastModifiedBy: 'Admin'
         };
-        
+
         const apiUrl = updateEmpId ? `${apiUrlBase}/update/${updateEmpId}` : `${apiUrlBase}/create`;
         const method = updateEmpId ? 'PUT' : 'POST';
-        
+
         fetch(apiUrl, {
             method: method,
             headers: {
@@ -919,28 +914,28 @@ function addAdminDetails(event) {
             },
             body: JSON.stringify(adminObject)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                document.querySelector(".e-msg").textContent = data.error;
-                setTimeout(() => {
-                    window.location.href = "employee_list.html";
-                }, 1000);
-            } else {
-                document.querySelector(".s-msg").textContent = data.message;
-                setTimeout(() => {
-                    window.location.href = "employee_list.html";
-                }, 1000);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    document.querySelector(".e-msg").textContent = data.error;
+                    setTimeout(() => {
+                        window.location.href = "employee_list.html";
+                    }, 1000);
+                } else {
+                    document.querySelector(".s-msg").textContent = data.message;
+                    setTimeout(() => {
+                        window.location.href = "employee_list.html";
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 }
 

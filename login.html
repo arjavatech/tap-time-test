@@ -16,8 +16,7 @@
     <link rel="stylesheet" href="inputs.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <title>Tap time</title>
-<style>
-
+    <style>
         .nav-link {
             position: relative;
             display: inline-block;
@@ -182,9 +181,6 @@
             width: 20px;
             height: 20px;
         }
-    </style>
-    <style>
-
 
         .span-content {
             font-weight: bold;
@@ -421,15 +417,18 @@
             }
         }
     </style>
+
 </head>
 
 <body>
 
     <!-- NAV BAR  -->
-    <nav class="navbar navbar-expand-lg" id="navbar" style="background-color: white; padding: 5px 15px; height: 70px; border-bottom: 1px solid #02066F;">
+    <nav class="navbar navbar-expand-lg" id="navbar"
+        style="background-color: white; padding: 5px 15px; height: 70px; border-bottom: 1px solid #02066F;">
         <!-- Hamburger menu -->
         <a class="logo" href="index.html">
-            <img src="web_Image/app_logo.png" alt="arjava_logo" class="logo" style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+            <img src="web_Image/app_logo.png" alt="arjava_logo" class="logo"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
         </a>
         <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
             <span class="navbar-toggler-icon"><i class="fa fa-bars"></i></span>
@@ -476,18 +475,20 @@
         </div>
 
         <div class="col-sm-12 col-xl-6 col-md-6 col-lg-6 example d-flex justify-content-center align-items-center">
-            <div class="container container-sty m-5 p-5 text-center">
+            <div class="container container-sty text-center">
                 <!-- <img src="Image/app_logo.png" alt="" class="mb-5 img-fluid" id="logo"> -->
                 <h2 class="text-center mb-5">Login</h2>
-                <input type="text" id="username" placeholder="User Name" class="all-input-style mb-3" style="text-align: center;" required>
-                <input type="password" id="password" placeholder="Password" class="all-input-style mb-3" style="text-align: center;" required>
-                
-                    <div class="overlay" id="overlay">
-                        <div class="spinner"></div>
-                    </div>
-                    <div class="forget-password mt-2">
-                        <span><a href="forget_password.html" class="span-sty">Forget password</a></span>
-                    </div>
+                <input type="text" id="username" placeholder="User Name" class="all-input-style mb-3"
+                    style="text-align: center;" required>
+                <input type="password" id="password" placeholder="Password" class="all-input-style mb-3"
+                    style="text-align: center;" required>
+
+                <div class="overlay" id="overlay">
+                    <div class="spinner"></div>
+                </div>
+                <div class="forget-password mt-2">
+                    <span><a href="forget_password.html" class="span-sty">Forget password</a></span>
+                </div>
                 <!-- </div> -->
                 <button type="button" class="btn btn-green mt-3" id="loginBtn">Submit</button>
                 <div id="errorMsg" class="font-weight-bold"></div>
@@ -504,9 +505,9 @@
                 </button> -->
 
                 <p class="mt-4 fw-bold" id="login">or</p>
-                            <div class="row mt-2 d-flex justify-content-center align-items-center">
-                                <p class="g_id_signin mt-4"></p>
-                            </div>
+                <div class="row d-flex justify-content-center align-items-center">
+                    <p class="g_id_signin mt-4"></p>
+                </div>
             </div>
 
         </div>
@@ -529,6 +530,8 @@
                 sidebar.classList.remove('open');
             }
         });
+        // Employee api url base 
+        const apiUrlBase = 'https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/employee';
 
         document.addEventListener("DOMContentLoaded", function () {
             // Retrieve the logo from local storage
@@ -539,10 +542,8 @@
                 const logoImg = document.getElementById('logo-img');
                 logoImg.src = companyLogo; // Set the logo image source
                 logoImg.onload = function () {
-                   
                 };
                 logoImg.onerror = function () {
-                   
                 };
             }
         });
@@ -567,7 +568,6 @@
             loginCheck(username, password)
                 .then(isAuthenticated => {
                     if (isAuthenticated) {
-
                         const cid1 = localStorage.getItem("companyID");
                         const customerDataPromise = "PST";
                         // getCustmData(cid1);
@@ -575,11 +575,10 @@
 
                         Promise.all([customerDataPromise, timeZonePromise])
                             .then(() => {
-
                                 window.location.href = 'employee_list.html';
                             })
                             .catch(error => {
-                               
+
                             });
                     } else {
 
@@ -589,7 +588,6 @@
                     }
                 })
                 .catch(error => {
-                  
                     alert('An error occurred during authentication');
                 });
         });
@@ -613,14 +611,14 @@
                     localStorage.setItem('username', data["UserName"]);
                     localStorage.setItem('password', data["Password"]);
                     localStorage.setItem('reportType', data["ReportType"]);
-                    localStorage.setItem('adminType', "SuperAdmin");
-
+                    localStorage.setItem('adminType', "customer");
+                    localStorage.setItem('passwordDecryptedValue', decryptPassword);
                     const user = data["UserName"] === username && decryptPassword === password;
 
                     return user ? true : false;
                 }
             } catch (error) {
-             
+
                 return false;
             }
         }
@@ -666,13 +664,11 @@
 
                         })
                         .catch(error => {
-                            
+
                         });
                 }
             )
         }
-
-
 
         async function getTimeZone(cid1) {
             const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/device/getAll/${cid1}`;
@@ -695,16 +691,16 @@
                             });
                         }
                         catch {
-                           
+
                         }
                     }
                 })
                 .catch(error => {
-                  
+
                 });
         }
 
-        
+
         // Initialize Google Sign-In and other features
         window.onload = function () {
             google.accounts.id.initialize({
@@ -732,58 +728,59 @@
         }
 
         async function handleCredentialResponse(response) {
-    document.getElementById('errorMsg').innerHTML = "";
-    const userObject = decodeJwtResponse(response.credential);
-    console.log("User Email: " + userObject.email);
-    const email = userObject.email;
+            document.getElementById('errorMsg').innerHTML = "";
+            const userObject = decodeJwtResponse(response.credential);
+            console.log("User Email: " + userObject.email);
+            localStorage.setItem('authenticationEmail', userObject.email);
+            const email = userObject.email;
 
-    try {
-        const res = await fetch(`https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/login_check/${email}`);
-        if (!res.ok) {
-            throw new Error('Network response was not ok');
+            try {
+                const res = await fetch(`https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/login_check/${email}`);
+                if (!res.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await res.json();
+                console.log(data);
+
+                if ("error" in data) {
+                    document.getElementById('overlay').style.display = 'none';
+                    document.getElementById('errorMsg').innerHTML = "Invalid Gmail login";
+                    document.getElementById('errorMsg').style.color = "red";
+                    return;
+                }
+
+                if (data["AdminType"] === "Admin" || data["AdminType"] === "SuperAdmin") {
+                    console.log(data["Email"]);
+                    const companyID = data["CID"];
+                    localStorage.setItem('companyID', companyID);
+                    localStorage.setItem('companyName', data["CName"]);
+                    localStorage.setItem('companyLogo', data["CLogo"]);
+                    localStorage.setItem('companyAddress', data["CAddress"]);
+                    localStorage.setItem('username', data["UserName"]);
+                    localStorage.setItem('password', data["Password"]);
+                    localStorage.setItem('reportType', data["ReportType"]);
+                    localStorage.setItem('adminMail', data["Email"]);
+                    localStorage.setItem('adminType', data["AdminType"]);
+
+
+                    const customerDataPromise = "PST";  // You may want to change this
+                    const timeZonePromise = getTimeZone(companyID);
+
+                    Promise.all([customerDataPromise, timeZonePromise])
+                        .then(() => {
+
+                            window.location.href = 'employee_list.html';
+                        })
+                        .catch(error => {
+                            console.error("Promise failed:", error);
+                        });
+                }
+
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
         }
-
-        const data = await res.json();
-        console.log(data);
-
-        if ("error" in data) {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('errorMsg').innerHTML = "Invalid Gmail login";
-            document.getElementById('errorMsg').style.color = "red";
-            return;
-        }
-
-        if (data["AdminType"] === "Admin" || data["AdminType"] === "SuperAdmin") {
-            console.log("data");
-            const companyID = data["CID"];
-            localStorage.setItem('companyID', companyID);
-            localStorage.setItem('companyName', data["CName"]);
-            localStorage.setItem('companyLogo', data["CLogo"]);
-            localStorage.setItem('companyAddress', data["CAddress"]);
-            localStorage.setItem('username', data["UserName"]);
-            localStorage.setItem('password', data["Password"]);
-            localStorage.setItem('reportType', data["ReportType"]);
-            localStorage.setItem('adminMail', data["Email"]);
-            localStorage.setItem('adminType', data["AdminType"]);
-
-            const customerDataPromise = "PST";  // You may want to change this
-            const timeZonePromise = getTimeZone(companyID);
-
-            Promise.all([customerDataPromise, timeZonePromise])
-                .then(() => {
-                    window.location.href = 'employee_list.html';
-                })
-                .catch(error => {
-                    console.error("Promise failed:", error);
-                });
-        }
-
-    } catch (error) {
-        console.error("Fetch error:", error);
-    }
-}
-
-        
 
     </script>
 

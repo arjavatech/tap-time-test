@@ -45,6 +45,7 @@ function validatePassword() {
     return true;
 }
 
+
 // Function to validate the entire form
 function validateForm(event) {
     event.preventDefault();

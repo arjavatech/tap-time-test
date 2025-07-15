@@ -255,42 +255,43 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
+
         @media screen and (max-width: 1000px) {
-    .sidebar {
-        width: 200px;
-        padding-top: 40px;
-        margin-top: 0;
-    }
+            .sidebar {
+                width: 200px;
+                padding-top: 40px;
+                margin-top: 0;
+            }
 
-    .sidebar a {
-        font-size: 10px;
-        padding: 10px 20px;
-    }
+            .sidebar a {
+                font-size: 10px;
+                padding: 10px 20px;
+            }
 
-    
-    .sidebar button {
-        font-size: 11px; 
-        padding: 6px 6px;
-        margin: 6px; 
-    }
 
-    .sidebar .closebtn {
-        font-size: 30px;
-        right: 15px;
-    }
+            .sidebar button {
+                font-size: 11px;
+                padding: 6px 6px;
+                margin: 6px;
+            }
 
-    #main {
-        margin-left: 0;
-    }
+            .sidebar .closebtn {
+                font-size: 30px;
+                right: 15px;
+            }
 
-   
-    .app_logo {
-        width: 60px; 
-        height: auto;
-        margin-left: 1px; 
-        margin-right: auto; 
-    }
-}
+            #main {
+                margin-left: 0;
+            }
+
+
+            .app_logo {
+                width: 60px;
+                height: auto;
+                margin-left: 1px;
+                margin-right: auto;
+            }
+        }
 
 
 
@@ -313,21 +314,21 @@
             color: #02066F;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
+
         #addButton {
             display: block;
-            margin: 0 auto 10px auto; 
+            margin: 0 auto 10px auto;
         }
 
         #para {
-             margin-top: 0; 
+            margin-top: 0;
         }
+
         @media (max-width:768px) {
-            #footer_id{
+            #footer_id {
                 position: relative !important;
             }
         }
-        
-        
     </style>
 
 </head>
@@ -335,26 +336,31 @@
 <body>
 
     <!-- Nav bar  -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+    <nav class="navbar navbar-expand-lg navbar-light"
+        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
         <div class="container-fluid">
-            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()" style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
-    
+            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="justify-content: end;">
                 <div class="navbar-nav">
                     <a class="nav-link active" href="#" style="color: #02066F; padding: 5px 10px;">Device</a>
-                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee Management</a>
+                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee
+                        Management</a>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#service" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" style="color: #02066F; padding: 5px 10px;">
                             Report
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report Summary</a></li>
-                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report Settings</a></li>
+                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report
+                                    Summary</a></li>
+                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report
+                                    Settings</a></li>
                         </ul>
                     </li>
                     <a class="nav-link" href="profile.html" style="color: #02066F; padding: 5px 10px;">Profile</a>
@@ -364,7 +370,7 @@
             </div>
         </div>
     </nav>
-    
+
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar" style="width: 250px;  padding: 10px;">
@@ -485,7 +491,8 @@
 
 
     <!-- Footer  -->
-    <footer id="footer_id" style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #02066F; color: white; padding: 20px 0; ">
+    <footer id="footer_id"
+        style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: #02066F; color: white; padding: 20px 0; ">
         <div class="footer-container container-fluid">
             <!-- Logo and Social Links Section -->
             <div class="logo-social">
@@ -496,17 +503,21 @@
                 <p>Powered by <br>Arjava Technologies</p>
                 <br>
                 <div class="social-icons">
-                    <a href="https://www.linkedin.com/company/arjavatech/" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href="https://www.linkedin.com/company/arjavatech/" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/linkedin 1.png" alt="LinkedIn"></a>
-                    <a href="https://www.facebook.com/profile.php?id=61565587366048" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href="https://www.facebook.com/profile.php?id=61565587366048" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/facebook 1.png" alt="Facebook"></a>
-                    <a href="https://www.instagram.com/_tap_time" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href="https://www.instagram.com/_tap_time" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/instagram 1.png" alt="Instagram"></a>
-                    <a href=" https://x.com/_Tap_Time" style="transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
+                    <a href=" https://x.com/_Tap_Time" style="transition: all 0.3s ease;"
+                        onmouseover="this.style.boxShadow='0 0 10px white';" onmouseout="this.style.boxShadow='none';">
                         <img src="icon/twitter 1.png" alt="X"></a>
                 </div>
             </div>
-    
+
             <!-- Quick Links Section -->
             <div class="quick-links">
                 <h4>Quick Links</h4>
@@ -519,27 +530,31 @@
                     <li><a href="contact.html">Contact Us</a></li>
                 </ul>
             </div>
-    
+
             <!-- Address Section -->
             <div class="address">
                 <div style="display: inline-flex;">
-                    <img src="icon/location-pin (1) 1.png" style="width: 20px;padding-right: 15px; height: 20px; padding-top: 25px;" alt="">
+                    <img src="icon/location-pin (1) 1.png"
+                        style="width: 20px;padding-right: 15px; height: 20px; padding-top: 25px;" alt="">
                     <h4>Address</h4>
                 </div>
-                <p style="padding-left: 30px;">Arjava Technologies,<br>2135 204th PL NE,<br>Sammamish,<br> WA - 98074.</p>
+                <p style="padding-left: 30px;">Arjava Technologies,<br>2135 204th PL NE,<br>Sammamish,<br> WA - 98074.
+                </p>
                 <br>
                 <div style="display: inline-flex;margin-top: 5px;">
-                    <img src="icon/phone-call (1) 1.png" style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <img src="icon/phone-call (1) 1.png"
+                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
                     <p><a href="tel:+14258181900">(541) 371-2950 </a></p>
                 </div><br>
                 <div style="display: inline-flex;margin-top: 5px;">
-                    <img src="icon/paper-plane 1.png" style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
+                    <img src="icon/paper-plane 1.png"
+                        style="width: 18px;padding-right: 10px; height: 20px; padding-top: 5px;" alt="">
                     <p><a href="mailto:contact@tap-time.com">contact@tap-time.com</a></p>
                 </div>
             </div>
         </div>
     </footer>
-    
+
 
 
     <script>
@@ -568,16 +583,94 @@
             }
         });
 
+        function fetchDeviceDataFromAPI() {
+            const companyId = localStorage.getItem('companyID');
+            const apiUrl = `${apiUrlBase}/getAll/${companyId}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error(`Error: ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    localStorage.setItem("deviceData", JSON.stringify(data));
+                    renderDeviceTable(data);
+                })
+                .catch(error => {
+                    console.error("Device fetch error:", error);
+                    document.getElementById("table").style.display = "none";
+                    document.getElementById("deviceCheck").style.display = "block";
+                })
+                .finally(() => {
+                    document.getElementById('overlay').style.display = 'none';
+                });
+        }
+
+        function renderDeviceTable(data) {
+    const tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = '';
+
+    if (!data || data.error === "No devices found !" || data.length === 0) {
+        document.getElementById("table").style.display = "none";
+        document.getElementById("deviceCheck").style.display = "block";
+        return;
+    }
+
+    data.forEach(element => {
+        const newRow = document.createElement('tr');
+        const accessKey = element.AccessKey;
+        newRow.innerHTML = `
+            <td>${element.TimeZone}</td>
+            <td class="accesskey" data-key="${accessKey}">
+                ${maskString(accessKey, 4)}
+                <span><button class="btn icon-button" onClick="copyAccessKey(this)">
+                    <i class="fa-solid fa-copy"></i></button>
+                </span>
+            </td>
+            <td class="DId">${element.DeviceID}</td>
+            <td class="DName">${element.DeviceName}</td>
+            <td class="Action">
+                <button class="btn" id="buttonClick" 
+                    style="background-color: transparent; border: none; cursor: pointer;" 
+                    onclick="showLogoutModal('${element.AccessKey}')">
+                    <i class="fas fa-trash" style="color: #02066F; font-size: 20px;"></i>
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(newRow);
+    });
+
+    document.getElementById("table").style.display = "block";
+}
+
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('overlay').style.display = 'flex';
+
+            const cachedDeviceData = localStorage.getItem("deviceData");
+            if (cachedDeviceData) {
+                try {
+                    const parsedData = JSON.parse(cachedDeviceData);
+                    renderDeviceTable(parsedData);
+                    document.getElementById('overlay').style.display = 'none';
+                } catch (e) {
+                    console.error("Invalid device data in localStorage:", e);
+                    fetchDeviceDataFromAPI();
+                }
+            } else {
+                fetchDeviceDataFromAPI();
+            }
+
             const currentLocation = location.href;
             const menuItems = document.querySelectorAll('.sidebar a');
-
             menuItems.forEach(item => {
                 if (item.href === currentLocation) {
                     item.classList.add('active');
                 }
             });
         });
+
+
+
         const tableBody = document.getElementById("tableBody");
         // let isActiveVaraiable;
         const apiUrlBase = "https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/device";
@@ -636,71 +729,53 @@
                     document.querySelector('.custom-tooltip').remove();
                 }, 2000);
             }).catch(err => {
-              
+
             });
         }
 
 
-        function viewDevices() {
-            document.getElementById('overlay').style.display = 'flex';
-            const companyId = localStorage.getItem('companyID');
-            const apiUrl = `${apiUrlBase}/getAll/${companyId}`;
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Error: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    tableBody.innerHTML = '';
-                    if (data.error === "No devices found !" || data.length === 0) {
-                        document.getElementById("table").style.display = "none";
-                        document.getElementById("deviceCheck").style.display = "block";
 
-                    } else {
-                        try {
-                            data.forEach(element => {
-                                const newRow = document.createElement('tr');
-                                const accessKey = element.AccessKey;
-                                // localStorage.setItem('aKey',accessKey);
-                                newRow.innerHTML = `
-                                    <td>${element.TimeZone}</td>
-                                    <td class="accesskey" data-key="${accessKey}">${maskString(accessKey, 4)} <span><button class="btn icon-button" onClick="copyAccessKey(this)"><i class="fa-solid fa-copy"></i></button></span></td>
-                                    <td class="DId">${element.DeviceID}</td>
-                                    <td class="DName">${element.DeviceName}</td>
-                                   <td class="Action">
-                                   <button class="btn" id="buttonClick" 
-                                   style="background-color: transparent; border: none; cursor: pointer;" 
-                                   onclick="showLogoutModal('${element.AccessKey}')">
-                                  <i class="fas fa-trash" style="color: #02066F; font-size: 20px;"></i>
-                                 </button>
-                                 </td>
+       function viewDevices() {
+    document.getElementById('overlay').style.display = 'flex';
+    const cachedDeviceData = localStorage.getItem("deviceData");
 
-
-                                `;
-                                tableBody.appendChild(newRow);
-                            });
-                            document.getElementById("table").style.display = "block";
-                        }
-                        catch {
-                            document.getElementById("table").style.display = "none";
-                        }
-                    }
-                })
-                .catch(error => {
-                    
-                })
-                .finally(() => {
-                    document.getElementById('overlay').style.display = 'none';
-                });
+    if (cachedDeviceData) {
+        try {
+            const parsedData = JSON.parse(cachedDeviceData);
+            renderDeviceTable(parsedData);
+            document.getElementById('overlay').style.display = 'none';
+            return;
+        } catch (e) {
+            console.error("Invalid device data in localStorage:", e);
+            localStorage.removeItem("deviceData");
         }
+    }
+
+    const companyId = localStorage.getItem('companyID');
+    const apiUrl = `${apiUrlBase}/getAll/${companyId}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) throw new Error(`Error: ${response.status}`);
+            return response.json();
+        })
+        .then(data => {
+            localStorage.setItem("deviceData", JSON.stringify(data));
+            renderDeviceTable(data);
+        })
+        .catch(error => {
+            console.error("Device fetch error:", error);
+            document.getElementById("table").style.display = "none";
+            document.getElementById("deviceCheck").style.display = "block";
+        })
+        .finally(() => {
+            document.getElementById('overlay').style.display = 'none';
+        });
+}
+
+
         // }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('overlay').style.display = 'flex';
-            viewDevices();
-        });
 
 
         function saveDeviceChanges() {
@@ -755,7 +830,7 @@
                 DeviceName: "Not Registered",
                 AccessKey: accessKey,
                 AccessKeyGeneratedTime: new Date().toISOString(),
-                LastModifiedBy:'Admin'
+                LastModifiedBy: 'Admin'
             };
 
             fetch(`${apiUrlBase}/create`, {
@@ -780,7 +855,7 @@
                     }, 1000);
                 })
                 .catch(error => {
-                    
+
                 })
                 .finally(() => {
                     document.getElementById('overlay').style.display = 'none';
@@ -826,7 +901,7 @@
                     }
                 })
                 .catch(error => {
-                  
+
                 });
         }
 
