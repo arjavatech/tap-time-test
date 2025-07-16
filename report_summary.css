@@ -6,6 +6,12 @@
     color: #fff;
 }
 
+.fixed-tabs {
+    position: fixed;
+    top: 70px; /* height of navbar */
+    z-index: 1049;
+}
+
 .rounded-pill-active {
     border-radius: 50rem;
     background-color: #fff;

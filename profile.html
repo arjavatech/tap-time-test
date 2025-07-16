@@ -418,8 +418,8 @@
 <body>
 
     <!-- Nav bar  -->
-    <nav class="navbar navbar-expand-lg navbar-light"
-        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top"
+    style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px; z-index: 1050;">
         <div class="container-fluid">
             <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
                 style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
@@ -507,7 +507,7 @@
         </div>
     </div>
 
-    <form id="settingsForm" class="p-5 text-center">
+    <form id="settingsForm" class="mt-5 p-5 text-center">
         <div class="text-center mb-4">
             <button type="button" class="swtich-btn-sty activate" id="companyBtn"
                 onclick="showSection('company')">Company

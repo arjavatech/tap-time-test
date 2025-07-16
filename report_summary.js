@@ -8,7 +8,6 @@ $('#addEntryModal').on('hidden.bs.modal', function () {
   $('#endTimeError').text('');
   $('#AddEmployee').prop('disabled', true);
   $('#datePicker').prop('value', "");
-
 });
 
 const sidebar = document.getElementById('sidebar');

@@ -465,6 +465,7 @@ function validReportDays2() {
 
 // Function to handle updating report details
 function updateReportdetails() {
+    document.getElementById('overlay').style.display = 'flex';
     const isValidRdays = validReportDays2();
 
     if (isValidRdays) {
@@ -510,9 +511,10 @@ function updateReportdetails() {
                         window.location.href = "report_setting.html";
                     }, 1000);
                 }
+                document.getElementById('overlay').style.display = 'none';
             })
             .catch(error => {
-
+                document.getElementById('overlay').style.display = 'none';
             });
     } else {
         document.getElementById('selectError2').textContent = '';

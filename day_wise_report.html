@@ -31,8 +31,8 @@
 </head>
 
 <style>
-     /* Loading  */
-     .overlay {
+    /* Loading  */
+    .overlay {
         display: none;
         position: fixed;
         top: 0;
@@ -297,7 +297,7 @@
         padding: 16px;
     }
 
-    
+
     /* @media (max-width:570px) {
         footer {
             position: unset !important;
@@ -310,95 +310,98 @@
         }
     } */
     @media screen and (max-width: 1000px) {
-    .sidebar {
-        width: 200px;
-        padding-top: 40px;
-        margin-top: 0;
-    }
-
-    .sidebar a {
-        font-size: 10px;
-        padding: 10px 20px;
-    }
-
-    
-    .sidebar button {
-        font-size: 11px; 
-        padding: 6px 6px;
-        margin: 6px; 
-    }
-
-    .sidebar .closebtn {
-        font-size: 30px;
-        right: 15px;
-    }
-
-    #main {
-        margin-left: 0;
-    }
-
-   
-    .app_logo {
-        width: 60px; 
-        height: auto;
-        margin-left: 1px; 
-        margin-right: auto; 
-    }
-}
-
-
-
-        .sidebar a i {
-            margin-right: 15px;
+        .sidebar {
+            width: 200px;
+            padding-top: 40px;
+            margin-top: 0;
         }
+
+        .sidebar a {
+            font-size: 10px;
+            padding: 10px 20px;
+        }
+
 
         .sidebar button {
-            background-color: white;
-            color: #02066F;
-            margin: 20px;
-            /* font-size: 18px; */
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 11px;
+            padding: 6px 6px;
+            margin: 6px;
         }
 
-        .sidebar button:hover {
-            background-color: gray;
-            color: #02066F;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        .sidebar .closebtn {
+            font-size: 30px;
+            right: 15px;
         }
+
+        #main {
+            margin-left: 0;
+        }
+
+
+        .app_logo {
+            width: 60px;
+            height: auto;
+            margin-left: 1px;
+            margin-right: auto;
+        }
+    }
+
+
+
+    .sidebar a i {
+        margin-right: 15px;
+    }
+
+    .sidebar button {
+        background-color: white;
+        color: #02066F;
+        margin: 20px;
+        /* font-size: 18px; */
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .sidebar button:hover {
+        background-color: gray;
+        color: #02066F;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
 
     .logo {
         width: 101px;
         height: 73.53px;
         margin-right: 20px;
     }
-
-
 </style>
 
 <body>
     <!-- Nav bar  -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top"
+        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px; z-index: 1050;">
         <div class="container-fluid">
-            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()" style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
-    
+            <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
+                style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
+
             <button class="navbar-toggler" type="button" aria-label="Toggle navigation" style="padding: 0;">
                 <span class="navbar-toggler-icon"></span>
             </button>
-    
+
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="justify-content: end;">
                 <div class="navbar-nav">
                     <a class="nav-link" href="device.html" style="color: #02066F; padding: 5px 10px;">Device</a>
-                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee Management</a>
+                    <a class="nav-link" href="employee_list.html" style="color: #02066F; padding: 5px 10px;">Employee
+                        Management</a>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#service" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" style="color: #02066F; padding: 5px 10px;">
                             Report
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report Summary</a></li>
-                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report Settings</a></li>
+                            <li><a class="dropdown-item" href="report_summary.html" style="padding: 5px;">Report
+                                    Summary</a></li>
+                            <li><a class="dropdown-item" href="report_setting.html" style="padding: 5px;">Report
+                                    Settings</a></li>
                         </ul>
                     </li>
                     <a class="nav-link" href="profile.html" style="color: #02066F; padding: 5px 10px;">Profile</a>
@@ -408,7 +411,7 @@
             </div>
         </div>
     </nav>
-    
+
 
     <!-- <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
@@ -449,8 +452,7 @@
 
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar" style="width: 250px;  padding: 10px;">
-        <img src="Image/Group 91.png" alt="Tap Time Logo" class="app_logo"
-            >
+        <img src="Image/Group 91.png" alt="Tap Time Logo" class="app_logo">
         <a href="device.html"> Device</a>
         <a href="employee_list.html"> Employee Management</a>
         <a href="report_summary.html">Report Summary</a>
@@ -467,40 +469,43 @@
         </div>
 
         <!-- Go to home page modal -->
-    <div class="modal fade" id="homePageModal" tabindex="-1" aria-labelledby="homePageModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="homePageModalLabel" style="text-align: center; width: 100%;">Home</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h5 class="fw-bold mb-3 text-center">Are you sure you want to go home?</h5>
-                    <p class="d-flex justify-content-center">
-                        <button class="btn yes" id="homePageYes">Yes</button>
-                        <button class="btn no" data-bs-dismiss="modal" style="margin-left: 2%;">No</button>
-                    </p>
+        <div class="modal fade" id="homePageModal" tabindex="-1" aria-labelledby="homePageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="homePageModalLabel" style="text-align: center; width: 100%;">Home
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="fw-bold mb-3 text-center">Are you sure you want to go home?</h5>
+                        <p class="d-flex justify-content-center">
+                            <button class="btn yes" id="homePageYes">Yes</button>
+                            <button class="btn no" data-bs-dismiss="modal" style="margin-left: 2%;">No</button>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!--End Go to home page modal -->
-
-        <div class="container-fluid pt-2 pb-2 bg-white">
-            <div class="row">
-                <div class="container">
-                    <div class="row">
-                        <div class="list-container d-flex flex-wrap justify-content-end">
-                            <a href="report_summary.html" style="text-decoration: none;">
-                                <div class="list-item unselect">Todays Report</div>
-                            </a>
-                            <a href="#" style="text-decoration: none;">
-                                <div class="list-item current">Day Wise Report</div>
-                            </a>
-                            <a href="salaried_report.html" style="text-decoration: none;">
-                                <div class="list-item unselect" id="reportName">Salaried Report</div>
-                            </a>
+        <!--End Go to home page modal -->
+        <div class="fixed-tabs bg-white w-100 shadow-sm">
+            <div class="container-fluid pt-2 pb-2 bg-white">
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="list-container d-flex flex-wrap justify-content-end">
+                                <a href="report_summary.html" style="text-decoration: none;">
+                                    <div class="list-item unselect">Todays Report</div>
+                                </a>
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="list-item current">Day Wise Report</div>
+                                </a>
+                                <a href="salaried_report.html" style="text-decoration: none;">
+                                    <div class="list-item unselect" id="reportName">Salaried Report</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -508,19 +513,19 @@
         </div>
 
 
-
-
         <div class="container mt-5">
-            <div class="d-flex justify-content-center mt-2">
+            <div style="margin-top: 170px !important;" class="d-flex justify-content-center mt-2">
                 <input type="date" class="date pt-1 pb-1" id="dailyReportDate"
                     style="width: 200px;padding-left: 10px;border-radius: 5px;border-color: #cdcdcd;">
             </div>
-            <div class="emp-table table-responsive mt-5">
+            <div class="emp-table table-responsive mt-3">
                 <p id="noDateSelect" style="text-align: center;">Please select a date to show report.</p>
                 <div class="custom-table-container mt-15">
                     <div class="d-flex justify-content-center gap-3 mb-3" id="download-buttons" style="display: none;">
-                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-pdf" onclick="downloadPdf()">Download PDF</button>
-                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-csv" onclick="downloadCsv()">Download CSV</button>
+                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-pdf"
+                            onclick="downloadPdf()">Download PDF</button>
+                        <button class="btn addEntryBtnStyle employee-add-entry" id="download-csv"
+                            onclick="downloadCsv()">Download CSV</button>
                     </div>
 
                     <table id="employeeTable" class="table custom-table table-bordered mt-15">

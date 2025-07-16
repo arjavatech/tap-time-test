@@ -371,8 +371,8 @@
 
 <body>
     <!-- Nav bar  -->
-    <nav class="navbar navbar-expand-lg navbar-light"
-        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top"
+        style="background-color: white; border-bottom: 1px solid #02066F; padding: 5px 15px; height: 70px; z-index: 1050;">
         <div class="container-fluid">
             <img src="Image/icode logo 2 (1).png" alt="Tap Time Logo" class="logo" id="web_logo" onclick="homePage()"
                 style="height: 50px; width: auto; padding: 0; margin-top: -5px;">
@@ -445,27 +445,29 @@
             <div class="spinner"></div>
         </div>
 
-        <div class="container-fluid pt-2 pb-2 bg-white">
-            <div class="row">
-                <div class="container">
-                    <div class="row">
-                        <div class="list-container d-flex flex-wrap justify-content-end">
-                            <a href="#" style="text-decoration: none;">
-                                <div class="list-item current">Todays Report</div>
-                            </a>
-                            <a href="day_wise_report.html" style="text-decoration: none;">
-                                <div class="list-item unselect">Day Wise Report</div>
-                            </a>
-                            <a href="salaried_report.html" style="text-decoration: none;">
-                                <div class="list-item unselect" id="reportName">Salaried Report</div>
-                            </a>
+        <div class="fixed-tabs bg-white w-100 shadow-sm">
+            <div class="container-fluid pt-2 pb-2 bg-white">
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            <div class="list-container d-flex flex-wrap justify-content-end">
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="list-item current">Todays Report</div>
+                                </a>
+                                <a href="day_wise_report.html" style="text-decoration: none;">
+                                    <div class="list-item unselect">Day Wise Report</div>
+                                </a>
+                                <a href="salaried_report.html" style="text-decoration: none;">
+                                    <div class="list-item unselect" id="reportName">Salaried Report</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="container mt-5">
+        <div style="margin-top: 70px !important;" class="container mt-5">
             <!-- Title centered at the top -->
             <div class="row">
                 <div class="col-12 text-center">

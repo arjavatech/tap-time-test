@@ -94,28 +94,74 @@ function viewDateRangewiseReport() {
       current.setDate(current.getDate() + 7);
     }
 
+    // Create buttons for weekly
+    dateRanges.forEach((range, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = `Report ${index + 1}: ${range.startRange} - ${range.endRange}`;
+      btn.className = "btn report-btn-style m-1 report-button";
+
+      btn.onclick = () => {
+        document.querySelectorAll('.report-button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        loadReportTable(range.startRange, range.endRange, cid);
+        document.getElementById("start-date-header").innerHTML = range.startRange;
+        document.getElementById("end-date-header").innerHTML = range.endRange;
+      };
+
+      showReports.appendChild(btn);
+      if (index === 0) btn.click(); // Auto-load first week
+    });
+
   } else if (selectedValue === "Bimonthly") {
+    const halfValue = document.getElementById("halfInput").value;
     const daysInMonth = new Date(getYear, getMonth, 0).getDate();
     const mid = Math.ceil(daysInMonth / 2);
 
-    dateRanges.push({
+    const firstHalf = {
       startRange: `${getYear}-${pad(getMonth)}-01`,
       endRange: `${getYear}-${pad(getMonth)}-${pad(mid)}`
-    });
-    dateRanges.push({
+    };
+    const secondHalf = {
       startRange: `${getYear}-${pad(getMonth)}-${pad(mid + 1)}`,
       endRange: `${getYear}-${pad(getMonth)}-${pad(daysInMonth)}`
+    };
+
+    const halfButtons = [firstHalf, secondHalf];
+
+    halfButtons.forEach((range, index) => {
+      const btn = document.createElement("button");
+      btn.textContent = `Report ${index + 1}: ${range.startRange} - ${range.endRange}`;
+      btn.className = "btn report-btn-style m-1 report-button";
+
+      // Auto-highlight button that matches dropdown
+      if ((index === 0 && halfValue === "first") || (index === 1 && halfValue === "second")) {
+        btn.classList.add("active");
+        loadReportTable(range.startRange, range.endRange, cid);
+        document.getElementById("start-date-header").innerHTML = range.startRange;
+        document.getElementById("end-date-header").innerHTML = range.endRange;
+      }
+
+      btn.onclick = () => {
+        document.querySelectorAll(".report-button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        loadReportTable(range.startRange, range.endRange, cid);
+        document.getElementById("start-date-header").innerHTML = range.startRange;
+        document.getElementById("end-date-header").innerHTML = range.endRange;
+
+        // Update dropdown
+        document.getElementById("halfInput").value = index === 0 ? "first" : "second";
+      };
+
+      showReports.appendChild(btn);
     });
+
   } else if (selectedValue === "Monthly") {
     const daysInMonth = new Date(getYear, getMonth, 0).getDate();
     const start = `${getYear}-${pad(getMonth)}-01`;
     const end = `${getYear}-${pad(getMonth)}-${pad(daysInMonth)}`;
     loadReportTable(start, end, cid);
-
-    // ✅ Show the start–end date headers
     document.getElementById("start-date-header").innerHTML = start;
     document.getElementById("end-date-header").innerHTML = end;
-    return;
 
   } else if (selectedValue === "Biweekly") {
     const today = new Date();
@@ -126,34 +172,15 @@ function viewDateRangewiseReport() {
     const startStr = formatDate(start);
     const endStr = formatDate(end);
     loadReportTable(startStr, endStr, cid);
-
-    // ✅ Show the start–end date headers
     document.getElementById("start-date-header").innerHTML = startStr;
     document.getElementById("end-date-header").innerHTML = endStr;
-    return;
+  } else {
+    showReports.innerHTML = "";
   }
-
-  // Create buttons for weekly/bimonthly
-  dateRanges.forEach((range, index) => {
-    const btn = document.createElement("button");
-    btn.textContent = `Report ${index + 1}: ${range.startRange} - ${range.endRange}`;
-    btn.className = "btn report-btn-style m-1 report-button";
-
-    btn.onclick = () => {
-      document.querySelectorAll('.report-button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      loadReportTable(range.startRange, range.endRange, cid);
-
-      // ✅ Show the start–end date headers
-      document.getElementById("start-date-header").innerHTML = range.startRange;
-      document.getElementById("end-date-header").innerHTML = range.endRange;
-    };
-
-    showReports.appendChild(btn);
-
-    if (index === 0) btn.click();
-  });
 }
+
+document.getElementById('halfInput').addEventListener('change', viewDateRangewiseReport);
+
 
 function loadReportTable(startVal, endVal, cid) {
   document.querySelector(".overlay").style.display = "flex";

@@ -4,6 +4,10 @@
     }
 }
 
+body {
+    padding-top: 80px; /* Adjust based on navbar height */
+}
+
 
 
 /* Style for the donate button */

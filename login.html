@@ -548,49 +548,40 @@
             }
         });
 
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    document.getElementById('errorMsg').innerHTML = '';
 
+    if (!username || !password) {
+        document.getElementById('errorMsg').textContent = "Please enter both username and password";
+        document.getElementById('errorMsg').style.color = "red";
+        return;
+    }
 
-            document.getElementById('errorMsg').innerHTML = '';
+    document.getElementById('overlay').style.display = 'flex';
 
-            // Check if username and password are valid  
-            if (username === '' || password === '') {
-                document.getElementById('errorMsg').innerHTML = "Please enter both username and password";
-                document.getElementById('errorMsg').style = "color:red";
-                return;
-            }
+    try {
+        const isAuthenticated = await loginCheck(username, password);
 
-            // Show the loading overlay  
-            document.getElementById('overlay').style.display = 'flex';
+        if (isAuthenticated) {
+            const cid1 = localStorage.getItem("companyID");
 
-            loginCheck(username, password)
-                .then(isAuthenticated => {
-                    if (isAuthenticated) {
-                        const cid1 = localStorage.getItem("companyID");
-                        const customerDataPromise = "PST";
-                        // getCustmData(cid1);
-                        const timeZonePromise = getTimeZone(cid1);
+            // Optional: only if you need customer data or timezone before redirect
+            await getTimeZone(cid1); // make sure this returns a promise and resolves fast
 
-                        Promise.all([customerDataPromise, timeZonePromise])
-                            .then(() => {
-                                window.location.href = 'employee_list.html';
-                            })
-                            .catch(error => {
+            window.location.href = 'employee_list.html';
+        } else {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('errorMsg').textContent = "Invalid username or password";
+            document.getElementById('errorMsg').style.color = "red";
+        }
+    } catch (err) {
+        document.getElementById('overlay').style.display = 'none';
+        alert('An error occurred during authentication');
+    }
+});
 
-                            });
-                    } else {
-
-                        document.getElementById('overlay').style.display = 'none';
-                        document.getElementById('errorMsg').innerHTML = "Invalid username or password";
-                        document.getElementById('errorMsg').style = "color:red";
-                    }
-                })
-                .catch(error => {
-                    alert('An error occurred during authentication');
-                });
-        });
 
 
         const key1 = new Uint8Array([16, 147, 220, 113, 166, 142, 22, 93, 241, 91, 13, 252, 112, 122, 119, 95]);
@@ -670,36 +661,22 @@
             )
         }
 
-        async function getTimeZone(cid1) {
-            const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/device/getAll/${cid1}`;
+       async function getTimeZone(cid1) {
+    const apiUrl = `https://vnnex1njb9.execute-api.ap-south-1.amazonaws.com/test/device/getAll/${cid1}`;
 
-            fetch(apiUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        localStorage.setItem("TimeZone", "PST")
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.error === "No devices found !" || data.length === 0) {
-                        localStorage.setItem("TimeZone", "PST")
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
 
-                    } else {
-                        try {
-                            data.forEach(element => {
-                                localStorage.setItem("TimeZone", element.TimeZone)
-                            });
-                        }
-                        catch {
-
-                        }
-                    }
-                })
-                .catch(error => {
-
-                });
+        if (data.error === "No devices found !" || data.length === 0) {
+            localStorage.setItem("TimeZone", "PST");
+        } else {
+            localStorage.setItem("TimeZone", data[0].TimeZone || "PST");
         }
-
+    } catch (error) {
+        localStorage.setItem("TimeZone", "PST");
+    }
+}
 
         // Initialize Google Sign-In and other features
         window.onload = function () {
